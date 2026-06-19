@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Product Designer Competency Matrix 2026</title>
+  <meta name="description" content="An interactive competency matrix for product designers — Senior through Distinguished, built on the 60% readiness model.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%234f46e5'/%3E%3Crect x='5' y='5' width='6' height='6' rx='1.4' fill='%232dd4bf'/%3E%3Crect x='13' y='5' width='6' height='6' rx='1.4' fill='%23fff' opacity='.55'/%3E%3Crect x='5' y='13' width='6' height='6' rx='1.4' fill='%23fff' opacity='.55'/%3E%3Crect x='13' y='13' width='6' height='6' rx='1.4' fill='%23a21caf'/%3E%3C/svg%3E">
+  <style>
+  /* =========================================================================
+     Product Designer Competency Matrix 2026 — styles (light only, inlined)
+     ========================================================================= */
+  :root {
+    --header-h: 62px;
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f5f7fa;
+    --surface-3: #eaeef3;
+    --border: #e4e8ef;
+    --border-strong: #d3d9e2;
+    --text: #161a22;
+    --text-muted: #5a6373;
+    --text-faint: #8b93a3;
+    --accent: #4f46e5;
+    --accent-ink: #4338ca;
+    --accent-soft: #ecebfb;
+    --senior: #0d9488;
+    --staff: #4f46e5;
+    --principal: #a21caf;
+    --distinguished: #d97706;
+    --rail: #e9edf3;
+    --r-lg: 16px;
+    --r: 12px;
+    /* well-diffused, subtle shadows */
+    --shadow-sm: 0 2px 10px -4px rgba(17,24,39,.10);
+    --shadow: 0 16px 40px -20px rgba(17,24,39,.20), 0 5px 14px -10px rgba(17,24,39,.08);
+    --shadow-soft: 0 26px 64px -28px rgba(17,24,39,.18), 0 8px 22px -16px rgba(17,24,39,.06);
+    --shadow-lg: 0 22px 56px -16px rgba(17,24,39,.28);
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color-scheme: light;
+  }
+  .lvl-senior { --c: var(--senior); }
+  .lvl-staff { --c: var(--staff); }
+  .lvl-principal { --c: var(--principal); }
+  .lvl-distinguished { --c: var(--distinguished); }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  h1,h2,h3,h4 { margin: 0; font-weight: 650; letter-spacing: -0.011em; line-height: 1.25; }
+  p { margin: 0; }
+  button { font-family: inherit; cursor: pointer; }
+  ::selection { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+  :focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+  /* ---- Header ---- */
+  .app-header { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 16px; height: var(--header-h); padding: 0 26px; background: color-mix(in srgb, var(--surface) 84%, transparent); backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid var(--border); }
+  .brand { display: flex; align-items: center; gap: 11px; min-width: 0; flex: 1 1 0; }
+  .brand-glyph { width: 30px; height: 30px; flex: none; border-radius: 8px; display: grid; place-items: center; background: linear-gradient(135deg, var(--senior), var(--staff) 45%, var(--principal) 75%, var(--distinguished)); color: #fff; box-shadow: var(--shadow-sm); }
+  .brand-glyph svg { width: 17px; height: 17px; }
+  .brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+  .brand-title { font-size: 14.5px; font-weight: 680; letter-spacing: -0.02em; white-space: nowrap; }
+  .brand-sub { font-size: 11.5px; color: var(--text-faint); white-space: nowrap; }
+  .header-spacer { flex: 1 1 0; }
+  .tabs { display: flex; gap: 3px; flex: 0 0 auto; padding: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 11px; }
+  .tab { appearance: none; border: none; background: transparent; color: var(--text-muted); font-size: 13.5px; font-weight: 560; padding: 7px 15px; border-radius: 8px; transition: background .16s ease, color .16s ease; white-space: nowrap; }
+  .tab:hover { color: var(--text); }
+  .tab.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
+
+  /* ---- Layout ---- */
+  main { max-width: 1480px; margin: 0 auto; padding: 34px 26px 90px; }
+  .view[hidden] { display: none; }
+  .view-intro { margin-bottom: 22px; max-width: 760px; }
+  .view-intro h1 { font-size: 27px; letter-spacing: -0.026em; }
+  .view-intro .lede { margin-top: 8px; color: var(--text-muted); font-size: 16px; }
+  .eyebrow { font-size: 11.5px; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); }
+
+  /* ---- Matrix table ---- */
+  .matrix-wrap { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow); }
+  table.matrix { width: 100%; border-collapse: separate; border-spacing: 0; }
+  .matrix th, .matrix td { text-align: left; vertical-align: top; padding: 20px 22px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .matrix tr > *:last-child { border-right: 0; }
+  .matrix tbody tr:last-child > * { border-bottom: 0; }
+  .matrix thead tr > *:first-child { border-top-left-radius: var(--r-lg); }
+  .matrix thead tr > *:last-child  { border-top-right-radius: var(--r-lg); }
+  .matrix tbody tr:last-child > *:first-child { border-bottom-left-radius: var(--r-lg); }
+  .matrix tbody tr:last-child > *:last-child  { border-bottom-right-radius: var(--r-lg); }
+  .matrix thead th { position: sticky; top: var(--header-h); z-index: 3; background: var(--surface-2); }
+  .matrix .corner, .matrix .rowhead { width: 212px; min-width: 188px; background: var(--surface-2); }
+  .matrix .corner { z-index: 5; vertical-align: bottom; font-size: 11px; font-weight: 680; letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint); }
+  .rowhead .rh-num { display: block; font-size: 11px; font-weight: 650; color: var(--text-faint); margin-bottom: 6px; }
+  .rowhead .rh-name { font-size: 19px; font-weight: 500; color: var(--text); line-height: 1.28; letter-spacing: -0.018em; }
+  .matrix .colhead { background: var(--surface-2); cursor: pointer; }
+  .colhead .ch-top { font-size: 16px; font-weight: 600; color: var(--text); }
+  .colhead .ch-scope { display: block; margin-top: 7px; font-size: 11px; font-weight: 680; letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint); }
+  .colhead:hover { background: color-mix(in srgb, var(--c) 7%, var(--surface-2)); }
+  .cell-mastery { font-size: 13.5px; line-height: 1.5; color: var(--text); }
+  .cell-edge { margin-top: 12px; padding-top: 11px; border-top: 1px dashed var(--border-strong); }
+  .edge-label { font-size: 10.5px; font-weight: 680; letter-spacing: .04em; text-transform: uppercase; color: var(--c); }
+  .edge-text { font-size: 12.5px; line-height: 1.45; color: var(--text-muted); margin-top: 5px; }
+  .cell-edge.pinnacle .edge-label { color: var(--distinguished); }
+  /* focused column: 3px stroke in the column's color */
+  .matrix .colhead.is-focus { box-shadow: inset 3px 0 0 0 var(--c), inset -3px 0 0 0 var(--c), inset 0 3px 0 0 var(--c); }
+  .matrix .cell.is-focus { box-shadow: inset 3px 0 0 0 var(--c), inset -3px 0 0 0 var(--c); }
+  .matrix tbody tr:last-child .cell.is-focus { box-shadow: inset 3px 0 0 0 var(--c), inset -3px 0 0 0 var(--c), inset 0 -3px 0 0 var(--c); }
+
+  /* ---- Self-assessment ---- */
+  .assess-layout { display: grid; grid-template-columns: minmax(0,380px) minmax(0,1fr); gap: 28px; align-items: start; }
+  .assess-panel { position: sticky; top: calc(var(--header-h) + 18px); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px; box-shadow: var(--shadow-soft); }
+  .panel-head { margin-bottom: 16px; }
+  .panel-head h2 { font-size: 17px; }
+  .panel-head p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+  .name-row { margin-bottom: 18px; }
+  .name-row label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+  .name-row input { width: 100%; font-family: inherit; font-size: 14px; padding: 9px 12px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); border-radius: 9px; }
+  .name-row input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+  .slider-row { padding: 15px 0; border-top: 1px solid var(--border); }
+  .slider-row:first-of-type { border-top: none; }
+  .slider-head { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+  .sh-num { width: 20px; height: 20px; flex: none; display: grid; place-items: center; border-radius: 6px; background: var(--surface-2); font-size: 11px; font-weight: 680; color: var(--text-muted); }
+  .sh-name { font-size: 13.5px; font-weight: 600; }
+  .standing-chip { margin-left: auto; font-size: 11.5px; font-weight: 620; padding: 3px 9px; border-radius: 999px; white-space: nowrap; background: color-mix(in srgb, var(--c) 14%, var(--surface)); color: var(--c); border: 1px solid color-mix(in srgb, var(--c) 30%, transparent); }
+  /* custom slider: thick rail, gradient reveal, white thumb, smooth glide + snap, per-level glow */
+  .cslider { position: relative; height: 26px; margin: 4px 0 9px; touch-action: none; cursor: pointer; }
+  .cslider:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 4px; border-radius: 999px; }
+  .cs-rail { position: absolute; inset: 0; border-radius: 999px; background: var(--rail); overflow: hidden; }
+  .cs-grad { position: absolute; inset: 0; background: linear-gradient(90deg, #16a34a 0%, #2563eb 34%, #dc2626 67%, #f59e0b 100%);
+    clip-path: inset(0 calc(100% - max(var(--f) * 100%, 16%)) 0 0);
+    transition: clip-path .26s cubic-bezier(.34,1.45,.5,1); }
+  .cs-thumb { position: absolute; top: 0; left: calc(var(--f) * (100% - 26px)); width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 1px solid rgba(20,28,46,.10); box-shadow: 0 2px 6px rgba(16,24,40,.22); transition: left .26s cubic-bezier(.34,1.45,.5,1), box-shadow .25s ease; }
+  .cs-thumb.g1 { box-shadow: 0 2px 6px rgba(16,24,40,.22), 0 0 12px 1px rgba(37,99,235,.55); }
+  .cs-thumb.g2 { animation: glowPrincipal 1.8s ease-in-out infinite; }
+  .cs-thumb.g3 { animation: glowDistinguished 1s ease-in-out infinite; }
+  @keyframes glowPrincipal { 0%,100% { box-shadow: 0 2px 6px rgba(16,24,40,.22), 0 0 8px 0 rgba(162,28,175,.45); } 50% { box-shadow: 0 2px 6px rgba(16,24,40,.22), 0 0 22px 4px rgba(162,28,175,.8); } }
+  @keyframes glowDistinguished { 0%,100% { box-shadow: 0 2px 6px rgba(16,24,40,.22), 0 0 12px 1px rgba(245,158,11,.6); } 50% { box-shadow: 0 2px 6px rgba(16,24,40,.22), 0 0 30px 7px rgba(245,158,11,.95); } }
+  .radar-area, .radar-dot, .radar-badge circle { transition: fill .25s ease; }
+  .slider-scale { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-faint); }
+  .slider-scale span { flex: 1; text-align: center; }
+  .slider-scale span:first-child { text-align: left; }
+  .slider-scale span:last-child { text-align: right; }
+  .panel-actions { display: flex; gap: 8px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .btn { appearance: none; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 13px; font-weight: 560; padding: 9px 14px; border-radius: 9px; display: inline-flex; align-items: center; gap: 7px; transition: all .15s; }
+  .btn:hover { border-color: var(--border-strong); background: var(--surface-2); }
+  .assess-results { display: flex; flex-direction: column; gap: 22px; }
+  .assess-name-tag { font-size: 11.5px; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); margin-bottom: -8px; }
+  .radar-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow); display: grid; grid-template-columns: minmax(260px,360px) 1fr; gap: 16px; align-items: center; }
+  .radar-wrap { width: 100%; }
+  .radar { width: 100%; height: auto; display: block; overflow: visible; }
+  .radar-ring { fill: none; stroke: var(--border); stroke-width: 1; }
+  .radar-ring:last-of-type { stroke: var(--border-strong); }
+  .radar-spoke { stroke: var(--border); stroke-width: 1; }
+  .radar-area { fill: color-mix(in srgb, var(--accent) 20%, transparent); stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; }
+  .radar-ring-t { fill: var(--text-faint); font-size: 8px; font-weight: 600; }
+  .radar-badge-t { fill: #fff; font-size: 12px; font-weight: 700; }
+  .summary { display: flex; flex-direction: column; gap: 12px; }
+  .summary h3 { font-size: 14px; }
+  .stat-tiles { display: flex; flex-direction: column; gap: 9px; }
+  .stat-tile { padding: 11px 13px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); }
+  .stat-tile .label { font-size: 10.5px; font-weight: 670; letter-spacing: .05em; text-transform: uppercase; color: var(--text-faint); }
+  .stat-tile .value { font-size: 14px; font-weight: 600; margin-top: 2px; }
+  .stat-tile .value small { font-weight: 500; color: var(--text-muted); }
+  .spread-note { font-size: 13px; line-height: 1.55; color: var(--text-muted); padding: 12px 14px; border-radius: 10px; border: 1px dashed var(--border-strong); background: color-mix(in srgb, var(--accent) 5%, var(--surface)); }
+  .spread-note b { color: var(--text); }
+  /* six characteristic cards — 3×2 grid, matrix look (white, light grey border) */
+  .acards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+  .acard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 16px; box-shadow: var(--shadow); }
+  .ac-head { display: flex; align-items: center; gap: 8px; margin-bottom: 11px; }
+  .ac-num { width: 22px; height: 22px; flex: none; display: grid; place-items: center; border-radius: 6px; background: var(--c); color: #fff; font-size: 11.5px; font-weight: 700; }
+  .ac-name { font-size: 13.5px; font-weight: 650; }
+  .ac-bar { height: 6px; border-radius: 4px; background: var(--surface-3); overflow: hidden; margin-bottom: 13px; }
+  .ac-bar > span { display: block; height: 100%; background: var(--c); border-radius: 4px; transition: width .3s ease; }
+  .ac-block + .ac-block { margin-top: 11px; }
+  .ac-block .k { font-size: 10.5px; font-weight: 680; letter-spacing: .04em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
+  .ac-block.edge .k { color: var(--c); }
+  .ac-block .v { font-size: 13px; line-height: 1.5; color: var(--text); }
+
+  /* ---- Guide ---- */
+  .guide-section { margin-bottom: 38px; }
+  .guide-section > .eyebrow { display: block; margin-bottom: 4px; }
+  .guide-section > h2 { font-size: 21px; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 16px; }
+  .gcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px; box-shadow: var(--shadow); }
+  .gc-icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 11px; background: var(--accent-soft); color: var(--accent-ink); margin-bottom: 14px; }
+  .gc-icon svg { width: 21px; height: 21px; }
+  .gcard h3 { font-size: 16px; margin-bottom: 12px; }
+  .gc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+  .gc-list li { position: relative; padding-left: 24px; font-size: 13.5px; line-height: 1.5; color: var(--text-muted); }
+  .gc-list li b { color: var(--text); font-weight: 620; }
+  .gc-list.checks li::before { content: ""; position: absolute; left: 2px; top: 4px; width: 13px; height: 8px; border: solid var(--accent); border-width: 0 0 2.2px 2.2px; transform: rotate(-45deg); }
+  .philo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 16px; }
+  .pcard { border-radius: var(--r-lg); padding: 22px; border: 1px solid color-mix(in srgb, var(--c, var(--accent)) 30%, var(--border)); background: color-mix(in srgb, var(--c, var(--accent)) 6%, var(--surface)); box-shadow: var(--shadow); }
+  .pcard .pnum { font-size: 12px; font-weight: 700; color: var(--c, var(--accent)); letter-spacing: .04em; }
+  .pcard h3 { font-size: 16px; margin: 6px 0 10px; }
+  .pcard p { font-size: 13.5px; color: var(--text-muted); line-height: 1.55; }
+  .pcard ul { margin: 11px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .pcard li { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
+  .pcard b { color: var(--text); }
+
+  /* ---- Toast ---- */
+  .toast { position: fixed; bottom: 26px; left: 50%; transform: translate(-50%, 18px); background: var(--text); color: #fff; font-size: 13.5px; font-weight: 560; padding: 11px 18px; border-radius: 10px; box-shadow: var(--shadow-lg); opacity: 0; visibility: hidden; transition: opacity .2s, transform .2s, visibility .2s; z-index: 90; }
+  .toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 980px) {
+    .matrix-wrap { overflow-x: auto; }
+    table.matrix { min-width: 940px; }
+    .matrix thead th { position: static; }
+    .matrix .corner, .matrix .rowhead { position: sticky; left: 0; z-index: 2; }
+    .acards { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+  @media (max-width: 820px) {
+    .assess-layout { grid-template-columns: 1fr; }
+    .assess-panel { position: static; }
+    .radar-card { grid-template-columns: 1fr; }
+    .radar-wrap { max-width: 360px; margin: 0 auto; }
+    .acards { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  }
+  @media (max-width: 620px) {
+    .acards { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    main { padding: 24px 15px 80px; }
+    .app-header { padding: 0 13px; gap: 10px; }
+    .brand-text { display: none; }
+    .header-spacer { display: none; }
+    .tabs { margin-left: auto; }
+    .tab { padding: 7px 11px; font-size: 12.5px; }
+    .view-intro h1 { font-size: 23px; }
+    .matrix th, .matrix td { padding: 15px 16px; }
+    .rowhead .rh-name { font-size: 17px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto; } .cs-thumb { animation: none !important; } }
+
+  /* ---- Print ---- */
+  @media print {
+    .app-header, .panel-actions, .toast { display: none !important; }
+    body { background: #fff; }
+    main { max-width: none; padding: 0; }
+    .view[hidden] { display: block !important; }
+    .matrix-wrap { overflow: visible; box-shadow: none; }
+    .matrix thead th { position: static; }
+    .acard, .gcard, .pcard, .radar-card { box-shadow: none; break-inside: avoid; }
+  }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-glyph" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      </span>
+      <span class="brand-text">
+        <span class="brand-title">Competency Matrix</span>
+        <span class="brand-sub">Product Design · 2026</span>
+      </span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Views">
+      <button class="tab" data-action="tab" data-mode="matrix" role="tab" aria-selected="true">Matrix</button>
+      <button class="tab" data-action="tab" data-mode="assess" role="tab" aria-selected="false">Self-Assessment</button>
+      <button class="tab" data-action="tab" data-mode="guide" role="tab" aria-selected="false">Guide</button>
+    </nav>
+    <div class="header-spacer"></div>
+  </header>
+
+  <main>
+    <!-- Matrix -->
+    <section id="view-matrix" class="view" role="tabpanel" aria-label="Matrix">
+      <div class="view-intro">
+        <h1>Product Designer Competency Matrix</h1>
+        <p class="lede">What good looks like across six competencies, from Senior to Distinguished.</p>
+      </div>
+      <div id="matrix-mount"></div>
+    </section>
+
+    <!-- Self-Assessment -->
+    <section id="view-assess" class="view" role="tabpanel" aria-label="Self-assessment" hidden>
+      <div class="view-intro">
+        <h1>Self-Assessment</h1>
+        <p class="lede">Set each competency to the level you operate at — the profile updates live.</p>
+      </div>
+      <div class="assess-layout">
+        <aside class="assess-panel" id="assess-panel"></aside>
+        <div class="assess-results" id="viz-mount"></div>
+      </div>
+    </section>
+
+    <!-- Guide -->
+    <section id="view-guide" class="view" role="tabpanel" aria-label="Guide" hidden>
+      <div class="view-intro">
+        <h1>How to use this matrix</h1>
+        <p class="lede">For hiring, growth conversations, and team planning.</p>
+      </div>
+
+      <div class="guide-section">
+        <span class="eyebrow">In practice</span>
+        <h2>Three ways to use it</h2>
+        <div class="guide-grid">
+          <div class="gcard">
+            <span class="gc-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.3"/><path d="M3.4 19.2a5.6 5.6 0 0 1 11.2 0"/><path d="M17 8h5M19.5 5.5v5"/></svg></span>
+            <h3>For hiring</h3>
+            <ul class="gc-list checks">
+              <li><b>Pick the role level.</b> Senior, Staff, Principal, or Distinguished?</li>
+              <li><b>Check for 60%.</b> Hold their work up against the level below.</li>
+              <li><b>Look for next-level signs.</b> Are they ready to step up? That's the 60% check.</li>
+            </ul>
+          </div>
+          <div class="gcard">
+            <span class="gc-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-5M11 20V9M16 20v-8M21 20V5"/></svg></span>
+            <h3>For growth</h3>
+            <ul class="gc-list checks">
+              <li><b>Baseline.</b> Which level have they reached today?</li>
+              <li><b>Growth edge.</b> What's 60% of the next level for them?</li>
+              <li><b>Plan.</b> Spend the next 6–12 months closing that gap.</li>
+            </ul>
+          </div>
+          <div class="gcard">
+            <span class="gc-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h12M3 18h7"/><circle cx="19" cy="15" r="2.4"/></svg></span>
+            <h3>For team planning</h3>
+            <ul class="gc-list checks">
+              <li><b>Find the gaps.</b> <em>e.g. "No one's at Principal level for design strategy."</em></li>
+              <li><b>Spot weak spots.</b> Which competencies are thin across the team?</li>
+              <li><b>Hire to fill.</b> <em>e.g. "We need Staff-level Modern Tooling."</em></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <span class="eyebrow">Philosophy</span>
+        <h2>The principles behind the model</h2>
+        <div class="philo-grid">
+          <div class="pcard lvl-staff">
+            <div class="pnum">01</div>
+            <h3>The 60% rule</h3>
+            <p>No one needs to be perfect at their current level — they need to show they're <b>ready</b> for the next one. That usually means:</p>
+            <ul>
+              <li>Doing next-level work in small doses</li>
+              <li>Teaching others at their own level</li>
+              <li>Spotting next-level problems and openings</li>
+              <li>Asking sharper questions than their peers</li>
+            </ul>
+          </div>
+          <div class="pcard lvl-principal">
+            <div class="pnum">02</div>
+            <h3>Growth is uneven</h3>
+            <p>People don't move up evenly across all six. Someone can be <b>Staff in craft</b> but <b>Principal in strategy</b>. That's fine — use the matrix to see where they're strong and where to push:</p>
+            <ul>
+              <li>Score each competency on its own</li>
+              <li>Expect spikes — strong here, lighter there</li>
+              <li>Weigh the whole shape, not one high mark</li>
+              <li>Aim coaching at the low spots</li>
+            </ul>
+          </div>
+          <div class="pcard lvl-distinguished">
+            <div class="pnum">03</div>
+            <h3>Levels stack</h3>
+            <p>Staff includes everything from Senior, plus more. It's not different work — it's <b>bigger scope and more ownership</b>:</p>
+            <ul>
+              <li>Every level keeps the ones below it</li>
+              <li>Up means wider scope, not different tasks</li>
+              <li>More ownership, more ambiguity</li>
+              <li>Senior habits still matter at Principal</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  /* =========================================================================
+     Product Designer Competency Matrix 2026 — app (inlined, no dependencies)
+     Edit the matrix in the COMPETENCIES array below.
+       mastery   — tight line shown in the cell
+       readiness — the 60%-toward-next line (null for Distinguished)
+       signals   — concrete examples (kept for reference / future use)
+     ========================================================================= */
+  const LEVELS = [
+    { id:'senior', name:'Senior', full:'Senior Designer', next:'Staff', scope:'Self & feature' },
+    { id:'staff', name:'Staff', full:'Staff Designer', next:'Principal', scope:'Team & product area' },
+    { id:'principal', name:'Principal', full:'Principal Designer', next:'Distinguished', scope:'Org & multiple areas' },
+    { id:'distinguished', name:'Distinguished', full:'Distinguished Designer', next:null, scope:'Company & industry' },
+  ];
+  const LEVEL_COLORS = { senior:'#0d9488', staff:'#4f46e5', principal:'#a21caf', distinguished:'#d97706' };
+
+  const COMPETENCIES = [
+    { id:'problem', name:'Problem Definition & Scoping', levels:{
+      senior:{ mastery:'Runs their own research, frames the problem, and names the constraints and tradeoffs before designing.',
+        readiness:'Starting to lead discovery on bigger problems and question the brief, not just take it.' },
+      staff:{ mastery:'Owns how a product area finds and frames problems, and coaches others to do it well.',
+        readiness:'Setting research standards for the team and turning vague briefs into clear opportunities.' },
+      principal:{ mastery:'Sets how several product areas do discovery, and turns research into bets that move the roadmap.',
+        readiness:'Building shared research practices and spotting user needs before competitors do.' },
+      distinguished:{ mastery:"Sets the company's read on its users and builds a research edge rivals can't match.",
+        readiness:null },
+    }},
+    { id:'tooling', name:'Modern Tooling', levels:{
+      senior:{ mastery:'Works fast with modern tools — AI, generative, prototyping — to try more ideas and ship better work.',
+        readiness:'Pushing tools past the obvious, sharing what works, and raising the quality of what comes out.' },
+      staff:{ mastery:'Builds the workflows, templates, and prompts a team actually uses to move faster.',
+        readiness:'Spreading the best tools past their own team and proving the quality holds up.' },
+      principal:{ mastery:'Levels up how the whole design org works — the tools, the setup, the way people build.',
+        readiness:'Shaping tooling direction with eng and product, and bringing the company along.' },
+      distinguished:{ mastery:'Invents new ways of working with modern tools that the rest of the field copies.',
+        readiness:null },
+    }},
+    { id:'craft', name:'Execution & Craft', levels:{
+      senior:{ mastery:'Ships polished, detailed work — visuals, interaction, prototypes — with sharp judgment.',
+        readiness:'Coaching others on craft and raising the bar past their own work.' },
+      staff:{ mastery:'Sets the craft bar for a team and makes sure the work is ready to ship.',
+        readiness:'Writing the standards and patterns others follow, and growing the team’s skill.' },
+      principal:{ mastery:'Sets the craft bar for the org and builds the tools and templates that hold it.',
+        readiness:'Changing how the org thinks about quality and keeping it high at scale.' },
+      distinguished:{ mastery:'Defines what great work means here and builds a team known for it.',
+        readiness:null },
+    }},
+    { id:'scale', name:'Design at Scale', levels:{
+      senior:{ mastery:'Builds with the design system — components, tokens, patterns — to ship consistent, accessible work fast.',
+        readiness:'Spotting gaps in the system, flagging them, and helping teammates use it well.' },
+      staff:{ mastery:'Uses the system fluently, knows when to bend it, and gives the systems team useful feedback.',
+        readiness:'Proposing new patterns and helping the systems team shape them.' },
+      principal:{ mastery:'Helps the systems team grow the system and sets how their areas use it well at scale.',
+        readiness:'Shaping where the system goes and the accessibility bar across the org.' },
+      distinguished:{ mastery:'Partners on where the design language goes next and makes accessibility a real edge.',
+        readiness:null },
+    }},
+    { id:'strategy', name:'Design Thinking & Strategy', levels:{
+      senior:{ mastery:'Sees the bigger picture, questions assumptions, and spots needs the brief missed.',
+        readiness:'Leading strategy talks, reframing the problem, and nudging product direction.' },
+      staff:{ mastery:'Owns the strategy for a product area and helps set its direction and roadmap.',
+        readiness:'Setting a vision for the area and shaping how the org takes on hard problems.' },
+      principal:{ mastery:"Sets direction across several product areas and shapes the org's product strategy.",
+        readiness:'Swaying exec strategy and setting direction for the next few years.' },
+      distinguished:{ mastery:'Helps set the company’s direction and spots openings in the market early.',
+        readiness:null },
+    }},
+    { id:'collab', name:'Collaboration & Impact', levels:{
+      senior:{ mastery:'Wins people over without authority, explains the why clearly, and builds trust with eng and product.',
+        readiness:'Coaching others on influence and leading work across teams.' },
+      staff:{ mastery:'Leads work across teams, builds agreement, and handles the org politics.',
+        readiness:'Setting how the team works with partners and shaping the culture around design.' },
+      principal:{ mastery:'Shapes how the org works together and sways decisions at the exec level.',
+        readiness:'Moving company culture and coaching other leaders.' },
+      distinguished:{ mastery:'Shapes the company’s culture and how it makes calls at the top.',
+        readiness:null },
+    }},
+  ];
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+  /* 0..3 = Senior, Staff, Principal, Distinguished */
+  const standing = v => LEVELS[v].name;
+  const standingLevelId = v => LEVELS[v].id;
+  const fillPct = v => Math.max(Math.round((v / 3) * 100), 12);  /* always show a bit, even at Senior */
+  /* radar geometry */
+  const R_CX = 180, R_CY = 170, R_R = 120, R_BADGE = 143, R_N = 6;
+  const radarRad = v => ((v + 1) / 4) * R_R;
+  const radarAng = i => (-90 + i * 60) * Math.PI / 180;
+  const radarPt = (i, r) => [R_CX + r * Math.cos(radarAng(i)), R_CY + r * Math.sin(radarAng(i))];
+  const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const DEFAULTS = [1, 1, 1, 1, 1, 1];
+  let state = { mode:'matrix', focus:null, assess:{ values: DEFAULTS.slice(), name:'' } };
+
+  /* -------- Matrix -------- */
+  function cellInner(cell, lvl) {
+    const edge = lvl.next
+      ? `<div class="cell-edge"><span class="edge-label">60% → ${esc(lvl.next)}</span><p class="edge-text">${esc(cell.readiness)}</p></div>`
+      : `<div class="cell-edge pinnacle"><span class="edge-label">★ Pinnacle level</span></div>`;
+    return `<p class="cell-mastery">${esc(cell.mastery)}</p>${edge}`;
+  }
+
+  function renderMatrix() {
+    let h = '<div class="matrix-wrap"><table class="matrix" id="matrix-table"><thead><tr>';
+    h += '<th class="corner" scope="col">Competency</th>';
+    LEVELS.forEach(l => {
+      h += `<th class="colhead lvl-${l.id}" scope="col" role="button" tabindex="0" data-action="focus" data-level="${l.id}" aria-label="Highlight ${esc(l.full)} column">
+              <span class="ch-top">${esc(l.name)}</span>
+              <span class="ch-scope">${esc(l.scope)}</span>
+            </th>`;
+    });
+    h += '</tr></thead><tbody>';
+    COMPETENCIES.forEach((c, ci) => {
+      h += '<tr>';
+      h += `<th class="rowhead" scope="row"><span class="rh-num">${ci+1}</span><span class="rh-name">${esc(c.name)}</span></th>`;
+      LEVELS.forEach(l => {
+        h += `<td class="cell lvl-${l.id}" data-level="${l.id}">${cellInner(c.levels[l.id], l)}</td>`;
+      });
+      h += '</tr>';
+    });
+    h += '</tbody></table></div>';
+    $('#matrix-mount').innerHTML = h;
+  }
+
+  function applyFocus() {
+    const table = $('#matrix-table');
+    if (!table) return;
+    $$('#matrix-table .cell, #matrix-table .colhead').forEach(el => el.classList.toggle('is-focus', el.dataset.level === state.focus));
+  }
+  function toggleFocus(levelId) {
+    state.focus = state.focus === levelId ? null : levelId;
+    applyFocus();
+  }
+
+  /* -------- Assessment -------- */
+  function renderSliders() {
+    const v = state.assess.values;
+    let h = `
+      <div class="panel-head">
+        <h2>Where are you today?</h2>
+        <p>Set each competency to the level you operate at. The profile updates as you go.</p>
+      </div>
+      <div class="name-row">
+        <label for="assess-name">Who is this for?</label>
+        <input id="assess-name" type="text" placeholder="e.g. Jamie R. — H1 review" value="${esc(state.assess.name)}" maxlength="60">
+      </div>
+      <div id="sliders">`;
+    COMPETENCIES.forEach((c, i) => {
+      h += `
+        <div class="slider-row lvl-${standingLevelId(v[i])}" data-comp="${c.id}" data-i="${i}">
+          <div class="slider-head">
+            <span class="sh-num">${i+1}</span>
+            <span class="sh-name">${esc(c.name)}</span>
+            <span class="standing-chip">${esc(standing(v[i]))}</span>
+          </div>
+          <div class="cslider lvl-${standingLevelId(v[i])}" data-i="${i}" role="slider" tabindex="0"
+            aria-valuemin="0" aria-valuemax="3" aria-valuenow="${v[i]}" aria-valuetext="${esc(standing(v[i]))}" aria-label="${esc(c.name)} level"
+            style="--f:${v[i]/3}">
+            <div class="cs-rail"><div class="cs-grad"></div></div>
+            <div class="cs-thumb g${v[i]}"></div>
+          </div>
+          <div class="slider-scale"><span>Senior</span><span>Staff</span><span>Principal</span><span>Distinguished</span></div>
+        </div>`;
+    });
+    h += `</div>
+      <div class="panel-actions">
+        <button class="btn" data-action="reset">Reset</button>
+      </div>`;
+    $('#assess-panel').innerHTML = h;
+  }
+
+  /* ---- radar: rendered once, then tweened ---- */
+  let radarAreaEl = null, radarDotEls = [], radarBadgeEls = [], radarShown = [1,1,1,1,1,1], radarRAF = 0;
+
+  function radarShell() {
+    const f = n => n.toFixed(1);
+    let rings = '';
+    [0,1,2,3].forEach(rv => { const r = radarRad(rv), pts = []; for (let i=0;i<R_N;i++){ const [a,b]=radarPt(i,r); pts.push(`${f(a)},${f(b)}`);} rings += `<polygon class="radar-ring" points="${pts.join(' ')}"/>`; });
+    let spokes = '';
+    for (let i=0;i<R_N;i++){ const [a,b]=radarPt(i,R_R); spokes += `<line class="radar-spoke" x1="${R_CX}" y1="${R_CY}" x2="${f(a)}" y2="${f(b)}"/>`; }
+    let ringT = '';
+    [0,1,2,3].forEach(rv => { const y = R_CY - radarRad(rv); ringT += `<text class="radar-ring-t" x="${R_CX+4}" y="${f(y)}" dy="0.32em">${esc(LEVELS[rv].name.slice(0,2))}</text>`; });
+    let dots = '', badges = '';
+    for (let i=0;i<R_N;i++){
+      dots += `<circle class="radar-dot" data-i="${i}" r="4.5" stroke="var(--surface)" stroke-width="2"/>`;
+      const [bx,by] = radarPt(i, R_BADGE);
+      badges += `<g class="radar-badge" data-i="${i}"><title></title><circle cx="${f(bx)}" cy="${f(by)}" r="13"/><text class="radar-badge-t" x="${f(bx)}" y="${f(by)}" dy="0.35em" text-anchor="middle">${i+1}</text></g>`;
+    }
+    return `<svg viewBox="0 0 360 340" class="radar" role="img" aria-label="Competency profile radar chart">${rings}${spokes}${ringT}<polygon class="radar-area" id="radar-area" points=""/>${dots}${badges}</svg>`;
+  }
+
+  function paintRadar(vals) {
+    if (!radarAreaEl) return;
+    const f = n => n.toFixed(1), pts = [];
+    for (let i=0;i<R_N;i++){ const [a,b] = radarPt(i, radarRad(vals[i])); pts.push(`${f(a)},${f(b)}`); const d = radarDotEls[i]; if (d){ d.setAttribute('cx', f(a)); d.setAttribute('cy', f(b)); } }
+    radarAreaEl.setAttribute('points', pts.join(' '));
+  }
+
+  function paintRadarColors() {
+    state.assess.values.forEach((v, i) => {
+      const col = LEVEL_COLORS[standingLevelId(v)];
+      if (radarDotEls[i]) radarDotEls[i].setAttribute('fill', col);
+      const b = radarBadgeEls[i];
+      if (b) { b.querySelector('circle').setAttribute('fill', col); const t = b.querySelector('title'); if (t) t.textContent = `${COMPETENCIES[i].name}: ${standing(v)}`; }
+    });
+  }
+
+  function tweenRadar(animate) {
+    paintRadarColors();
+    if (!animate || reduceMotion()) { radarShown = state.assess.values.slice(); paintRadar(radarShown); return; }
+    const from = radarShown.slice(), to = state.assess.values.slice(), start = performance.now(), dur = 320;
+    const c1 = 1.70158, c3 = c1 + 1, ease = t => 1 + c3*Math.pow(t-1,3) + c1*Math.pow(t-1,2);
+    if (radarRAF) cancelAnimationFrame(radarRAF);
+    const stepFn = now => {
+      const t = Math.min(1, (now - start) / dur), e = ease(t);
+      for (let i=0;i<R_N;i++) radarShown[i] = from[i] + (to[i] - from[i]) * e;
+      paintRadar(radarShown);
+      if (t < 1) radarRAF = requestAnimationFrame(stepFn);
+      else { radarShown = to.slice(); paintRadar(radarShown); }
+    };
+    radarRAF = requestAnimationFrame(stepFn);
+  }
+
+  function renderSummary(values) {
+    const name = state.assess.name.trim();
+    const avg = values.reduce((a,b)=>a+b,0)/values.length;
+    const max = Math.max(...values), min = Math.min(...values), spread = max-min;
+    const strong = COMPETENCIES.filter((c,i)=>values[i]===max).map(c=>c.name);
+    const focus = COMPETENCIES.filter((c,i)=>values[i]===min).map(c=>c.name);
+    const center = standing(Math.round(avg));
+    const note = spread >= 2
+      ? `<b>Growth is uneven — and that's expected.</b> This profile spans ${esc(standing(min))} to ${esc(standing(max))}. Lean on the strengths while closing the gaps.`
+      : spread === 0
+        ? `<b>A balanced profile.</b> Every competency sits at the same level — pick one or two to push next.`
+        : `<b>A fairly even profile</b> with a slight edge. Small, targeted growth lifts the whole picture.`;
+    return `
+      <div class="summary">
+        <h3>${name ? esc(name) : 'Profile'} summary</h3>
+        <div class="stat-tiles">
+          <div class="stat-tile"><div class="label">Center of gravity</div><div class="value">${esc(center)}</div></div>
+          <div class="stat-tile"><div class="label">Strongest</div><div class="value">${esc(strong.join(', '))} <small>· ${esc(standing(max))}</small></div></div>
+          <div class="stat-tile"><div class="label">Growth focus</div><div class="value">${esc(focus.join(', '))} <small>· ${esc(standing(min))}</small></div></div>
+        </div>
+        <div class="spread-note">${note}</div>
+      </div>`;
+  }
+
+  function assessCard(comp, i, v) {
+    const lvl = LEVELS[v], cell = comp.levels[lvl.id];
+    let edgeK, edgeV;
+    if (lvl.next) { edgeK = `60% toward ${esc(lvl.next)}`; edgeV = esc(cell.readiness); }
+    else { edgeK = 'Pinnacle'; edgeV = 'Top of the ladder — lead the field, shape the craft, and grow other leaders.'; }
+    return `
+      <div class="acard lvl-${standingLevelId(v)}">
+        <div class="ac-head"><span class="ac-num">${i+1}</span><span class="ac-name">${esc(comp.name)}</span><span class="standing-chip">${esc(standing(v))}</span></div>
+        <div class="ac-bar"><span style="width:${fillPct(v)}%"></span></div>
+        <div class="ac-block"><div class="k">Strength now · ${esc(lvl.name)}</div><div class="v">${esc(cell.mastery)}</div></div>
+        <div class="ac-block edge"><div class="k">${edgeK}</div><div class="v">${edgeV}</div></div>
+      </div>`;
+  }
+
+  function renderVizShell() {
+    $('#viz-mount').innerHTML = `
+      <div class="radar-card"><div class="radar-wrap">${radarShell()}</div><div id="summary-host"></div></div>
+      <div class="acards" id="acards-host"></div>`;
+    radarAreaEl = $('#radar-area');
+    radarDotEls = $$('.radar-dot');
+    radarBadgeEls = $$('.radar-badge');
+    radarShown = state.assess.values.slice();
+    paintRadar(radarShown);
+    paintRadarColors();
+  }
+
+  function updateViz(animate) {
+    $('#summary-host').innerHTML = renderSummary(state.assess.values);
+    $('#acards-host').innerHTML = COMPETENCIES.map((c,i)=>assessCard(c,i,state.assess.values[i])).join('');
+    tweenRadar(animate);
+  }
+
+  function buildAssess() { renderSliders(); renderVizShell(); updateViz(false); }
+
+  /* update one competency's value from a slider interaction */
+  function csSet(i, val) {
+    val = Math.max(0, Math.min(3, Math.round(val)));
+    if (state.assess.values[i] === val) return;
+    state.assess.values[i] = val;
+    const slider = $(`.cslider[data-i="${i}"]`);
+    if (slider) {
+      const lid = standingLevelId(val);
+      slider.style.setProperty('--f', String(val / 3));
+      slider.setAttribute('aria-valuenow', String(val));
+      slider.setAttribute('aria-valuetext', standing(val));
+      slider.querySelector('.cs-thumb').className = `cs-thumb g${val}`;
+      slider.className = `cslider lvl-${lid}`;
+      const row = slider.closest('.slider-row');
+      row.className = `slider-row lvl-${lid}`;
+      row.querySelector('.standing-chip').textContent = standing(val);
+    }
+    saveAssess();
+    updateViz(true);
+  }
+
+  /* -------- Persistence -------- */
+  function saveAssess() { try { localStorage.setItem('cm-assess', JSON.stringify(state.assess)); } catch (e) {} }
+  function loadAssess() {
+    try {
+      const raw = localStorage.getItem('cm-assess');
+      if (raw) { const p = JSON.parse(raw);
+        if (Array.isArray(p.values) && p.values.length === 6) state.assess = { values: p.values.map(n => Math.max(0, Math.min(3, n|0))), name: typeof p.name === 'string' ? p.name : '' };
+      }
+    } catch (e) {}
+  }
+
+  /* -------- Modes -------- */
+  function setMode(mode) {
+    if (state.focus) { state.focus = null; applyFocus(); }
+    state.mode = mode;
+    ['matrix','assess','guide'].forEach(m => {
+      $('#view-'+m).hidden = m !== mode;
+      const tab = $(`.tab[data-mode="${m}"]`);
+      tab.classList.toggle('active', m === mode);
+      tab.setAttribute('aria-selected', String(m === mode));
+    });
+    try { localStorage.setItem('cm-mode', mode); } catch (e) {}
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  /* -------- Toast -------- */
+  let toastTimer;
+  function toast(msg) { const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove('show'), 2400); }
+
+  /* -------- Events -------- */
+  document.addEventListener('click', e => {
+    const actionEl = e.target.closest('[data-action]');
+    if (!actionEl) return;
+    const a = actionEl.dataset.action;
+    if (a === 'tab') return setMode(actionEl.dataset.mode);
+    if (a === 'focus') return toggleFocus(actionEl.dataset.level);
+    if (a === 'reset') { state.assess = { values: DEFAULTS.slice(), name:'' }; saveAssess(); buildAssess(); return toast('Assessment reset'); }
+  });
+
+  document.addEventListener('input', e => {
+    if (e.target.id === 'assess-name') { state.assess.name = e.target.value; saveAssess(); $('#summary-host').innerHTML = renderSummary(state.assess.values); }
+  });
+
+  /* custom slider drag: snaps to the nearest level, glides into place */
+  let csDrag = null;
+  const csValueAt = (slider, clientX) => { const r = slider.getBoundingClientRect(); const f = (clientX - r.left) / r.width; return Math.round(Math.max(0, Math.min(1, f)) * 3); };
+  document.addEventListener('pointerdown', e => {
+    const slider = e.target.closest('.cslider');
+    if (!slider) return;
+    csDrag = slider;
+    try { slider.setPointerCapture(e.pointerId); } catch (_) {}
+    slider.focus();
+    csSet(+slider.dataset.i, csValueAt(slider, e.clientX));
+    e.preventDefault();
+  });
+  document.addEventListener('pointermove', e => { if (csDrag) csSet(+csDrag.dataset.i, csValueAt(csDrag, e.clientX)); });
+  document.addEventListener('pointerup', () => { csDrag = null; });
+  document.addEventListener('pointercancel', () => { csDrag = null; });
+
+  /* keyboard: arrows move a focused slider; Enter/Space highlights a column; Esc clears it */
+  document.addEventListener('keydown', e => {
+    const slider = e.target.closest && e.target.closest('.cslider');
+    if (slider) {
+      const i = +slider.dataset.i, v = state.assess.values[i];
+      let nv = v;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') nv = v + 1;
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') nv = v - 1;
+      else if (e.key === 'Home') nv = 0;
+      else if (e.key === 'End') nv = 3;
+      if (nv !== v) { e.preventDefault(); csSet(i, nv); }
+      return;
+    }
+    if (e.key === 'Escape' && state.focus) { e.preventDefault(); state.focus = null; applyFocus(); return; }
+    const ch = e.target.closest && e.target.closest('.colhead');
+    if (ch && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleFocus(ch.dataset.level); }
+  });
+
+  /* -------- Init -------- */
+  function init() {
+    renderMatrix();
+    loadAssess();
+    buildAssess();
+    let mode = 'matrix';
+    try { mode = localStorage.getItem('cm-mode') || 'matrix'; } catch (e) {}
+    setMode(['matrix','assess','guide'].includes(mode) ? mode : 'matrix');
+  }
+  if (document.readyState !== 'loading') init();
+  else document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
