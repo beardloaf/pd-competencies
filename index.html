@@ -96,10 +96,23 @@
   .colhead .ch-scope { display: block; margin-top: 7px; font-size: 11px; font-weight: 680; letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint); }
   .colhead:hover { background: color-mix(in srgb, var(--c) 7%, var(--surface-2)); }
   .cell-mastery { font-size: 13.5px; line-height: 1.5; color: var(--text); }
-  .cell-edge { margin-top: 12px; padding-top: 11px; border-top: 1px dashed var(--border-strong); }
+  .cell-edge { position: relative; margin-top: 12px; padding-top: 11px; border-top: 1px dashed var(--border-strong); }
+  .cell-edge:not(.pinnacle) { cursor: help; }
   .edge-label { font-size: 10.5px; font-weight: 680; letter-spacing: .04em; text-transform: uppercase; color: var(--c); }
-  .edge-text { font-size: 12.5px; line-height: 1.45; color: var(--text-muted); margin-top: 5px; }
+  .edge-info { font-weight: 400; opacity: .65; }
   .cell-edge.pinnacle .edge-label { color: var(--distinguished); }
+  /* readiness shows as a tooltip on hover / focus */
+  .edge-text {
+    position: absolute; left: 0; bottom: calc(100% + 6px);
+    width: max-content; max-width: 260px;
+    background: var(--text); color: #fff;
+    font-size: 12px; line-height: 1.45; font-weight: 450;
+    padding: 9px 11px; border-radius: 9px; box-shadow: var(--shadow-lg);
+    opacity: 0; visibility: hidden; transform: translateY(4px);
+    transition: opacity .16s ease, transform .16s ease, visibility .16s;
+    pointer-events: none; z-index: 30;
+  }
+  .cell-edge:hover .edge-text, .cell-edge:focus-visible .edge-text { opacity: 1; visibility: visible; transform: none; }
   /* focused column: 3px stroke in the column's color */
   .matrix .colhead.is-focus { box-shadow: inset 3px 0 0 0 var(--c), inset -3px 0 0 0 var(--c), inset 0 3px 0 0 var(--c); }
   .matrix .cell.is-focus { box-shadow: inset 3px 0 0 0 var(--c), inset -3px 0 0 0 var(--c); }
@@ -460,7 +473,7 @@
   /* -------- Matrix -------- */
   function cellInner(cell, lvl) {
     const edge = lvl.next
-      ? `<div class="cell-edge"><span class="edge-label">60% → ${esc(lvl.next)}</span><p class="edge-text">${esc(cell.readiness)}</p></div>`
+      ? `<div class="cell-edge" tabindex="0" aria-label="60% toward ${esc(lvl.next)}: ${esc(cell.readiness)}"><span class="edge-label">60% → ${esc(lvl.next)} <span class="edge-info" aria-hidden="true">ⓘ</span></span><p class="edge-text" role="tooltip">${esc(cell.readiness)}</p></div>`
       : `<div class="cell-edge pinnacle"><span class="edge-label">★ Pinnacle level</span></div>`;
     return `<p class="cell-mastery">${esc(cell.mastery)}</p>${edge}`;
   }
