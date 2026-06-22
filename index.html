@@ -84,8 +84,8 @@
 
   /* ---- Matrix table ---- */
   .matrix-wrap { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow); }
-  table.matrix { width: 100%; height: 1px; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
-  .matrix th, .matrix td { text-align: left; vertical-align: top; padding: 20px 22px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  table.matrix { --cell-pad: 22px; width: 100%; height: 1px; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
+  .matrix th, .matrix td { text-align: left; vertical-align: top; padding: var(--cell-pad); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .matrix tr > *:last-child { border-right: 0; }
   .matrix tbody tr:last-child > * { border-bottom: 0; }
   .matrix thead tr > *:first-child { border-top-left-radius: var(--r-lg); }
@@ -109,7 +109,7 @@
   .matrix tbody td { height: 100%; }
   .cell-inner { display: flex; flex-direction: column; height: 100%; }
   .cell-mastery { font-size: 13.5px; line-height: 1.5; color: var(--text); }
-  .cell-edge { position: relative; margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--border-strong); }
+  .cell-edge { position: relative; margin-top: auto; padding-top: var(--cell-pad); border-top: 1px dashed var(--border-strong); }
   .cell-edge:not(.pinnacle) { cursor: help; }
   .edge-label { font-size: 10.5px; font-weight: 680; letter-spacing: .04em; text-transform: uppercase; color: var(--c); }
   .edge-info { font-weight: 400; opacity: .65; }
@@ -253,7 +253,7 @@
     .tabs { margin-left: auto; }
     .tab { padding: 7px 11px; font-size: 12.5px; }
     .view-intro h1 { font-size: 23px; }
-    .matrix th, .matrix td { padding: 15px 16px; }
+    table.matrix { --cell-pad: 16px; }
     .rowhead .rh-name { font-size: 17px; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto; } .cs-thumb { animation: none !important; } }
@@ -482,64 +482,64 @@
     }},
   ];
 
-  /* A near-future cut: designers own the product (PM), ship the front end (eng), and orchestrate AI. */
+  /* A near-future cut: designers own the product (PM), ship the front end (eng), and lean on AI — but craft, communication, and people still matter. */
   const FUTURE = [
     { id:'ownership', name:'Product Ownership', levels:{
-      senior:{ mastery:'Owns a feature like a PM would — decides what to build and why, sets the goal and the metric, and cuts scope to ship.',
+      senior:{ mastery:'Owns a feature like a PM would — decides what to build and why, backs it with research, sets the metric, and cuts scope to ship.',
         readiness:'Starting to own the bet for a bigger surface — pricing, trade-offs, and what not to build.' },
-      staff:{ mastery:'Owns the product bet for an area end to end — strategy, prioritization, and the metrics it moves — directing AI to do the research and synthesis.',
-        readiness:'Tying the roadmap to the business model and making the calls a PM lead used to make.' },
-      staff2:{ mastery:'Owns the area’s roadmap against the business model — makes the calls a PM lead used to make and holds the bet through trade-offs.',
+      staff:{ mastery:'Owns the product bet for an area — strategy, prioritization, and the metrics it moves — with AI speeding up the research and synthesis.',
+        readiness:'Holding direction through ambiguity and making the calls a PM lead used to make.' },
+      staff2:{ mastery:"Owns the area's roadmap against the business model, holds the bet through trade-offs, and makes the calls a PM lead used to make.",
         readiness:'Starting to set product direction across more than one area.' },
-      principal:{ mastery:'Sets product direction across areas, decides where the bets go, and owns the outcomes — with AI handling the legwork.',
+      principal:{ mastery:'Sets product direction across areas, decides where the bets go, and owns the outcomes.',
         readiness:'Shaping company strategy and the metrics the org runs on.' },
-      distinguished:{ mastery:"Sets the company's product direction and what it builds next, holding the bet from idea to outcome.",
+      distinguished:{ mastery:"Sets the company's product direction and what it builds next, from idea to outcome.",
         readiness:null },
     }},
     { id:'engineering', name:'Design Engineering', levels:{
-      senior:{ mastery:'Ships the real thing in code — builds the front end with AI, not just mocks — and owns the live experience down to the detail.',
-        readiness:'Taking features from idea to production on their own — handling state, edge cases, and performance.' },
-      staff:{ mastery:'Owns shipped front-end quality for an area — builds production UI with AI, sets the patterns, and keeps the live product polished.',
-        readiness:'Setting how the team builds — the stack, the components, the bar for shipped code.' },
-      staff2:{ mastery:'Sets how the team builds — the stack, the components, and the bar for shipped code — and keeps the live product fast and polished.',
-        readiness:'Starting to set how the org turns design into shipped code.' },
-      principal:{ mastery:'Sets how the org turns design into shipped code, and builds the systems that let small teams ship a lot.',
-        readiness:"Shaping the org's build approach and where humans vs. AI own the code." },
+      senior:{ mastery:'Designs and ships the real thing in code — polished craft (visual, interaction) built with AI — and owns the live experience down to the detail.',
+        readiness:'Taking features from idea to production on their own — state, edge cases, performance — and holding a high bar.' },
+      staff:{ mastery:"Sets the craft and quality bar for a team's shipped product — builds production UI, defines the patterns, and keeps the live experience polished.",
+        readiness:'Writing the patterns and standards others build on, and balancing speed and precision across the area.' },
+      staff2:{ mastery:"Sets the patterns and quality bar the whole team builds on, and balances speed and precision across the area's shipped work.",
+        readiness:'Starting to shape how the org turns design into shipped product.' },
+      principal:{ mastery:'Sets how the org turns design into shipped product, and builds the systems that let small teams ship a lot at a high bar.',
+        readiness:"Shaping the org's approach to craft and where people vs. AI own the work." },
       distinguished:{ mastery:'Defines what shipping great product looks like here and builds the engine that makes it routine.',
         readiness:null },
     }},
-    { id:'orchestration', name:'AI Orchestration', levels:{
-      senior:{ mastery:'Directs AI to do the breadth of the work — research, flows, copy, code, variants — and curates the output to a high bar.',
-        readiness:'Building reusable prompts and small agent workflows that do real work, not demos.' },
-      staff:{ mastery:"Builds the harness a team runs on — agents, prompts, evals — so AI produces usable work, and decides where it's trusted.",
-        readiness:'Spreading the harness past their team and proving the quality and speed hold up.' },
-      staff2:{ mastery:'Gets the team’s harness — agents, prompts, evals — adopted past their own group, and proves the quality and speed hold up.',
-        readiness:'Starting to set how the whole org works with AI.' },
-      principal:{ mastery:'Sets how the design org works with AI — the agents, guardrails, and evals — and partners with eng on AI in the product.',
+    { id:'ai', name:'AI & Automation', levels:{
+      senior:{ mastery:'Uses AI across the work — research, ideas, copy, code — to move faster and try more, and curates the output to a high bar.',
+        readiness:'Building reusable prompts and small workflows that do real work, not demos.' },
+      staff:{ mastery:"Builds the AI workflows and prompts a team runs on, and decides where AI is trusted and where it isn't.",
+        readiness:'Spreading the best workflows past their own group and proving the quality holds up.' },
+      staff2:{ mastery:"Gets the team's AI workflows and evals adopted past their own group, and proves the quality and speed hold up.",
+        readiness:'Starting to shape how the whole org works with AI.' },
+      principal:{ mastery:'Sets how the design org works with AI — the workflows, guardrails, and evals — and partners with eng on AI in the product.',
         readiness:'Shaping where the whole company points its AI leverage.' },
-      distinguished:{ mastery:'Invents how design gets made with AI — new ways of working the field copies.',
+      distinguished:{ mastery:'Invents new ways of working with AI that the rest of the field copies.',
         readiness:null },
     }},
-    { id:'taste', name:'Taste & Judgment', levels:{
-      senior:{ mastery:"Holds the quality bar when anyone can generate 'fine' — edits AI output into something genuinely good, and knows why it's better.",
-        readiness:'Setting the bar for others and naming what good looks like, not just feeling it.' },
-      staff:{ mastery:"Sets the taste bar for a team — what ships and what doesn't — and trains others to see it in AI-generated work.",
-        readiness:'Writing down the standards so judgment scales past the room.' },
-      staff2:{ mastery:'Writes down the standards so judgment scales past the room, and trains the team to edit AI output to a high bar.',
-        readiness:'Starting to make taste a strength beyond their team.' },
-      principal:{ mastery:'Sets the quality bar across the org and keeps it high as the volume of AI-made work explodes.',
-        readiness:'Making taste a company strength as more of the work is AI-made.' },
-      distinguished:{ mastery:'Defines what great means in an AI-made world, and is known for it beyond the company.',
+    { id:'communication', name:'Communication & Partnership', levels:{
+      senior:{ mastery:'Seeks input and shares decisions clearly, defends design rationale in writing and out loud, and builds trust with eng and product.',
+        readiness:'Influencing without authority — navigating pushback and bringing people along.' },
+      staff:{ mastery:'Leads communication across a lean, cross-functional team and brings partners — ops, eng, business — into the work.',
+        readiness:'Setting how the team works with partners and steadying alignment when things get messy.' },
+      staff2:{ mastery:'Sets how the team works with partners and aligns a flatter org around the work, written and spoken.',
+        readiness:'Starting to shape how the whole org communicates and partners.' },
+      principal:{ mastery:'Shapes how the org communicates and partners, and sways decisions at the exec level.',
+        readiness:'Moving company culture and coaching other leaders on influence.' },
+      distinguished:{ mastery:"Shapes the company's culture of partnership and how design shows up at the highest levels.",
         readiness:null },
     }},
-    { id:'leadership', name:'Leadership & Influence', levels:{
-      senior:{ mastery:'Aligns a lean team of people and AI — builds trust, makes the call clear, and brings others along without authority.',
-        readiness:'Mentoring others to work this way and shaping how the small team operates.' },
-      staff:{ mastery:'Leads a small, high-leverage team, grows AI-native designers, and aligns partners across a flatter org.',
-        readiness:'Setting how the team works and develops people for this model.' },
-      staff2:{ mastery:'Sets how a lean team works and develops AI-native designers for this model, aligning partners across a flatter org.',
-        readiness:'Starting to shape how the org works and grow other leaders.' },
-      principal:{ mastery:'Shapes how the org works in an AI-heavy world — culture, roles, and how people and AI split the work.',
+    { id:'people', name:'People & Leadership', levels:{
+      senior:{ mastery:'Mentors others, shares what they know, and lifts the people around them — adding to a healthy team culture.',
+        readiness:'Taking on bigger mentoring and shaping how a small team works.' },
+      staff:{ mastery:'Grows AI-native designers deliberately and shapes team culture. (Managers) Manages and develops a small team.',
+        readiness:'Building how the team grows talent and developing people toward the next level.' },
+      staff2:{ mastery:'Builds how the team grows talent and develops people for this model. (Managers) Develops a team and its bench.',
+        readiness:'Starting to shape how the org grows design talent.' },
+      principal:{ mastery:'Shapes culture across teams and grows leaders. (Managers) Builds and develops strong teams.',
         readiness:'Moving company culture and growing other leaders.' },
       distinguished:{ mastery:"Shapes the company's culture and what the design-engineer-PM role even is.",
         readiness:null },
@@ -809,7 +809,7 @@
     $$('.era-btn').forEach(b => { const on = b.dataset.era === state.era; b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on)); });
     const lede = $('#matrix-lede');
     if (lede) lede.textContent = state.era === 'future'
-      ? 'Where this is heading — designers own the product, ship the front end, and orchestrate AI.'
+      ? 'Where this is heading — designers own the product, ship the front end, and lean on AI, while craft, communication, and people still matter.'
       : 'What good looks like across five competencies, from Senior to Distinguished.';
   }
   function setEra(era) {
