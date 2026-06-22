@@ -14,7 +14,7 @@ open index.html        # macOS
 
 Three views, switchable from the header:
 
-- **Matrix** — A connected reference table: 6 competencies (rows) × 4 levels (columns). Each cell shows a tight **mastery** line plus the **60% → next** readiness line, and each column header carries the level's scope (self → team → org → industry). Click a level header to outline that whole column in its color (click again or press Esc to clear).
+- **Matrix** — A connected reference table: 5 competencies (rows) × 4 levels (columns). Each cell shows a tight **mastery** line plus a `60% → next` label; hovering it reveals the readiness text in a tooltip. Each column header carries the level's scope (self → team → org → industry); click a header to outline that column in its color. A **Today / Future** toggle swaps the whole matrix between today's model and a near-future cut where designers own the product, ship the front end, and orchestrate AI (the `TODAY` and `FUTURE` arrays in the script).
 - **Self-Assessment** — A slider per competency (four stops: Senior → Distinguished) whose rail reveals a green→blue→red→yellow gradient and glows more as you climb. A live radar chart, profile summary, and a 3×2 grid of "strength now / growth edge" cards update as you move them. Saves to your browser.
 - **Guide** — How to use the matrix for hiring, growth, and team planning, plus the philosophy notes (the 60% rule, uneven growth, stacking levels).
 

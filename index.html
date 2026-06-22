@@ -75,6 +75,12 @@
   .view-intro h1 { font-size: 27px; letter-spacing: -0.026em; }
   .view-intro .lede { margin-top: 8px; color: var(--text-muted); font-size: 16px; }
   .eyebrow { font-size: 11.5px; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); }
+  .matrix-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .toolbar-label { font-size: 11px; font-weight: 680; letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint); }
+  .era-toggle { display: inline-flex; gap: 3px; padding: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 11px; }
+  .era-btn { appearance: none; border: none; background: transparent; color: var(--text-muted); font-size: 13.5px; font-weight: 560; padding: 7px 18px; border-radius: 8px; transition: background .16s ease, color .16s ease; }
+  .era-btn:hover { color: var(--text); }
+  .era-btn.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
 
   /* ---- Matrix table ---- */
   .matrix-wrap { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow); }
@@ -281,7 +287,14 @@
     <section id="view-matrix" class="view" role="tabpanel" aria-label="Matrix">
       <div class="view-intro">
         <h1>Product Designer Competency Matrix</h1>
-        <p class="lede">What good looks like across five competencies, from Senior to Distinguished.</p>
+        <p class="lede" id="matrix-lede">What good looks like across five competencies, from Senior to Distinguished.</p>
+      </div>
+      <div class="matrix-toolbar">
+        <span class="toolbar-label">Time horizon</span>
+        <div class="era-toggle" role="group" aria-label="Time horizon">
+          <button class="era-btn active" data-action="era" data-era="today" aria-pressed="true">Today</button>
+          <button class="era-btn" data-action="era" data-era="future" aria-pressed="false">Future</button>
+        </div>
       </div>
       <div id="matrix-mount"></div>
     </section>
@@ -399,7 +412,7 @@
   ];
   const LEVEL_COLORS = { senior:'#0d9488', staff:'#4f46e5', principal:'#a21caf', distinguished:'#d97706' };
 
-  const COMPETENCIES = [
+  const TODAY = [
     { id:'product', name:'Product Thinking', levels:{
       senior:{ mastery:'Frames the problem and sets direction for a feature — uses research (qual and quant) to find real user needs, and makes sound IA and interaction-pattern calls.',
         readiness:'Starting to weigh business context — model, economics — and the systems and org factors that shape the experience, not just the screen.' },
@@ -452,6 +465,62 @@
     }},
   ];
 
+  /* A near-future cut: designers own the product (PM), ship the front end (eng), and orchestrate AI. */
+  const FUTURE = [
+    { id:'ownership', name:'Product Ownership', levels:{
+      senior:{ mastery:'Owns a feature like a PM would — decides what to build and why, sets the goal and the metric, and cuts scope to ship.',
+        readiness:'Starting to own the bet for a bigger surface — pricing, trade-offs, and what not to build.' },
+      staff:{ mastery:'Owns the product bet for an area end to end — strategy, prioritization, and the metrics it moves — directing AI to do the research and synthesis.',
+        readiness:'Tying the roadmap to the business model and making the calls a PM lead used to make.' },
+      principal:{ mastery:'Sets product direction across areas, decides where the bets go, and owns the outcomes — with AI handling the legwork.',
+        readiness:'Shaping company strategy and the metrics the org runs on.' },
+      distinguished:{ mastery:"Sets the company's product direction and what it builds next, holding the bet from idea to outcome.",
+        readiness:null },
+    }},
+    { id:'engineering', name:'Design Engineering', levels:{
+      senior:{ mastery:'Ships the real thing in code — builds the front end with AI, not just mocks — and owns the live experience down to the detail.',
+        readiness:'Taking features from idea to production on their own — handling state, edge cases, and performance.' },
+      staff:{ mastery:'Owns shipped front-end quality for an area — builds production UI with AI, sets the patterns, and keeps the live product polished.',
+        readiness:'Setting how the team builds — the stack, the components, the bar for shipped code.' },
+      principal:{ mastery:'Sets how the org turns design into shipped code, and builds the systems that let small teams ship a lot.',
+        readiness:"Shaping the org's build approach and where humans vs. AI own the code." },
+      distinguished:{ mastery:'Defines what shipping great product looks like here and builds the engine that makes it routine.',
+        readiness:null },
+    }},
+    { id:'orchestration', name:'AI Orchestration', levels:{
+      senior:{ mastery:'Directs AI to do the breadth of the work — research, flows, copy, code, variants — and curates the output to a high bar.',
+        readiness:'Building reusable prompts and small agent workflows that do real work, not demos.' },
+      staff:{ mastery:"Builds the harness a team runs on — agents, prompts, evals — so AI produces usable work, and decides where it's trusted.",
+        readiness:'Spreading the harness past their team and proving the quality and speed hold up.' },
+      principal:{ mastery:'Sets how the design org works with AI — the agents, guardrails, and evals — and partners with eng on AI in the product.',
+        readiness:'Shaping where the whole company points its AI leverage.' },
+      distinguished:{ mastery:'Invents how design gets made with AI — new ways of working the field copies.',
+        readiness:null },
+    }},
+    { id:'taste', name:'Taste & Judgment', levels:{
+      senior:{ mastery:"Holds the quality bar when anyone can generate 'fine' — edits AI output into something genuinely good, and knows why it's better.",
+        readiness:'Setting the bar for others and naming what good looks like, not just feeling it.' },
+      staff:{ mastery:"Sets the taste bar for a team — what ships and what doesn't — and trains others to see it in AI-generated work.",
+        readiness:'Writing down the standards so judgment scales past the room.' },
+      principal:{ mastery:'Sets the quality bar across the org and keeps it high as the volume of AI-made work explodes.',
+        readiness:'Making taste a company strength as more of the work is AI-made.' },
+      distinguished:{ mastery:'Defines what great means in an AI-made world, and is known for it beyond the company.',
+        readiness:null },
+    }},
+    { id:'leadership', name:'Leadership & Influence', levels:{
+      senior:{ mastery:'Aligns a lean team of people and AI — builds trust, makes the call clear, and brings others along without authority.',
+        readiness:'Mentoring others to work this way and shaping how the small team operates.' },
+      staff:{ mastery:'Leads a small, high-leverage team, grows AI-native designers, and aligns partners across a flatter org.',
+        readiness:'Setting how the team works and develops people for this model.' },
+      principal:{ mastery:'Shapes how the org works in an AI-heavy world — culture, roles, and how people and AI split the work.',
+        readiness:'Moving company culture and growing other leaders.' },
+      distinguished:{ mastery:"Shapes the company's culture and what the design-engineer-PM role even is.",
+        readiness:null },
+    }},
+  ];
+
+  const COMPETENCIES = TODAY;
+
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   const $ = sel => document.querySelector(sel);
   const $$ = sel => Array.from(document.querySelectorAll(sel));
@@ -468,7 +537,7 @@
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const DEFAULTS = [1, 1, 1, 1, 1];
-  let state = { mode:'matrix', focus:null, assess:{ values: DEFAULTS.slice(), name:'' } };
+  let state = { mode:'matrix', era:'today', focus:null, assess:{ values: DEFAULTS.slice(), name:'' } };
 
   /* -------- Matrix -------- */
   function cellInner(cell, lvl) {
@@ -479,6 +548,7 @@
   }
 
   function renderMatrix() {
+    const data = state.era === 'future' ? FUTURE : TODAY;
     let h = '<div class="matrix-wrap"><table class="matrix" id="matrix-table"><thead><tr>';
     h += '<th class="corner" scope="col">Competency</th>';
     LEVELS.forEach(l => {
@@ -488,7 +558,7 @@
             </th>`;
     });
     h += '</tr></thead><tbody>';
-    COMPETENCIES.forEach((c, ci) => {
+    data.forEach((c, ci) => {
       h += '<tr>';
       h += `<th class="rowhead" scope="row"><span class="rh-num">${ci+1}</span><span class="rh-name">${esc(c.name)}</span></th>`;
       LEVELS.forEach(l => {
@@ -689,6 +759,22 @@
     } catch (e) {}
   }
 
+  /* -------- Today / Future era -------- */
+  function syncEra() {
+    $$('.era-btn').forEach(b => { const on = b.dataset.era === state.era; b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on)); });
+    const lede = $('#matrix-lede');
+    if (lede) lede.textContent = state.era === 'future'
+      ? 'Where this is heading — designers own the product, ship the front end, and orchestrate AI.'
+      : 'What good looks like across five competencies, from Senior to Distinguished.';
+  }
+  function setEra(era) {
+    state.era = era;
+    state.focus = null;
+    try { localStorage.setItem('cm-era', era); } catch (e) {}
+    syncEra();
+    renderMatrix();
+  }
+
   /* -------- Modes -------- */
   function setMode(mode) {
     if (state.focus) { state.focus = null; applyFocus(); }
@@ -713,6 +799,7 @@
     if (!actionEl) return;
     const a = actionEl.dataset.action;
     if (a === 'tab') return setMode(actionEl.dataset.mode);
+    if (a === 'era') return setEra(actionEl.dataset.era);
     if (a === 'focus') return toggleFocus(actionEl.dataset.level);
     if (a === 'reset') { state.assess = { values: DEFAULTS.slice(), name:'' }; saveAssess(); buildAssess(); return toast('Assessment reset'); }
   });
@@ -757,7 +844,9 @@
 
   /* -------- Init -------- */
   function init() {
+    try { state.era = localStorage.getItem('cm-era') === 'future' ? 'future' : 'today'; } catch (e) {}
     renderMatrix();
+    syncEra();
     loadAssess();
     buildAssess();
     let mode = 'matrix';
