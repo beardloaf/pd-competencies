@@ -84,7 +84,7 @@
 
   /* ---- Matrix table ---- */
   .matrix-wrap { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow); }
-  table.matrix { width: 100%; height: 1px; border-collapse: separate; border-spacing: 0; }
+  table.matrix { width: 100%; height: 1px; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
   .matrix th, .matrix td { text-align: left; vertical-align: top; padding: 20px 22px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .matrix tr > *:last-child { border-right: 0; }
   .matrix tbody tr:last-child > * { border-bottom: 0; }
@@ -101,9 +101,9 @@
   .colhead .ch-top { font-size: 16px; font-weight: 600; color: var(--text); }
   .colhead .ch-scope { display: block; margin-top: 7px; font-size: 11px; font-weight: 680; letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint); }
   .colhead:hover { background: color-mix(in srgb, var(--c) 7%, var(--surface-2)); }
-  .staff-toggle { display: inline-flex; gap: 2px; margin-top: 9px; padding: 3px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
-  .staff-tier { appearance: none; border: none; background: transparent; color: var(--text-muted); font-size: 11px; font-weight: 680; letter-spacing: .03em; padding: 3px 10px; border-radius: 6px; cursor: pointer; transition: background .15s ease, color .15s ease; }
-  .staff-tier:hover { color: var(--text); }
+  .staff-toggle { appearance: none; font: inherit; display: inline-flex; gap: 2px; margin-top: 9px; padding: 3px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; }
+  .staff-toggle:hover { border-color: var(--border-strong); }
+  .staff-tier { display: inline-block; color: var(--text-muted); font-size: 11px; font-weight: 680; letter-spacing: .03em; padding: 3px 10px; border-radius: 6px; transition: background .15s ease, color .15s ease; }
   .staff-tier.active { background: var(--c); color: #fff; }
   /* cells fill the row height so footers line up at the bottom */
   .matrix tbody td { height: 100%; }
@@ -591,10 +591,10 @@
     h += '<th class="corner" scope="col">Competency</th>';
     cols.forEach(col => {
       const toggle = col.staffToggle
-        ? `<span class="staff-toggle" role="group" aria-label="Staff tier">
-             <button class="staff-tier${state.staffTier===1?' active':''}" data-action="staffTier" data-tier="1" aria-pressed="${state.staffTier===1}">I</button>
-             <button class="staff-tier${state.staffTier===2?' active':''}" data-action="staffTier" data-tier="2" aria-pressed="${state.staffTier===2}">II</button>
-           </span>`
+        ? `<button type="button" class="staff-toggle" data-action="staffTierToggle" role="switch" aria-checked="${state.staffTier===2}" aria-label="Staff tier — ${state.staffTier===2?'Staff II':'Staff I'}, click to switch">
+             <span class="staff-tier${state.staffTier===1?' active':''}">I</span>
+             <span class="staff-tier${state.staffTier===2?' active':''}">II</span>
+           </button>`
         : '';
       h += `<th class="colhead lvl-${col.id}" scope="col" role="button" tabindex="0" data-action="focus" data-level="${col.id}" aria-label="Highlight ${esc(col.name)} column">
               <span class="ch-top">${esc(col.name)}</span>
@@ -851,7 +851,7 @@
     const a = actionEl.dataset.action;
     if (a === 'tab') return setMode(actionEl.dataset.mode);
     if (a === 'era') return setEra(actionEl.dataset.era);
-    if (a === 'staffTier') return setStaffTier(+actionEl.dataset.tier);
+    if (a === 'staffTierToggle') return setStaffTier(state.staffTier === 1 ? 2 : 1);
     if (a === 'focus') return toggleFocus(actionEl.dataset.level);
     if (a === 'reset') { state.assess = { values: DEFAULTS.slice(), name:'' }; saveAssess(); buildAssess(); return toast('Assessment reset'); }
   });
@@ -891,7 +891,7 @@
     }
     if (e.key === 'Escape' && state.focus) { e.preventDefault(); state.focus = null; applyFocus(); return; }
     const ch = e.target.closest && e.target.closest('.colhead');
-    if (ch && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleFocus(ch.dataset.level); }
+    if (ch && !e.target.closest('.staff-toggle') && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleFocus(ch.dataset.level); }
   });
 
   /* -------- Init -------- */
