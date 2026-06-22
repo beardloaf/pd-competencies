@@ -84,7 +84,7 @@
 
   /* ---- Matrix table ---- */
   .matrix-wrap { border: 1px solid var(--border); border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow); }
-  table.matrix { width: 100%; border-collapse: separate; border-spacing: 0; }
+  table.matrix { width: 100%; height: 1px; border-collapse: separate; border-spacing: 0; }
   .matrix th, .matrix td { text-align: left; vertical-align: top; padding: 20px 22px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .matrix tr > *:last-child { border-right: 0; }
   .matrix tbody tr:last-child > * { border-bottom: 0; }
@@ -101,8 +101,15 @@
   .colhead .ch-top { font-size: 16px; font-weight: 600; color: var(--text); }
   .colhead .ch-scope { display: block; margin-top: 7px; font-size: 11px; font-weight: 680; letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint); }
   .colhead:hover { background: color-mix(in srgb, var(--c) 7%, var(--surface-2)); }
+  .staff-toggle { display: inline-flex; gap: 2px; margin-top: 9px; padding: 3px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+  .staff-tier { appearance: none; border: none; background: transparent; color: var(--text-muted); font-size: 11px; font-weight: 680; letter-spacing: .03em; padding: 3px 10px; border-radius: 6px; cursor: pointer; transition: background .15s ease, color .15s ease; }
+  .staff-tier:hover { color: var(--text); }
+  .staff-tier.active { background: var(--c); color: #fff; }
+  /* cells fill the row height so footers line up at the bottom */
+  .matrix tbody td { height: 100%; }
+  .cell-inner { display: flex; flex-direction: column; height: 100%; }
   .cell-mastery { font-size: 13.5px; line-height: 1.5; color: var(--text); }
-  .cell-edge { position: relative; margin-top: 12px; padding-top: 11px; border-top: 1px dashed var(--border-strong); }
+  .cell-edge { position: relative; margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--border-strong); }
   .cell-edge:not(.pinnacle) { cursor: help; }
   .edge-label { font-size: 10.5px; font-weight: 680; letter-spacing: .04em; text-transform: uppercase; color: var(--c); }
   .edge-info { font-weight: 400; opacity: .65; }
@@ -418,6 +425,8 @@
         readiness:'Starting to weigh business context — model, economics — and the systems and org factors that shape the experience, not just the screen.' },
       staff:{ mastery:'Owns the problem space for a product area — sets the vision, uses research to steer direction, and reads the systems, processes, and service-level factors behind the experience.',
         readiness:'Tying design bets to the business — unit economics, monetization — and handling ambiguity and trade-offs across stakeholders.' },
+      staff2:{ mastery:"Owns the area's hardest bets — grounds scope in unit economics and monetization, and holds direction through ambiguity and competing stakeholders.",
+        readiness:'Starting to set direction across more than one area.' },
       principal:{ mastery:'Defines the problem space across several areas, grounds scope and trade-offs in the business model, and turns research into bets that reshape the product.',
         readiness:'Setting product vision from a deep read of users and the business, and spotting needs before competitors do.' },
       distinguished:{ mastery:"Sets product vision for the company from a deep read of users and the business, and shapes what the company chooses to build.",
@@ -428,6 +437,8 @@
         readiness:'Showing judgment on fidelity vs. time in wires and prototypes, and holding a higher bar than the brief asks for.' },
       staff:{ mastery:'Sets the craft bar for a team — explores hard problems, produces consumer-grade visual and interaction work, and makes sure it ships.',
         readiness:'Writing the craft standards and patterns others follow, and balancing speed and precision across the team’s output.' },
+      staff2:{ mastery:'Sets the craft standards and patterns the whole team builds on, and balances speed and precision across the area’s output.',
+        readiness:'Starting to influence how the org thinks about quality, beyond their team.' },
       principal:{ mastery:'Sets the craft and output bar for the org and builds the practices that keep it high while moving fast.',
         readiness:'Changing how the org thinks about quality and consumer-grade polish at scale.' },
       distinguished:{ mastery:'Defines what great execution means here and builds a team known for craft and impact.',
@@ -438,6 +449,8 @@
         readiness:'Folding AI-generated content, interactions, and flows into real design work without dropping craft or the user experience.' },
       staff:{ mastery:'Builds the prompts, workflows, and prototyping setups a team actually uses to move faster, and calls which tools are worth adopting.',
         readiness:'Spreading the best tools past their own team and proving the quality holds up.' },
+      staff2:{ mastery:'Gets the team’s best tools and workflows adopted past their own group, and proves the quality and speed hold up.',
+        readiness:'Starting to shape tooling direction with eng and product beyond the team.' },
       principal:{ mastery:'Sets the design org’s tooling and automation setup, and partners with eng and product on AI features in the product itself.',
         readiness:'Shaping where tooling goes and bringing the whole company along.' },
       distinguished:{ mastery:'Invents new ways of working with AI and modern tools that the rest of the field copies.',
@@ -448,6 +461,8 @@
         readiness:'Influencing without authority — navigating pushback and bringing people along across functions and levels.' },
       staff:{ mastery:'Leads communication across functions and levels for an area, and brings ops, eng, and business partners into the work on service-level problems.',
         readiness:'Setting how the team works with partners and shaping the culture around design.' },
+      staff2:{ mastery:'Sets how the team works with partners and shapes the culture around design, pulling ops, eng, and business into the work.',
+        readiness:'Starting to shape how the whole org communicates and partners.' },
       principal:{ mastery:'Shapes how the org communicates and partners, and sways decisions at the exec level.',
         readiness:'Moving company culture and coaching other leaders on influence.' },
       distinguished:{ mastery:'Shapes the company’s culture of partnership and how design shows up at the highest levels.',
@@ -458,6 +473,8 @@
         readiness:'Taking on bigger mentoring and starting to shape team norms and culture on purpose.' },
       staff:{ mastery:'Grows other designers deliberately and shapes team culture. (Managers) Manages and develops a small team.',
         readiness:'Building how the team grows talent, and developing people toward the next level.' },
+      staff2:{ mastery:'Builds how the team grows talent and develops people toward the next level. (Managers) Develops a team and its bench.',
+        readiness:'Starting to influence how the org grows talent, beyond their team.' },
       principal:{ mastery:'Shapes culture across teams and grows leaders. (Managers) Builds and develops strong teams.',
         readiness:'Setting how the org develops design talent and coaching other leaders.' },
       distinguished:{ mastery:'Shapes company culture and grows other leaders. (Managers) Builds and develops orgs.',
@@ -472,6 +489,8 @@
         readiness:'Starting to own the bet for a bigger surface — pricing, trade-offs, and what not to build.' },
       staff:{ mastery:'Owns the product bet for an area end to end — strategy, prioritization, and the metrics it moves — directing AI to do the research and synthesis.',
         readiness:'Tying the roadmap to the business model and making the calls a PM lead used to make.' },
+      staff2:{ mastery:'Owns the area’s roadmap against the business model — makes the calls a PM lead used to make and holds the bet through trade-offs.',
+        readiness:'Starting to set product direction across more than one area.' },
       principal:{ mastery:'Sets product direction across areas, decides where the bets go, and owns the outcomes — with AI handling the legwork.',
         readiness:'Shaping company strategy and the metrics the org runs on.' },
       distinguished:{ mastery:"Sets the company's product direction and what it builds next, holding the bet from idea to outcome.",
@@ -482,6 +501,8 @@
         readiness:'Taking features from idea to production on their own — handling state, edge cases, and performance.' },
       staff:{ mastery:'Owns shipped front-end quality for an area — builds production UI with AI, sets the patterns, and keeps the live product polished.',
         readiness:'Setting how the team builds — the stack, the components, the bar for shipped code.' },
+      staff2:{ mastery:'Sets how the team builds — the stack, the components, and the bar for shipped code — and keeps the live product fast and polished.',
+        readiness:'Starting to set how the org turns design into shipped code.' },
       principal:{ mastery:'Sets how the org turns design into shipped code, and builds the systems that let small teams ship a lot.',
         readiness:"Shaping the org's build approach and where humans vs. AI own the code." },
       distinguished:{ mastery:'Defines what shipping great product looks like here and builds the engine that makes it routine.',
@@ -492,6 +513,8 @@
         readiness:'Building reusable prompts and small agent workflows that do real work, not demos.' },
       staff:{ mastery:"Builds the harness a team runs on — agents, prompts, evals — so AI produces usable work, and decides where it's trusted.",
         readiness:'Spreading the harness past their team and proving the quality and speed hold up.' },
+      staff2:{ mastery:'Gets the team’s harness — agents, prompts, evals — adopted past their own group, and proves the quality and speed hold up.',
+        readiness:'Starting to set how the whole org works with AI.' },
       principal:{ mastery:'Sets how the design org works with AI — the agents, guardrails, and evals — and partners with eng on AI in the product.',
         readiness:'Shaping where the whole company points its AI leverage.' },
       distinguished:{ mastery:'Invents how design gets made with AI — new ways of working the field copies.',
@@ -502,6 +525,8 @@
         readiness:'Setting the bar for others and naming what good looks like, not just feeling it.' },
       staff:{ mastery:"Sets the taste bar for a team — what ships and what doesn't — and trains others to see it in AI-generated work.",
         readiness:'Writing down the standards so judgment scales past the room.' },
+      staff2:{ mastery:'Writes down the standards so judgment scales past the room, and trains the team to edit AI output to a high bar.',
+        readiness:'Starting to make taste a strength beyond their team.' },
       principal:{ mastery:'Sets the quality bar across the org and keeps it high as the volume of AI-made work explodes.',
         readiness:'Making taste a company strength as more of the work is AI-made.' },
       distinguished:{ mastery:'Defines what great means in an AI-made world, and is known for it beyond the company.',
@@ -512,6 +537,8 @@
         readiness:'Mentoring others to work this way and shaping how the small team operates.' },
       staff:{ mastery:'Leads a small, high-leverage team, grows AI-native designers, and aligns partners across a flatter org.',
         readiness:'Setting how the team works and develops people for this model.' },
+      staff2:{ mastery:'Sets how a lean team works and develops AI-native designers for this model, aligning partners across a flatter org.',
+        readiness:'Starting to shape how the org works and grow other leaders.' },
       principal:{ mastery:'Shapes how the org works in an AI-heavy world — culture, roles, and how people and AI split the work.',
         readiness:'Moving company culture and growing other leaders.' },
       distinguished:{ mastery:"Shapes the company's culture and what the design-engineer-PM role even is.",
@@ -537,32 +564,50 @@
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const DEFAULTS = [1, 1, 1, 1, 1];
-  let state = { mode:'matrix', era:'today', focus:null, assess:{ values: DEFAULTS.slice(), name:'' } };
+  let state = { mode:'matrix', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' } };
 
   /* -------- Matrix -------- */
-  function cellInner(cell, lvl) {
-    const edge = lvl.next
-      ? `<div class="cell-edge" tabindex="0" aria-label="60% toward ${esc(lvl.next)}: ${esc(cell.readiness)}"><span class="edge-label">60% → ${esc(lvl.next)} <span class="edge-info" aria-hidden="true">ⓘ</span></span><p class="edge-text" role="tooltip">${esc(cell.readiness)}</p></div>`
+  function cellInner(cell, nextLabel) {
+    const edge = nextLabel
+      ? `<div class="cell-edge" tabindex="0" aria-label="60% toward ${esc(nextLabel)}: ${esc(cell.readiness)}"><span class="edge-label">60% → ${esc(nextLabel)} <span class="edge-info" aria-hidden="true">ⓘ</span></span><p class="edge-text" role="tooltip">${esc(cell.readiness)}</p></div>`
       : `<div class="cell-edge pinnacle"><span class="edge-label">★ Pinnacle level</span></div>`;
-    return `<p class="cell-mastery">${esc(cell.mastery)}</p>${edge}`;
+    return `<div class="cell-inner"><p class="cell-mastery">${esc(cell.mastery)}</p>${edge}</div>`;
+  }
+
+  /* build the column list, expanding Staff into the chosen tier (I or II) */
+  function matrixColumns() {
+    const t2 = state.staffTier === 2;
+    return LEVELS.map(l => {
+      if (l.id === 'senior') return { id:'senior', name:'Senior', scope:l.scope, key:'senior', next:'Staff I' };
+      if (l.id === 'staff') return { id:'staff', name: t2 ? 'Staff II' : 'Staff I', scope:l.scope, key: t2 ? 'staff2' : 'staff', next: t2 ? 'Principal' : 'Staff II', staffToggle:true };
+      return { id:l.id, name:l.name, scope:l.scope, key:l.id, next:l.next };
+    });
   }
 
   function renderMatrix() {
     const data = state.era === 'future' ? FUTURE : TODAY;
+    const cols = matrixColumns();
     let h = '<div class="matrix-wrap"><table class="matrix" id="matrix-table"><thead><tr>';
     h += '<th class="corner" scope="col">Competency</th>';
-    LEVELS.forEach(l => {
-      h += `<th class="colhead lvl-${l.id}" scope="col" role="button" tabindex="0" data-action="focus" data-level="${l.id}" aria-label="Highlight ${esc(l.full)} column">
-              <span class="ch-top">${esc(l.name)}</span>
-              <span class="ch-scope">${esc(l.scope)}</span>
+    cols.forEach(col => {
+      const toggle = col.staffToggle
+        ? `<span class="staff-toggle" role="group" aria-label="Staff tier">
+             <button class="staff-tier${state.staffTier===1?' active':''}" data-action="staffTier" data-tier="1" aria-pressed="${state.staffTier===1}">I</button>
+             <button class="staff-tier${state.staffTier===2?' active':''}" data-action="staffTier" data-tier="2" aria-pressed="${state.staffTier===2}">II</button>
+           </span>`
+        : '';
+      h += `<th class="colhead lvl-${col.id}" scope="col" role="button" tabindex="0" data-action="focus" data-level="${col.id}" aria-label="Highlight ${esc(col.name)} column">
+              <span class="ch-top">${esc(col.name)}</span>
+              <span class="ch-scope">${esc(col.scope)}</span>
+              ${toggle}
             </th>`;
     });
     h += '</tr></thead><tbody>';
     data.forEach((c, ci) => {
       h += '<tr>';
       h += `<th class="rowhead" scope="row"><span class="rh-num">${ci+1}</span><span class="rh-name">${esc(c.name)}</span></th>`;
-      LEVELS.forEach(l => {
-        h += `<td class="cell lvl-${l.id}" data-level="${l.id}">${cellInner(c.levels[l.id], l)}</td>`;
+      cols.forEach(col => {
+        h += `<td class="cell lvl-${col.id}" data-level="${col.id}">${cellInner(c.levels[col.key], col.next)}</td>`;
       });
       h += '</tr>';
     });
@@ -774,6 +819,12 @@
     syncEra();
     renderMatrix();
   }
+  function setStaffTier(tier) {
+    state.staffTier = tier;
+    try { localStorage.setItem('cm-staff', String(tier)); } catch (e) {}
+    renderMatrix();
+    applyFocus();
+  }
 
   /* -------- Modes -------- */
   function setMode(mode) {
@@ -800,6 +851,7 @@
     const a = actionEl.dataset.action;
     if (a === 'tab') return setMode(actionEl.dataset.mode);
     if (a === 'era') return setEra(actionEl.dataset.era);
+    if (a === 'staffTier') return setStaffTier(+actionEl.dataset.tier);
     if (a === 'focus') return toggleFocus(actionEl.dataset.level);
     if (a === 'reset') { state.assess = { values: DEFAULTS.slice(), name:'' }; saveAssess(); buildAssess(); return toast('Assessment reset'); }
   });
@@ -845,6 +897,7 @@
   /* -------- Init -------- */
   function init() {
     try { state.era = localStorage.getItem('cm-era') === 'future' ? 'future' : 'today'; } catch (e) {}
+    try { state.staffTier = localStorage.getItem('cm-staff') === '2' ? 2 : 1; } catch (e) {}
     renderMatrix();
     syncEra();
     loadAssess();
