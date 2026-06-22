@@ -1,6 +1,6 @@
 # Product Designer Competency Matrix 2026
 
-An interactive competency matrix for product designers — **Senior → Staff → Principal → Distinguished** across six competencies, built on the *60% readiness* model.
+An interactive competency matrix for product designers — **Senior → Staff → Principal → Distinguished** across five competencies (Product Thinking, Execution & Impact, Tooling & Automation, Communication & Partnership, People & Leadership), built on the *60% readiness* model.
 
 ## Open it
 

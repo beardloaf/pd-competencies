@@ -268,7 +268,7 @@
     <section id="view-matrix" class="view" role="tabpanel" aria-label="Matrix">
       <div class="view-intro">
         <h1>Product Designer Competency Matrix</h1>
-        <p class="lede">What good looks like across six competencies, from Senior to Distinguished.</p>
+        <p class="lede">What good looks like across five competencies, from Senior to Distinguished.</p>
       </div>
       <div id="matrix-mount"></div>
     </section>
@@ -318,9 +318,9 @@
             <span class="gc-icon"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h12M3 18h7"/><circle cx="19" cy="15" r="2.4"/></svg></span>
             <h3>For team planning</h3>
             <ul class="gc-list checks">
-              <li><b>Find the gaps.</b> <em>e.g. "No one's at Principal level for design strategy."</em></li>
+              <li><b>Find the gaps.</b> <em>e.g. "No one's at Principal level for Product Thinking."</em></li>
               <li><b>Spot weak spots.</b> Which competencies are thin across the team?</li>
-              <li><b>Hire to fill.</b> <em>e.g. "We need Staff-level Modern Tooling."</em></li>
+              <li><b>Hire to fill.</b> <em>e.g. "We need Staff-level Tooling & Automation."</em></li>
             </ul>
           </div>
         </div>
@@ -344,7 +344,7 @@
           <div class="pcard lvl-principal">
             <div class="pnum">02</div>
             <h3>Growth is uneven</h3>
-            <p>People don't move up evenly across all six. Someone can be <b>Staff in craft</b> but <b>Principal in strategy</b>. That's fine — use the matrix to see where they're strong and where to push:</p>
+            <p>People don't move up evenly across the five. Someone can be <b>Staff in Execution</b> but <b>Principal in Product Thinking</b>. That's fine — use the matrix to see where they're strong and where to push:</p>
             <ul>
               <li>Score each competency on its own</li>
               <li>Expect spikes — strong here, lighter there</li>
@@ -387,64 +387,54 @@
   const LEVEL_COLORS = { senior:'#0d9488', staff:'#4f46e5', principal:'#a21caf', distinguished:'#d97706' };
 
   const COMPETENCIES = [
-    { id:'problem', name:'Problem Definition & Scoping', levels:{
-      senior:{ mastery:'Runs their own research, frames the problem, and names the constraints and tradeoffs before designing.',
-        readiness:'Starting to lead discovery on bigger problems and question the brief, not just take it.' },
-      staff:{ mastery:'Owns how a product area finds and frames problems, and coaches others to do it well.',
-        readiness:'Setting research standards for the team and turning vague briefs into clear opportunities.' },
-      principal:{ mastery:'Sets how several product areas do discovery, and turns research into bets that move the roadmap.',
-        readiness:'Building shared research practices and spotting user needs before competitors do.' },
-      distinguished:{ mastery:"Sets the company's read on its users and builds a research edge rivals can't match.",
+    { id:'product', name:'Product Thinking', levels:{
+      senior:{ mastery:'Frames the problem and sets direction for a feature — uses research (qual and quant) to find real user needs, and makes sound IA and interaction-pattern calls.',
+        readiness:'Starting to weigh business context — model, economics — and the systems and org factors that shape the experience, not just the screen.' },
+      staff:{ mastery:'Owns the problem space for a product area — sets the vision, uses research to steer direction, and reads the systems, processes, and service-level factors behind the experience.',
+        readiness:'Tying design bets to the business — unit economics, monetization — and handling ambiguity and trade-offs across stakeholders.' },
+      principal:{ mastery:'Defines the problem space across several areas, grounds scope and trade-offs in the business model, and turns research into bets that reshape the product.',
+        readiness:'Setting product vision from a deep read of users and the business, and spotting needs before competitors do.' },
+      distinguished:{ mastery:"Sets product vision for the company from a deep read of users and the business, and shapes what the company chooses to build.",
         readiness:null },
     }},
-    { id:'tooling', name:'Modern Tooling', levels:{
-      senior:{ mastery:'Works fast with modern tools — AI, generative, prototyping — to try more ideas and ship better work.',
-        readiness:'Pushing tools past the obvious, sharing what works, and raising the quality of what comes out.' },
-      staff:{ mastery:'Builds the workflows, templates, and prompts a team actually uses to move faster.',
+    { id:'execution', name:'Execution & Impact', levels:{
+      senior:{ mastery:'Explores a few directions, lands a reasoned pick, and ships it with polished craft — visual design (layout, type, motion), tight interaction details, edge cases, and clear writing.',
+        readiness:'Showing judgment on fidelity vs. time in wires and prototypes, and holding a higher bar than the brief asks for.' },
+      staff:{ mastery:'Sets the craft bar for a team — explores hard problems, produces consumer-grade visual and interaction work, and makes sure it ships.',
+        readiness:'Writing the craft standards and patterns others follow, and balancing speed and precision across the team’s output.' },
+      principal:{ mastery:'Sets the craft and output bar for the org and builds the practices that keep it high while moving fast.',
+        readiness:'Changing how the org thinks about quality and consumer-grade polish at scale.' },
+      distinguished:{ mastery:'Defines what great execution means here and builds a team known for craft and impact.',
+        readiness:null },
+    }},
+    { id:'tooling', name:'Tooling & Automation', levels:{
+      senior:{ mastery:'Uses AI and modern prototyping tools to work faster — speeding up research, synthesis, and workflow, and trying more directions — while keeping a high bar on anything AI helps make.',
+        readiness:'Folding AI-generated content, interactions, and flows into real design work without dropping craft or the user experience.' },
+      staff:{ mastery:'Builds the prompts, workflows, and prototyping setups a team actually uses to move faster, and calls which tools are worth adopting.',
         readiness:'Spreading the best tools past their own team and proving the quality holds up.' },
-      principal:{ mastery:'Levels up how the whole design org works — the tools, the setup, the way people build.',
-        readiness:'Shaping tooling direction with eng and product, and bringing the company along.' },
-      distinguished:{ mastery:'Invents new ways of working with modern tools that the rest of the field copies.',
+      principal:{ mastery:'Sets the design org’s tooling and automation setup, and partners with eng and product on AI features in the product itself.',
+        readiness:'Shaping where tooling goes and bringing the whole company along.' },
+      distinguished:{ mastery:'Invents new ways of working with AI and modern tools that the rest of the field copies.',
         readiness:null },
     }},
-    { id:'craft', name:'Execution & Craft', levels:{
-      senior:{ mastery:'Ships polished, detailed work — visuals, interaction, prototypes — with sharp judgment.',
-        readiness:'Coaching others on craft and raising the bar past their own work.' },
-      staff:{ mastery:'Sets the craft bar for a team and makes sure the work is ready to ship.',
-        readiness:'Writing the standards and patterns others follow, and growing the team’s skill.' },
-      principal:{ mastery:'Sets the craft bar for the org and builds the tools and templates that hold it.',
-        readiness:'Changing how the org thinks about quality and keeping it high at scale.' },
-      distinguished:{ mastery:'Defines what great work means here and builds a team known for it.',
-        readiness:null },
-    }},
-    { id:'scale', name:'Design at Scale', levels:{
-      senior:{ mastery:'Builds with the design system — components, tokens, patterns — to ship consistent, accessible work fast.',
-        readiness:'Spotting gaps in the system, flagging them, and helping teammates use it well.' },
-      staff:{ mastery:'Uses the system fluently, knows when to bend it, and gives the systems team useful feedback.',
-        readiness:'Proposing new patterns and helping the systems team shape them.' },
-      principal:{ mastery:'Helps the systems team grow the system and sets how their areas use it well at scale.',
-        readiness:'Shaping where the system goes and the accessibility bar across the org.' },
-      distinguished:{ mastery:'Partners on where the design language goes next and makes accessibility a real edge.',
-        readiness:null },
-    }},
-    { id:'strategy', name:'Design Thinking & Strategy', levels:{
-      senior:{ mastery:'Sees the bigger picture, questions assumptions, and spots needs the brief missed.',
-        readiness:'Leading strategy talks, reframing the problem, and nudging product direction.' },
-      staff:{ mastery:'Owns the strategy for a product area and helps set its direction and roadmap.',
-        readiness:'Setting a vision for the area and shaping how the org takes on hard problems.' },
-      principal:{ mastery:"Sets direction across several product areas and shapes the org's product strategy.",
-        readiness:'Swaying exec strategy and setting direction for the next few years.' },
-      distinguished:{ mastery:'Helps set the company’s direction and spots openings in the market early.',
-        readiness:null },
-    }},
-    { id:'collab', name:'Collaboration & Impact', levels:{
-      senior:{ mastery:'Wins people over without authority, explains the why clearly, and builds trust with eng and product.',
-        readiness:'Coaching others on influence and leading work across teams.' },
-      staff:{ mastery:'Leads work across teams, builds agreement, and handles the org politics.',
+    { id:'communication', name:'Communication & Partnership', levels:{
+      senior:{ mastery:'Seeks input and shares decisions clearly, and defends design rationale written (annotations, docs) and spoken (presentations, critiques) — building trust with eng and product.',
+        readiness:'Influencing without authority — navigating pushback and bringing people along across functions and levels.' },
+      staff:{ mastery:'Leads communication across functions and levels for an area, and brings ops, eng, and business partners into the work on service-level problems.',
         readiness:'Setting how the team works with partners and shaping the culture around design.' },
-      principal:{ mastery:'Shapes how the org works together and sways decisions at the exec level.',
-        readiness:'Moving company culture and coaching other leaders.' },
-      distinguished:{ mastery:'Shapes the company’s culture and how it makes calls at the top.',
+      principal:{ mastery:'Shapes how the org communicates and partners, and sways decisions at the exec level.',
+        readiness:'Moving company culture and coaching other leaders on influence.' },
+      distinguished:{ mastery:'Shapes the company’s culture of partnership and how design shows up at the highest levels.',
+        readiness:null },
+    }},
+    { id:'people', name:'People & Leadership', levels:{
+      senior:{ mastery:'Mentors peers and juniors, shares what they know, and lifts the craft around them — adding to a healthy team culture.',
+        readiness:'Taking on bigger mentoring and starting to shape team norms and culture on purpose.' },
+      staff:{ mastery:'Grows other designers deliberately and shapes team culture. (Managers) Manages and develops a small team.',
+        readiness:'Building how the team grows talent, and developing people toward the next level.' },
+      principal:{ mastery:'Shapes culture across teams and grows leaders. (Managers) Builds and develops strong teams.',
+        readiness:'Setting how the org develops design talent and coaching other leaders.' },
+      distinguished:{ mastery:'Shapes company culture and grows other leaders. (Managers) Builds and develops orgs.',
         readiness:null },
     }},
   ];
@@ -458,13 +448,13 @@
   const standingLevelId = v => LEVELS[v].id;
   const fillPct = v => Math.max(Math.round((v / 3) * 100), 12);  /* always show a bit, even at Senior */
   /* radar geometry */
-  const R_CX = 180, R_CY = 170, R_R = 120, R_BADGE = 143, R_N = 6;
+  const R_CX = 180, R_CY = 170, R_R = 120, R_BADGE = 143, R_N = COMPETENCIES.length;
   const radarRad = v => ((v + 1) / 4) * R_R;
-  const radarAng = i => (-90 + i * 60) * Math.PI / 180;
+  const radarAng = i => (-90 + i * (360 / R_N)) * Math.PI / 180;
   const radarPt = (i, r) => [R_CX + r * Math.cos(radarAng(i)), R_CY + r * Math.sin(radarAng(i))];
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const DEFAULTS = [1, 1, 1, 1, 1, 1];
+  const DEFAULTS = [1, 1, 1, 1, 1];
   let state = { mode:'matrix', focus:null, assess:{ values: DEFAULTS.slice(), name:'' } };
 
   /* -------- Matrix -------- */
@@ -545,7 +535,7 @@
   }
 
   /* ---- radar: rendered once, then tweened ---- */
-  let radarAreaEl = null, radarDotEls = [], radarBadgeEls = [], radarShown = [1,1,1,1,1,1], radarRAF = 0;
+  let radarAreaEl = null, radarDotEls = [], radarBadgeEls = [], radarShown = DEFAULTS.slice(), radarRAF = 0;
 
   function radarShell() {
     const f = n => n.toFixed(1);
@@ -681,7 +671,7 @@
     try {
       const raw = localStorage.getItem('cm-assess');
       if (raw) { const p = JSON.parse(raw);
-        if (Array.isArray(p.values) && p.values.length === 6) state.assess = { values: p.values.map(n => Math.max(0, Math.min(3, n|0))), name: typeof p.name === 'string' ? p.name : '' };
+        if (Array.isArray(p.values) && p.values.length === COMPETENCIES.length) state.assess = { values: p.values.map(n => Math.max(0, Math.min(3, n|0))), name: typeof p.name === 'string' ? p.name : '' };
       }
     } catch (e) {}
   }
