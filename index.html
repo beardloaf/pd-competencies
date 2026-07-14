@@ -258,19 +258,91 @@
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto; } .cs-thumb { animation: none !important; } }
 
+  /* ---- Password gate ---- */
+  .pw-gate { position: fixed; inset: 0; background: var(--bg); z-index: 200; display: grid; place-items: center; padding: 20px; }
+  .pw-gate[hidden] { display: none !important; }
+  body.locked { overflow: hidden; }
+  .pw-card { width: 100%; max-width: 360px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-soft); padding: 30px 30px 26px; }
+  .pw-brand { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, var(--senior), var(--staff) 45%, var(--principal) 75%, var(--distinguished)); margin-bottom: 20px; display: grid; place-items: center; color: #fff; box-shadow: var(--shadow-sm); }
+  .pw-brand svg { width: 20px; height: 20px; }
+  .pw-card h1 { font-size: 19px; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .pw-card .pw-lede { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; }
+  .pw-card input { width: 100%; font-family: inherit; font-size: 14px; padding: 10px 13px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); border-radius: 9px; margin-bottom: 10px; }
+  .pw-card input:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+  .pw-card button { width: 100%; appearance: none; border: none; background: var(--text); color: #fff; font: inherit; font-weight: 600; padding: 11px; border-radius: 9px; cursor: pointer; transition: opacity .15s; }
+  .pw-card button:hover { opacity: .88; }
+  .pw-error { font-size: 12.5px; color: #dc2626; margin-top: 10px; min-height: 1.2em; }
+
+  /* ---- Org Design ---- */
+  .org-layout { display: grid; grid-template-columns: minmax(220px, 260px) 1fr; gap: 36px; align-items: start; }
+  .org-principles { display: flex; flex-direction: column; gap: 20px; position: sticky; top: calc(var(--header-h) + 22px); border-right: 1px solid var(--border); padding-right: 24px; }
+  .op-item b { display: block; font-size: 13px; font-weight: 640; color: var(--text); margin-bottom: 5px; letter-spacing: -0.005em; line-height: 1.35; }
+  .op-item p { font-size: 12.5px; line-height: 1.5; color: var(--text-muted); }
+
+  .org-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .org-grid-wrap { min-width: 0; }
+  .org-grid { display: grid; grid-template-columns: 88px repeat(5, minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; align-items: stretch; }
+  .org-section-rule { grid-column: 1 / -1; height: 0; border-top: 1px solid var(--border-strong); margin: 6px 0 2px; }
+  .org-row-label { font-size: 10.5px; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); padding-top: 14px; align-self: start; line-height: 1.35; }
+  .org-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .org-card { width: 100%; background: #111827; color: #fff; border-radius: 8px; padding: 14px 14px 14px; display: flex; flex-direction: column; align-items: stretch; gap: 12px; text-align: center; overflow: hidden; }
+  .org-card.tbh { background: transparent; color: var(--text); border: 1.5px dashed var(--text); padding: 12.5px 12.5px 12.5px; }
+  .org-card-top { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .org-card-head { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .org-name { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; line-height: 1.15; }
+  .org-area { font-size: 10px; font-weight: 550; letter-spacing: .06em; text-transform: uppercase; opacity: .78; line-height: 1.2; }
+  .org-count { width: 22px; height: 22px; border-radius: 50%; border: 1.4px solid currentColor; display: grid; place-items: center; font-size: 11px; font-weight: 600; }
+  .org-divider { align-self: stretch; height: 0; border-top: 1px solid rgba(255,255,255,.18); margin: 0 -14px; }
+  .org-card.tbh .org-divider { border-top-color: rgba(17,24,39,.16); margin: 0 -12.5px; }
+  .org-areas { font-size: 11.5px; line-height: 1.5; color: rgba(255,255,255,.72); text-align: center; overflow-wrap: normal; display: flex; flex-direction: column; gap: 2px; }
+  .org-card.tbh .org-areas { color: var(--text-muted); }
+  .org-grid.hide-details .org-divider,
+  .org-grid.hide-details .org-areas { display: none; }
+  .org-empty { min-height: 92px; }
+
+  /* Bottom key — anchored footer, only on Org tab */
+  .org-key { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; padding: 14px 26px; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 12.5px; color: var(--text-muted); background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px); border-top: 1px solid var(--border); }
+  .org-key[hidden] { display: none; }
+  .org-key-badge { width: 20px; height: 20px; border-radius: 50%; border: 1.4px solid currentColor; display: inline-grid; place-items: center; font-size: 10.5px; font-weight: 600; color: var(--text); }
+  .org-key b { color: var(--text); font-weight: 600; }
+  #view-org { padding-bottom: 68px; }
+
+  @media (max-width: 1180px) {
+    .org-layout { grid-template-columns: 1fr; gap: 32px; }
+    .org-principles { position: static; border-right: none; padding-right: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+  }
+  @media (max-width: 900px) {
+    .org-grid-wrap { overflow-x: auto; padding-bottom: 8px; }
+    .org-grid { min-width: 940px; }
+  }
+
   /* ---- Print ---- */
   @media print {
-    .app-header, .panel-actions, .toast { display: none !important; }
+    .app-header, .panel-actions, .toast, .pw-gate { display: none !important; }
     body { background: #fff; }
     main { max-width: none; padding: 0; }
     .view[hidden] { display: block !important; }
     .matrix-wrap { overflow: visible; box-shadow: none; }
     .matrix thead th { position: static; }
     .acard, .gcard, .pcard, .radar-card { box-shadow: none; break-inside: avoid; }
+    .org-principles { position: static; max-height: none; overflow: visible; }
   }
   </style>
 </head>
-<body>
+<body class="locked">
+  <div class="pw-gate" id="pw-gate" role="dialog" aria-modal="true" aria-labelledby="pw-title">
+    <form class="pw-card" id="pw-form" autocomplete="off">
+      <div class="pw-brand" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h1 id="pw-title">Enter password</h1>
+      <p class="pw-lede">This site is private.</p>
+      <input id="pw-input" type="password" placeholder="Password" autocomplete="off" autofocus>
+      <button type="submit">Unlock</button>
+      <p class="pw-error" id="pw-error"></p>
+    </form>
+  </div>
+
   <header class="app-header">
     <div class="brand">
       <span class="brand-glyph" aria-hidden="true">
@@ -285,6 +357,7 @@
       <button class="tab" data-action="tab" data-mode="matrix" role="tab" aria-selected="true">Matrix</button>
       <button class="tab" data-action="tab" data-mode="assess" role="tab" aria-selected="false">Self-Assessment</button>
       <button class="tab" data-action="tab" data-mode="guide" role="tab" aria-selected="false">Guide</button>
+      <button class="tab" data-action="tab" data-mode="org" role="tab" aria-selected="false">Org Design</button>
     </nav>
     <div class="header-spacer"></div>
   </header>
@@ -399,7 +472,31 @@
         </div>
       </div>
     </section>
+
+    <!-- Org Design -->
+    <section id="view-org" class="view" role="tabpanel" aria-label="Org design" hidden>
+      <div class="view-intro">
+        <h1>Org Design</h1>
+        <p class="lede">Structure around judgment, not project teams. Each cell is a person, their area, and the number of engineering teams they cover (or designers, for leaders).</p>
+      </div>
+      <div class="org-toolbar">
+        <span class="toolbar-label">Detail</span>
+        <div class="era-toggle" role="group" aria-label="Detail">
+          <button class="era-btn" data-action="orgDetails" data-details="off" aria-pressed="true">Names only</button>
+          <button class="era-btn active" data-action="orgDetails" data-details="on" aria-pressed="false">Show areas</button>
+        </div>
+      </div>
+      <div class="org-layout">
+        <aside class="org-principles" id="org-principles"></aside>
+        <div class="org-grid-wrap"><div id="org-mount"></div></div>
+      </div>
+    </section>
   </main>
+
+  <div class="org-key" id="org-key" hidden>
+    <span class="org-key-badge" aria-hidden="true">3</span>
+    <span><b>Number in the circle</b> = engineering teams a designer supports (or designers a leader manages).</span>
+  </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -548,6 +645,67 @@
 
   const COMPETENCIES = TODAY;
 
+  /* -------- Org Design data --------
+     Five columns. Each column is a leader + a stack of ICs. Share Services live at the bottom row.
+     A card is "tbh" (dashed, unfilled) if the seat is To-Be-Hired or a Backfill.
+     Leader count = number of designers led. IC count = number of engineering teams covered. */
+  const ORG_PRINCIPLES = [
+    { title: 'Hire for judgment, not surface area.',                body: 'Depth beats breadth.' },
+    { title: 'Structure around judgment type, not project teams.',  body: 'Code, experience, business—not feature squads.' },
+    { title: 'Coordination moves to tools, not headcount.',         body: "Don't backfill middle layers with people." },
+    { title: 'Leveling has to name depth explicitly.',              body: 'Otherwise it keeps rewarding breadth by default.' },
+    { title: 'Design collision points on purpose.',                 body: "Collaboration won't happen organically anymore—build it in." },
+  ];
+
+  const ORG = {
+    leaders: [
+      { name:'TBH',   area:'Sr. Manager', count:5, tbh:true },
+      { name:'TBH',   area:'Manager',     count:4, tbh:true },
+      { name:'TBH',   area:'Manager',     count:4, tbh:true },
+      { name:'OJ',    area:'Fintech',     count:5 },
+      { name:'Skoog', area:'Next Gen',    count:6 },
+    ],
+    columns: [
+      [
+        { name:'Camay',    area:'TMC / OBT',  count:3, areas:['Accounts','Reporting','Meta'] },
+        { name:'Katryna',  area:'Trips',      count:3, areas:['Mods','Itinerary','Safety'] },
+        { name:'Led',      area:'Lodging',    count:3, areas:['SRP','PDP','Content'] },
+        { name:'Backfill', area:'Transport',  count:2, tbh:true, areas:['Flights','Cars','Emerging i.e. Uber, etc.'] },
+      ],
+      [
+        { name:'Shirley',  area:'Admin',        count:3, areas:['Approvals','Controls','Roles'] },
+        { name:'Backfill', area:'Integrations', count:3, tbh:true, areas:['Finance','People','Travel'] },
+        { name:'TBH',      area:'Financial',    count:3, tbh:true, areas:['Trends','Payments','Billing'] },
+        { name:'TBH',      area:'Support',      count:3, tbh:true, areas:['Support','Messaging','Chat'] },
+      ],
+      [
+        { name:'Kris',     area:'Events',      count:2, areas:['SRP','Manage'] },
+        { name:'Linz',     area:'Partner Hub', count:3, areas:['Demand','Ad Tech','Tooling'] },
+        { name:'Blanca',   area:'Groups',      count:3, areas:['Shopping','RFP','Comms'] },
+        { name:'Backfill', area:'Spaces',      count:2, tbh:true, areas:['Shopping','Listing'] },
+      ],
+      [
+        { name:'Gabe',     area:'Card',   count:3, areas:['Card Mgmt','Card Holder'] },
+        { name:'Backfill', area:'Card',   count:2, tbh:true, areas:['Issuance','Comms'] },
+        { name:'Backfill', area:'Credit', count:3, tbh:true, areas:['Application','Management','Servicing'] },
+        { name:'TBH',      area:'Subs',   count:2, tbh:true, areas:['Rewards','Subscriptions'] },
+      ],
+      [
+        { name:'Will',     area:'Next Gen', count:2, areas:['Future State','Missing Pieces'] },
+        { name:'Caitlin',  area:'App',     count:2, areas:['All of it'] },
+        { name:'Hayden',   area:'Visual',  count:1, areas:['Atlas 2.0','Polish Layer'] },
+        { name:'McDaniel', area:'Atlas',   count:2, areas:['Plugins','Components','Model'] },
+        { name:'Michelle', area:'AMP',     count:1, areas:['Patterns','Agents'] },
+      ],
+    ],
+    /* col is 0..4 — which of the five columns this person sits under */
+    share: [
+      { col:0, name:'Jon',      area:'PLG',     count:2, areas:['Onboarding','Activation'] },
+      { col:3, name:'Danielle', area:'PLG',     count:2, areas:['Cross-sell','Expansion'] },
+      { col:4, name:'Ashlee',   area:'Content', count:1, areas:['UX Writing','Plugins','Guidelines'] },
+    ],
+  };
+
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
   const $ = sel => document.querySelector(sel);
   const $$ = sel => Array.from(document.querySelectorAll(sel));
@@ -564,7 +722,7 @@
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const DEFAULTS = [1, 1, 1, 1, 1];
-  let state = { mode:'matrix', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' } };
+  let state = { mode:'matrix', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:true } };
 
   /* -------- Matrix -------- */
   function cellInner(cell, nextLabel) {
@@ -623,6 +781,63 @@
   function toggleFocus(levelId) {
     state.focus = state.focus === levelId ? null : levelId;
     applyFocus();
+  }
+
+  /* -------- Org Design -------- */
+  function orgCard(p) {
+    const areas = (p.areas && p.areas.length)
+      ? `<div class="org-divider"></div><div class="org-areas">${p.areas.map(a => `<div>${esc(a)}</div>`).join('')}</div>`
+      : '';
+    return `
+      <div class="org-card${p.tbh ? ' tbh' : ''}">
+        <div class="org-card-top">
+          <div class="org-card-head">
+            <span class="org-name">${esc(p.name)}</span>
+            <span class="org-area">${esc(p.area)}</span>
+          </div>
+          <span class="org-count" aria-label="${p.count}">${p.count}</span>
+        </div>
+        ${areas}
+      </div>`;
+  }
+  function renderOrg() {
+    const grid = ['<div class="org-grid' + (state.org.showDetails ? '' : ' hide-details') + '" id="org-grid">'];
+    /* Leaders row — label + 5 leader cards (no areas) */
+    grid.push('<div class="org-row-label">Leaders</div>');
+    ORG.leaders.forEach(l => grid.push(`<div class="org-col">${orgCard(l)}</div>`));
+    grid.push('<div class="org-section-rule"></div>');
+    /* IC section — label + 5 stacked columns */
+    grid.push('<div class="org-row-label">Individual<br>Contributors</div>');
+    ORG.columns.forEach(col => {
+      let colH = '<div class="org-col">';
+      col.forEach(p => { colH += orgCard(p); });
+      colH += '</div>';
+      grid.push(colH);
+    });
+    grid.push('<div class="org-section-rule"></div>');
+    /* Share Services — label + 5 slots (only some are filled) */
+    grid.push('<div class="org-row-label">Share<br>Services</div>');
+    for (let i = 0; i < 5; i++) {
+      const p = ORG.share.find(s => s.col === i);
+      grid.push(p ? `<div class="org-col">${orgCard(p)}</div>` : '<div class="org-col"></div>');
+    }
+    grid.push('</div>');
+    $('#org-mount').innerHTML = grid.join('');
+
+    $('#org-principles').innerHTML = ORG_PRINCIPLES.map(p =>
+      `<div class="op-item"><b>${esc(p.title)}</b><p>${esc(p.body)}</p></div>`
+    ).join('');
+  }
+  function setOrgDetails(on) {
+    state.org.showDetails = !!on;
+    try { localStorage.setItem('cm-org-details', on ? '1' : '0'); } catch (e) {}
+    $$('.era-btn[data-action="orgDetails"]').forEach(b => {
+      const active = (b.dataset.details === 'on') === on;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', String(active));
+    });
+    const g = $('#org-grid');
+    if (g) g.classList.toggle('hide-details', !on);
   }
 
   /* -------- Assessment -------- */
@@ -827,15 +1042,17 @@
   }
 
   /* -------- Modes -------- */
+  const MODES = ['matrix','assess','guide','org'];
   function setMode(mode) {
     if (state.focus) { state.focus = null; applyFocus(); }
     state.mode = mode;
-    ['matrix','assess','guide'].forEach(m => {
+    MODES.forEach(m => {
       $('#view-'+m).hidden = m !== mode;
       const tab = $(`.tab[data-mode="${m}"]`);
       tab.classList.toggle('active', m === mode);
       tab.setAttribute('aria-selected', String(m === mode));
     });
+    $('#org-key').hidden = mode !== 'org';
     try { localStorage.setItem('cm-mode', mode); } catch (e) {}
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
@@ -854,6 +1071,7 @@
     if (a === 'staffTierToggle') return setStaffTier(state.staffTier === 1 ? 2 : 1);
     if (a === 'focus') return toggleFocus(actionEl.dataset.level);
     if (a === 'reset') { state.assess = { values: DEFAULTS.slice(), name:'' }; saveAssess(); buildAssess(); return toast('Assessment reset'); }
+    if (a === 'orgDetails') return setOrgDetails(actionEl.dataset.details === 'on');
   });
 
   document.addEventListener('input', e => {
@@ -894,17 +1112,47 @@
     if (ch && !e.target.closest('.staff-toggle') && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); toggleFocus(ch.dataset.level); }
   });
 
+  /* -------- Password gate -------- */
+  const PW = 'chowder';
+  function gateInit() {
+    const gate = $('#pw-gate');
+    let authed = false;
+    try { authed = sessionStorage.getItem('cm-auth') === '1'; } catch (e) {}
+    if (authed) { gate.hidden = true; document.body.classList.remove('locked'); return true; }
+    const form = $('#pw-form'), input = $('#pw-input'), err = $('#pw-error');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (input.value === PW) {
+        try { sessionStorage.setItem('cm-auth', '1'); } catch (_) {}
+        gate.hidden = true;
+        document.body.classList.remove('locked');
+        input.value = '';
+        err.textContent = '';
+      } else {
+        err.textContent = 'Incorrect password';
+        input.select();
+      }
+    });
+    input.addEventListener('input', () => { err.textContent = ''; });
+    setTimeout(() => input.focus(), 30);
+    return false;
+  }
+
   /* -------- Init -------- */
   function init() {
+    gateInit();
     try { state.era = localStorage.getItem('cm-era') === 'future' ? 'future' : 'today'; } catch (e) {}
     try { state.staffTier = localStorage.getItem('cm-staff') === '2' ? 2 : 1; } catch (e) {}
+    try { state.org.showDetails = localStorage.getItem('cm-org-details') !== '0'; } catch (e) {}
     renderMatrix();
     syncEra();
     loadAssess();
     buildAssess();
+    renderOrg();
+    setOrgDetails(state.org.showDetails);
     let mode = 'matrix';
     try { mode = localStorage.getItem('cm-mode') || 'matrix'; } catch (e) {}
-    setMode(['matrix','assess','guide'].includes(mode) ? mode : 'matrix');
+    setMode(MODES.includes(mode) ? mode : 'matrix');
   }
   if (document.readyState !== 'loading') init();
   else document.addEventListener('DOMContentLoaded', init);
