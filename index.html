@@ -282,27 +282,26 @@
   .op-key-badge { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 1.4px solid var(--text); display: inline-grid; place-items: center; font-size: 11px; font-weight: 600; color: var(--text); margin-top: -2px; }
   .op-key b { color: var(--text); font-weight: 600; }
 
-  .org-intro-band { display: grid; grid-template-columns: minmax(220px, 260px) 1fr; gap: 36px; align-items: end; margin-bottom: 22px; }
-  .oib-left { display: flex; flex-direction: column; gap: 12px; }
-  .oib-left h1 { font-size: 27px; letter-spacing: -0.026em; line-height: 1.1; margin: 0; }
+  .org-intro-band { display: grid; grid-template-columns: minmax(220px, 260px) 1fr; gap: 36px; align-items: end; margin-bottom: 12px; }
+  .org-intro-band > h1 { font-size: 27px; letter-spacing: -0.026em; line-height: 1.1; margin: 0; }
   .oib-titles { display: grid; grid-template-columns: 88px repeat(5, minmax(0, 1fr)); column-gap: 12px; align-items: end; }
-  .org-toolbar { display: flex; align-items: center; gap: 12px; }
-  .org-name--level { font-size: 11px; letter-spacing: .02em; text-transform: none; line-height: 1.25; }
+  .org-page-divider { position: relative; height: 1px; background: var(--border-strong); width: 100vw; left: 50%; transform: translateX(-50%); margin: 6px 0 22px; }
   .org-grid-wrap { min-width: 0; }
   .org-grid { display: grid; grid-template-columns: 96px repeat(5, minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; align-items: stretch; }
   .org-section-rule { grid-column: 1 / -1; height: 0; border-top: 1px solid var(--border-strong); margin: 6px 0 2px; }
   .org-row-label { font-size: 10.5px; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); padding-top: 14px; align-self: start; line-height: 1.35; }
   .org-col-title { font-size: 22px; font-weight: 640; letter-spacing: -0.02em; color: var(--text); line-height: 1.15; padding: 0 4px; }
   .org-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-  .org-card { width: 100%; background: #111827; color: #fff; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; align-items: stretch; text-align: center; overflow: hidden; cursor: pointer; transition: background-color .2s ease, transform .2s ease; }
+  .org-card { width: 100%; background: #111827; color: #fff; border-radius: 8px; padding: 12px 12px 14px; display: flex; flex-direction: column; align-items: stretch; text-align: center; overflow: hidden; cursor: pointer; transition: background-color .2s ease, transform .2s ease; }
   .org-card:hover { background-color: #1f2937; }
-  .org-card.tbh { background: transparent; color: var(--text); border: 1.5px dashed var(--text); padding: 12.5px; }
+  .org-card.tbh { background: transparent; color: var(--text); border: 1.5px dashed var(--text); padding: 10.5px 10.5px 12.5px; }
   .org-card.tbh:hover { background-color: color-mix(in srgb, var(--text) 4%, transparent); }
-  .org-card-top { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-  .org-card-head { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-  .org-name { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; line-height: 1.15; }
-  .org-area { font-size: 10px; font-weight: 550; letter-spacing: .06em; text-transform: uppercase; opacity: .78; line-height: 1.2; }
-  .org-count { width: 22px; height: 22px; border-radius: 50%; border: 1.4px solid currentColor; display: grid; place-items: center; font-size: 11px; font-weight: 600; }
+  .org-card-top { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+  .org-card-corners { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+  .org-area { font-size: 9.5px; font-weight: 550; letter-spacing: .06em; text-transform: uppercase; opacity: .72; line-height: 1.2; text-align: left; }
+  .org-level { font-size: 9.5px; font-weight: 620; letter-spacing: .04em; text-transform: uppercase; opacity: .72; line-height: 1.2; text-align: right; }
+  .org-name { font-size: 17px; font-weight: 700; letter-spacing: .01em; text-transform: uppercase; line-height: 1.15; align-self: center; padding: 2px 4px 0; }
+  .org-count { align-self: center; width: 22px; height: 22px; border-radius: 50%; border: 1.4px solid currentColor; display: grid; place-items: center; font-size: 11px; font-weight: 600; margin-top: 4px; }
   .org-card-details {
     border-top: 1px solid rgba(255,255,255,.18);
     margin: 12px -14px 0;
@@ -526,16 +525,7 @@
     <!-- Org Design -->
     <section id="view-org" class="view" role="tabpanel" aria-label="Org design" hidden>
       <div class="org-intro-band">
-        <div class="oib-left">
-          <h1>Org Design</h1>
-          <div class="org-toolbar">
-            <span class="toolbar-label">View by</span>
-            <div class="era-toggle" role="group" aria-label="View by">
-              <button class="era-btn active" data-action="orgView" data-view="person" aria-pressed="true">Person</button>
-              <button class="era-btn"        data-action="orgView" data-view="level"  aria-pressed="false">Level</button>
-            </div>
-          </div>
-        </div>
+        <h1>Org Design</h1>
         <div class="oib-titles">
           <div class="oib-label-spacer"></div>
           <div class="org-col-title">Travel</div>
@@ -545,6 +535,7 @@
           <div class="org-col-title">Next Gen</div>
         </div>
       </div>
+      <div class="org-page-divider" aria-hidden="true"></div>
       <div class="org-layout">
         <aside class="org-principles" id="org-principles"></aside>
         <div class="org-grid-wrap"><div id="org-mount"></div></div>
@@ -863,7 +854,7 @@
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const DEFAULTS = [1, 1, 1, 1, 1];
-  let state = { mode:'org', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:false, view:'person' } };
+  let state = { mode:'org', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:false } };
 
   /* -------- Matrix -------- */
   function cellInner(cell, nextLabel) {
@@ -929,17 +920,15 @@
     const details = (p.areas && p.areas.length)
       ? `<div class="org-card-details"><div class="org-areas">${p.areas.map(a => `<div>${esc(a)}</div>`).join('')}</div></div>`
       : '';
-    const isLevel = state.org.view === 'level';
-    const topText    = isLevel ? (p.level && p.level.code  || '—') : p.area;
-    const bottomText = isLevel ? (p.level && p.level.title || '')   : p.name;
-    const bottomClass = isLevel ? 'org-name org-name--level' : 'org-name';
+    const level = p.level && p.level.code ? esc(p.level.code) : '';
     return `
       <div class="org-card${p.tbh ? ' tbh' : ''}" data-action="cardToggle" role="button" tabindex="0" aria-label="${esc(p.name)} ${esc(p.area)}, ${p.count}. Click to toggle areas.">
         <div class="org-card-top">
-          <div class="org-card-head">
-            <span class="org-area">${esc(topText)}</span>
-            <span class="${bottomClass}">${esc(bottomText)}</span>
+          <div class="org-card-corners">
+            <span class="org-area">${esc(p.area)}</span>
+            <span class="org-level">${level}</span>
           </div>
+          <span class="org-name">${esc(p.name)}</span>
           <span class="org-count" aria-hidden="true">${p.count}</span>
         </div>
         ${details}
@@ -948,7 +937,6 @@
   function renderOrg() {
     const grid = ['<div class="org-grid' + (state.org.showDetails ? '' : ' hide-details') + '" id="org-grid">'];
     /* Leaders row — label + 5 leader cards (no areas) */
-    grid.push('<div class="org-section-rule"></div>');
     grid.push('<div class="org-row-label">Leaders</div>');
     ORG.leaders.forEach(l => grid.push(`<div class="org-col">${orgCard(l)}</div>`));
     grid.push('<div class="org-section-rule"></div>');
@@ -985,16 +973,6 @@
     if (g) g.classList.toggle('hide-details', !on);
   }
   function toggleOrgDetails() { setOrgDetails(!state.org.showDetails); }
-  function setOrgView(view) {
-    state.org.view = view === 'level' ? 'level' : 'person';
-    try { localStorage.setItem('cm-org-view', state.org.view); } catch (e) {}
-    $$('.era-btn[data-action="orgView"]').forEach(b => {
-      const active = b.dataset.view === state.org.view;
-      b.classList.toggle('active', active);
-      b.setAttribute('aria-pressed', String(active));
-    });
-    renderOrg();
-  }
 
   /* -------- Assessment -------- */
   function renderSliders() {
@@ -1227,7 +1205,6 @@
     if (a === 'focus') return toggleFocus(actionEl.dataset.level);
     if (a === 'reset') { state.assess = { values: DEFAULTS.slice(), name:'' }; saveAssess(); buildAssess(); return toast('Assessment reset'); }
     if (a === 'cardToggle') return toggleOrgDetails();
-    if (a === 'orgView') return setOrgView(actionEl.dataset.view);
   });
 
   document.addEventListener('input', e => {
@@ -1302,14 +1279,12 @@
     try { state.era = localStorage.getItem('cm-era') === 'future' ? 'future' : 'today'; } catch (e) {}
     try { state.staffTier = localStorage.getItem('cm-staff') === '2' ? 2 : 1; } catch (e) {}
     try { state.org.showDetails = localStorage.getItem('cm-org-details') === '1'; } catch (e) {}
-    try { state.org.view = localStorage.getItem('cm-org-view') === 'level' ? 'level' : 'person'; } catch (e) {}
     renderMatrix();
     syncEra();
     loadAssess();
     buildAssess();
     renderOrg();
     setOrgDetails(state.org.showDetails);
-    setOrgView(state.org.view);
     let mode = 'org';
     try { mode = localStorage.getItem('cm-mode') || 'org'; } catch (e) {}
     setMode(MODES.includes(mode) ? mode : 'org');
