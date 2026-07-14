@@ -326,6 +326,15 @@
   .pf-title { font-size: 56px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.05; color: var(--text); max-width: 640px; }
   .pf-diagram { width: 100%; }
   .pf-diagram svg { width: 100%; height: auto; display: block; }
+  .pf-reverb { transform-box: fill-box; transform-origin: center; animation: pf-reverb 3.2s cubic-bezier(.2,.5,.3,1) infinite; }
+  .pf-reverb-1 { animation-delay: 0s; }
+  .pf-reverb-2 { animation-delay: 1.07s; }
+  .pf-reverb-3 { animation-delay: 2.13s; }
+  @keyframes pf-reverb {
+    0%   { transform: scale(1);    opacity: .5; }
+    100% { transform: scale(1.5);  opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .pf-reverb { animation: none !important; opacity: 0 !important; } }
   .pf-insights { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; padding-top: 36px; border-top: 1px solid var(--border); }
   .pf-col { display: flex; flex-direction: column; min-width: 0; }
   .pf-col h3 { font-size: 15px; font-weight: 640; letter-spacing: -0.01em; color: var(--text); margin-bottom: 16px; line-height: 1.32; min-height: 4em; }
@@ -549,7 +558,7 @@
         <div class="pf-diagram" aria-hidden="true">
           <svg viewBox="0 0 700 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Designers now hold deeper ground rather than wider surface area">
             <!-- Left: horizontal spread — one PD across every area -->
-            <rect x="10" y="30" width="290" height="400" rx="10" fill="#f4f5f7"/>
+            <rect x="10" y="30" width="290" height="400" rx="10" fill="#fef2f2"/>
             <!-- Row 1: PM -->
             <rect x="30" y="60" width="70" height="90" rx="4" fill="#e5e7eb"/>
             <text x="65" y="112" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#b6bcc4">PM</text>
@@ -577,7 +586,7 @@
             <text x="365" y="235" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="500" fill="#5a6373">vs.</text>
 
             <!-- Right: vertical stack — one PD going deeper -->
-            <rect x="420" y="30" width="240" height="400" rx="10" fill="#f4f5f7"/>
+            <rect x="420" y="30" width="240" height="400" rx="10" fill="#eff6ff"/>
             <!-- PM cell -->
             <rect x="500" y="70" width="80" height="86" rx="4" fill="#ffffff" stroke="#111827" stroke-width="1.6"/>
             <text x="540" y="120" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#111827">PM</text>
@@ -590,6 +599,10 @@
             <!-- Halos: yellow around PM, green around EM, blue around PD (extends up and down) -->
             <rect x="488" y="50" width="104" height="126" rx="7" fill="none" stroke="#f59e0b" stroke-width="2.2" stroke-dasharray="3.5 3.5"/>
             <rect x="488" y="284" width="104" height="126" rx="7" fill="none" stroke="#10b981" stroke-width="2.2" stroke-dasharray="3.5 3.5"/>
+            <!-- Reverb echoes emanating from the blue PD halo -->
+            <rect class="pf-reverb pf-reverb-1" x="488" y="120" width="104" height="220" rx="7" fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-dasharray="3.5 3.5"/>
+            <rect class="pf-reverb pf-reverb-2" x="488" y="120" width="104" height="220" rx="7" fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-dasharray="3.5 3.5"/>
+            <rect class="pf-reverb pf-reverb-3" x="488" y="120" width="104" height="220" rx="7" fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-dasharray="3.5 3.5"/>
             <rect x="488" y="120" width="104" height="220" rx="7" fill="none" stroke="#3b82f6" stroke-width="2.2" stroke-dasharray="3.5 3.5"/>
           </svg>
         </div>
