@@ -278,16 +278,21 @@
   .org-principles { display: flex; flex-direction: column; gap: 20px; position: sticky; top: calc(var(--header-h) + 22px); border-right: 1px solid var(--border); padding-right: 24px; }
   .op-item b { display: block; font-size: 13px; font-weight: 640; color: var(--text); margin-bottom: 5px; letter-spacing: -0.005em; line-height: 1.35; }
   .op-item p { font-size: 12.5px; line-height: 1.5; color: var(--text-muted); }
+  .op-key { display: flex; align-items: flex-start; gap: 10px; margin-top: 4px; padding-top: 18px; border-top: 1px solid var(--border); font-size: 12px; line-height: 1.5; color: var(--text-muted); }
+  .op-key-badge { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 1.4px solid var(--text); display: inline-grid; place-items: center; font-size: 11px; font-weight: 600; color: var(--text); margin-top: -2px; }
+  .op-key b { color: var(--text); font-weight: 600; }
 
-  .org-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-  .org-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .org-intro-band { display: grid; grid-template-columns: minmax(220px, 260px) 1fr; gap: 36px; align-items: end; margin-bottom: 22px; }
+  .oib-left { display: flex; flex-direction: column; gap: 12px; }
+  .oib-left h1 { font-size: 27px; letter-spacing: -0.026em; line-height: 1.1; margin: 0; }
+  .oib-titles { display: grid; grid-template-columns: 88px repeat(5, minmax(0, 1fr)); column-gap: 12px; align-items: end; }
+  .org-toolbar { display: flex; align-items: center; gap: 12px; }
   .org-name--level { font-size: 11px; letter-spacing: .02em; text-transform: none; line-height: 1.25; }
   .org-grid-wrap { min-width: 0; }
   .org-grid { display: grid; grid-template-columns: 96px repeat(5, minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; align-items: stretch; }
   .org-section-rule { grid-column: 1 / -1; height: 0; border-top: 1px solid var(--border-strong); margin: 6px 0 2px; }
   .org-row-label { font-size: 10.5px; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); padding-top: 14px; align-self: start; line-height: 1.35; }
-  .org-col-eyebrow { font-size: 10.5px; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); padding-top: 12px; align-self: start; line-height: 1.35; }
-  .org-col-title { font-size: 22px; font-weight: 640; letter-spacing: -0.02em; color: var(--text); padding: 4px 4px 10px; line-height: 1.15; }
+  .org-col-title { font-size: 22px; font-weight: 640; letter-spacing: -0.02em; color: var(--text); line-height: 1.15; padding: 0 4px; }
   .org-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
   .org-card { width: 100%; background: #111827; color: #fff; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; align-items: stretch; text-align: center; overflow: hidden; cursor: pointer; transition: background-color .2s ease, transform .2s ease; }
   .org-card:hover { background-color: #1f2937; }
@@ -312,32 +317,32 @@
     max-height: 0; opacity: 0; margin-top: 0; padding-top: 0; padding-bottom: 0; border-top-color: transparent;
     transition: max-height .32s cubic-bezier(.4,0,.2,1), opacity .18s ease, margin-top .32s cubic-bezier(.4,0,.2,1), padding-top .32s cubic-bezier(.4,0,.2,1), padding-bottom .32s cubic-bezier(.4,0,.2,1), border-color .18s ease;
   }
-  .org-areas { font-size: 11.5px; line-height: 1.5; color: rgba(255,255,255,.72); text-align: center; overflow-wrap: normal; display: flex; flex-direction: column; gap: 2px; }
+  .org-areas { font-size: 11.5px; line-height: 1.5; color: rgba(255,255,255,.72); text-align: center; overflow-wrap: normal; display: flex; flex-direction: column; gap: 2px; min-height: calc(1.5em * 3 + 4px); }
   .org-card.tbh .org-areas { color: var(--text-muted); }
   .org-empty { min-height: 92px; }
 
   /* ---- Profile ---- */
-  .pf-topbar { display: flex; justify-content: space-between; align-items: center; padding: 4px 0 44px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); }
-  .pf-hero { display: grid; grid-template-columns: 1fr 620px; gap: 60px; align-items: center; margin-bottom: 64px; }
+  .pf-hero { display: grid; grid-template-columns: 1fr 620px; gap: 60px; align-items: center; margin: 12px 0 64px; }
   .pf-title { font-size: 56px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.05; color: var(--text); max-width: 640px; }
   .pf-diagram { width: 100%; }
   .pf-diagram svg { width: 100%; height: auto; display: block; }
   .pf-insights { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; padding-top: 36px; border-top: 1px solid var(--border); }
   .pf-col { display: flex; flex-direction: column; min-width: 0; }
-  .pf-col h3 { font-size: 15px; font-weight: 640; letter-spacing: -0.01em; color: var(--text); margin-bottom: 16px; line-height: 1.32; }
+  .pf-col h3 { font-size: 15px; font-weight: 640; letter-spacing: -0.01em; color: var(--text); margin-bottom: 16px; line-height: 1.32; min-height: 4em; }
   .pf-col p { font-size: 13px; line-height: 1.55; color: var(--text-muted); margin-bottom: 22px; }
+  .pf-col > p:not(.pf-stat) { min-height: 9.8em; }
   .pf-col p:last-child { margin-bottom: 0; }
-  .pf-stat { font-size: 13px; font-weight: 620; color: var(--text) !important; line-height: 1.5; padding-top: 20px; border-top: 1px solid var(--border); margin-top: auto; }
+  .pf-stat { font-size: 13px; font-weight: 620; color: var(--text) !important; line-height: 1.5; padding-top: 20px; border-top: 1px solid var(--border); }
 
   @media (max-width: 1200px) {
     .pf-hero { grid-template-columns: 1fr; gap: 36px; }
     .pf-title { font-size: 44px; max-width: none; }
     .pf-insights { grid-template-columns: repeat(2, 1fr); row-gap: 32px; }
+    .pf-col h3, .pf-col > p:not(.pf-stat) { min-height: 0; }
   }
   @media (max-width: 640px) {
     .pf-title { font-size: 32px; }
     .pf-insights { grid-template-columns: 1fr; }
-    .pf-topbar { flex-wrap: wrap; gap: 8px; }
   }
 
   @media (max-width: 1180px) {
@@ -511,14 +516,24 @@
 
     <!-- Org Design -->
     <section id="view-org" class="view" role="tabpanel" aria-label="Org design" hidden>
-      <div class="view-intro org-intro">
-        <h1>Org Design</h1>
-        <div class="org-toolbar">
-          <span class="toolbar-label">View by</span>
-          <div class="era-toggle" role="group" aria-label="View by">
-            <button class="era-btn active" data-action="orgView" data-view="person" aria-pressed="true">Person</button>
-            <button class="era-btn"        data-action="orgView" data-view="level"  aria-pressed="false">Level</button>
+      <div class="org-intro-band">
+        <div class="oib-left">
+          <h1>Org Design</h1>
+          <div class="org-toolbar">
+            <span class="toolbar-label">View by</span>
+            <div class="era-toggle" role="group" aria-label="View by">
+              <button class="era-btn active" data-action="orgView" data-view="person" aria-pressed="true">Person</button>
+              <button class="era-btn"        data-action="orgView" data-view="level"  aria-pressed="false">Level</button>
+            </div>
           </div>
+        </div>
+        <div class="oib-titles">
+          <div class="oib-label-spacer"></div>
+          <div class="org-col-title">Travel</div>
+          <div class="org-col-title">Travel Management</div>
+          <div class="org-col-title">Marketplaces</div>
+          <div class="org-col-title">Fintech</div>
+          <div class="org-col-title">Next Gen</div>
         </div>
       </div>
       <div class="org-layout">
@@ -529,11 +544,6 @@
 
     <!-- Profile -->
     <section id="view-profile" class="view" role="tabpanel" aria-label="Profile" hidden>
-      <div class="pf-topbar">
-        <span>Jul 10, 2026</span>
-        <span>The Missing Role</span>
-        <span>5 / 6</span>
-      </div>
       <div class="pf-hero">
         <h1 class="pf-title">AI-native designers go deeper, not wider.</h1>
         <div class="pf-diagram" aria-hidden="true">
@@ -596,7 +606,7 @@
           <p class="pf-stat">Designers are now running 2x as many AI tools as they were in 2025.</p>
         </div>
         <div class="pf-col">
-          <h3>Designers (65%) are picking up more xfn work than PMs and EMs (40%).</h3>
+          <h3>Designers (65%) pick up more xfn work than PMs and EMs (40%).</h3>
           <p>Absorbing roles isn't one-directional, but it's not equal either. Designers absorb PM and EM work faster and it's been trending this way since before AI.</p>
           <p class="pf-stat">New hybrid titles (designer engineer, builder) are showing up across job boards.</p>
         </div>
@@ -924,11 +934,8 @@
   }
   function renderOrg() {
     const grid = ['<div class="org-grid' + (state.org.showDetails ? '' : ' hide-details') + '" id="org-grid">'];
-    /* Column titles row */
-    grid.push('<div></div>');
-    ORG_COL_TITLES.forEach(t => grid.push(`<div class="org-col-title">${esc(t)}</div>`));
-    grid.push('<div class="org-section-rule"></div>');
     /* Leaders row — label + 5 leader cards (no areas) */
+    grid.push('<div class="org-section-rule"></div>');
     grid.push('<div class="org-row-label">Leaders</div>');
     ORG.leaders.forEach(l => grid.push(`<div class="org-col">${orgCard(l)}</div>`));
     grid.push('<div class="org-section-rule"></div>');
@@ -952,7 +959,11 @@
 
     $('#org-principles').innerHTML = ORG_PRINCIPLES.map(p =>
       `<div class="op-item"><b>${esc(p.title)}</b><p>${esc(p.body)}</p></div>`
-    ).join('');
+    ).join('') + `
+      <div class="op-key">
+        <span class="op-key-badge" aria-hidden="true">3</span>
+        <span><b>Number in the circle</b> = engineering teams a designer supports (or designers a leader manages).</span>
+      </div>`;
   }
   function setOrgDetails(on) {
     state.org.showDetails = !!on;
