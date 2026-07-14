@@ -279,6 +279,9 @@
   .op-item b { display: block; font-size: 13px; font-weight: 640; color: var(--text); margin-bottom: 5px; letter-spacing: -0.005em; line-height: 1.35; }
   .op-item p { font-size: 12.5px; line-height: 1.5; color: var(--text-muted); }
 
+  .org-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .org-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .org-name--level { font-size: 11px; letter-spacing: .02em; text-transform: none; line-height: 1.25; }
   .org-grid-wrap { min-width: 0; }
   .org-grid { display: grid; grid-template-columns: 96px repeat(5, minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; align-items: stretch; }
   .org-section-rule { grid-column: 1 / -1; height: 0; border-top: 1px solid var(--border-strong); margin: 6px 0 2px; }
@@ -508,8 +511,15 @@
 
     <!-- Org Design -->
     <section id="view-org" class="view" role="tabpanel" aria-label="Org design" hidden>
-      <div class="view-intro">
+      <div class="view-intro org-intro">
         <h1>Org Design</h1>
+        <div class="org-toolbar">
+          <span class="toolbar-label">View by</span>
+          <div class="era-toggle" role="group" aria-label="View by">
+            <button class="era-btn active" data-action="orgView" data-view="person" aria-pressed="true">Person</button>
+            <button class="era-btn"        data-action="orgView" data-view="level"  aria-pressed="false">Level</button>
+          </div>
+        </div>
       </div>
       <div class="org-layout">
         <aside class="org-principles" id="org-principles"></aside>
@@ -767,50 +777,50 @@
 
   const ORG = {
     leaders: [
-      { name:'TBH',   area:'Sr. Manager', count:5, tbh:true },
-      { name:'TBH',   area:'Manager',     count:4, tbh:true },
-      { name:'TBH',   area:'Manager',     count:4, tbh:true },
-      { name:'OJ',    area:'Fintech',     count:5 },
-      { name:'Skoog', area:'Next Gen',    count:6 },
+      { name:'TBH',   area:'Group Manager', count:5, tbh:true, level:{ code:'M5', title:'Group Design Manager' } },
+      { name:'TBH',   area:'Manager',       count:4, tbh:true, level:{ code:'M4', title:'Design Manager' } },
+      { name:'TBH',   area:'Manager',       count:4, tbh:true, level:{ code:'M4', title:'Design Manager' } },
+      { name:'OJ',    area:'Fintech',       count:5,           level:{ code:'M6', title:'Sr. Design Director' } },
+      { name:'Skoog', area:'Next Gen',      count:6,           level:{ code:'M5', title:'Design Director' } },
     ],
     columns: [
       [
-        { name:'Camay',    area:'TMC / OBT',  count:3, areas:['Accounts','Reporting','Meta'] },
-        { name:'Katryna',  area:'Trips',      count:3, areas:['Mods','Itinerary','Safety'] },
-        { name:'Led',      area:'Lodging',    count:3, areas:['SRP','PDP','Content'] },
-        { name:'Backfill', area:'Transport',  count:2, tbh:true, areas:['Flights','Cars','Emerging i.e. Uber, etc.'] },
+        { name:'Camay',    area:'TMC / OBT',  count:3, areas:['Accounts','Reporting','Meta'],               level:{ code:'L4B', title:'Sr. Staff Designer' } },
+        { name:'Katryna',  area:'Trips',      count:3, areas:['Mods','Itinerary','Safety'],                 level:{ code:'L4B', title:'Sr. Staff Designer' } },
+        { name:'Led',      area:'Lodging',    count:3, areas:['SRP','PDP','Content'],                       level:{ code:'L4A', title:'Staff Designer' } },
+        { name:'Backfill', area:'Transport',  count:2, tbh:true, areas:['Flights','Cars','Emerging i.e. Uber, etc.'], level:{ code:'L3', title:'Senior Designer' } },
       ],
       [
-        { name:'Shirley',  area:'Admin',        count:3, areas:['Approvals','Controls','Roles'] },
-        { name:'Backfill', area:'Integrations', count:3, tbh:true, areas:['Finance','People','Travel'] },
-        { name:'TBH',      area:'Financial',    count:3, tbh:true, areas:['Trends','Payments','Billing'] },
-        { name:'TBH',      area:'Support',      count:3, tbh:true, areas:['Support','Messaging','Chat'] },
+        { name:'Shirley',  area:'Admin',        count:3, areas:['Approvals','Controls','Roles'],       level:{ code:'L4A', title:'Staff Designer' } },
+        { name:'Backfill', area:'Integrations', count:3, tbh:true, areas:['Finance','People','Travel'], level:{ code:'L3',  title:'Senior Designer' } },
+        { name:'TBH',      area:'Financial',    count:3, tbh:true, areas:['Trends','Payments','Billing'], level:{ code:'L3', title:'Senior Designer' } },
+        { name:'TBH',      area:'Support',      count:3, tbh:true, areas:['Support','Messaging','Chat'],   level:{ code:'L3', title:'Senior Designer' } },
       ],
       [
-        { name:'Kris',     area:'Events',      count:2, areas:['SRP','Manage'] },
-        { name:'Linz',     area:'Partner Hub', count:3, areas:['Demand','Ad Tech','Tooling'] },
-        { name:'Blanca',   area:'Groups',      count:3, areas:['Shopping','RFP','Comms'] },
-        { name:'Backfill', area:'Spaces',      count:2, tbh:true, areas:['Shopping','Listing'] },
+        { name:'Kris',     area:'Events',      count:2, areas:['SRP','Manage'],           level:{ code:'L5',  title:'Principal Designer' } },
+        { name:'Linz',     area:'Partner Hub', count:3, areas:['Demand','Ad Tech','Tooling'], level:{ code:'L4', title:'Staff Designer' } },
+        { name:'Blanca',   area:'Groups',      count:3, areas:['Shopping','RFP','Comms'], level:{ code:'L4',  title:'Staff Designer' } },
+        { name:'Backfill', area:'Spaces',      count:2, tbh:true, areas:['Shopping','Listing'], level:{ code:'L3', title:'Senior Designer' } },
       ],
       [
-        { name:'Gabe',     area:'Card',   count:3, areas:['Card Mgmt','Card Holder'] },
-        { name:'Backfill', area:'Card',   count:2, tbh:true, areas:['Issuance','Comms'] },
-        { name:'Backfill', area:'Credit', count:3, tbh:true, areas:['Application','Management','Servicing'] },
-        { name:'TBH',      area:'Subs',   count:2, tbh:true, areas:['Rewards','Subscriptions'] },
+        { name:'Gabe',     area:'Card',   count:3, areas:['Card Mgmt','Card Holder'],               level:{ code:'L4B', title:'Sr. Staff Designer' } },
+        { name:'Backfill', area:'Card',   count:2, tbh:true, areas:['Issuance','Comms'],           level:{ code:'L5',  title:'Principal Designer' } },
+        { name:'Backfill', area:'Credit', count:3, tbh:true, areas:['Application','Management','Servicing'], level:{ code:'L3', title:'Senior Designer' } },
+        { name:'TBH',      area:'Subs',   count:2, tbh:true, areas:['Rewards','Subscriptions'],    level:{ code:'L3', title:'Senior Designer' } },
       ],
       [
-        { name:'Will',     area:'Next Gen', count:2, areas:['Future State','Missing Pieces'] },
-        { name:'Caitlin',  area:'App',     count:2, areas:['All of it'] },
-        { name:'Hayden',   area:'Visual',  count:1, areas:['Atlas 2.0','Polish Layer'] },
-        { name:'McDaniel', area:'Atlas',   count:2, areas:['Plugins','Components','Model'] },
-        { name:'Michelle', area:'AMP',     count:1, areas:['Patterns','Agents'] },
+        { name:'Will',     area:'Next Gen', count:2, areas:['Future State','Missing Pieces'], level:{ code:'L4A', title:'Staff Designer' } },
+        { name:'Caitlin',  area:'App',      count:2, areas:['All of it'],                     level:{ code:'L4B', title:'Sr. Staff Designer' } },
+        { name:'Hayden',   area:'Visual',   count:1, areas:['Atlas 2.0','Polish Layer'],      level:{ code:'L4A', title:'Staff Designer' } },
+        { name:'McDaniel', area:'Atlas',    count:2, areas:['Plugins','Components','Model'],  level:{ code:'L5',  title:'Principal Designer' } },
+        { name:'Michelle', area:'AMP',      count:1, areas:['Patterns','Agents'],             level:{ code:'L4A', title:'Staff Designer' } },
       ],
     ],
     /* col is 0..4 — which of the five columns this person sits under */
     share: [
-      { col:0, name:'Jon',      area:'PLG',     count:2, areas:['Onboarding','Activation'] },
-      { col:3, name:'Danielle', area:'PLG',     count:2, areas:['Cross-sell','Expansion'] },
-      { col:4, name:'Ashlee',   area:'Content', count:1, areas:['UX Writing','Plugins','Guidelines'] },
+      { col:0, name:'Jon',      area:'PLG',     count:2, areas:['Onboarding','Activation'],           level:{ code:'L4A', title:'Staff Designer' } },
+      { col:3, name:'Danielle', area:'PLG',     count:2, areas:['Cross-sell','Expansion'],           level:{ code:'L4A', title:'Staff Designer' } },
+      { col:4, name:'Ashlee',   area:'Content', count:1, areas:['UX Writing','Plugins','Guidelines'], level:{ code:'L4A', title:'Staff Content Designer' } },
     ],
   };
 
@@ -830,7 +840,7 @@
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const DEFAULTS = [1, 1, 1, 1, 1];
-  let state = { mode:'org', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:false } };
+  let state = { mode:'org', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:false, view:'person' } };
 
   /* -------- Matrix -------- */
   function cellInner(cell, nextLabel) {
@@ -896,12 +906,16 @@
     const details = (p.areas && p.areas.length)
       ? `<div class="org-card-details"><div class="org-areas">${p.areas.map(a => `<div>${esc(a)}</div>`).join('')}</div></div>`
       : '';
+    const isLevel = state.org.view === 'level';
+    const topText    = isLevel ? (p.level && p.level.code  || '—') : p.area;
+    const bottomText = isLevel ? (p.level && p.level.title || '')   : p.name;
+    const bottomClass = isLevel ? 'org-name org-name--level' : 'org-name';
     return `
       <div class="org-card${p.tbh ? ' tbh' : ''}" data-action="cardToggle" role="button" tabindex="0" aria-label="${esc(p.name)} ${esc(p.area)}, ${p.count}. Click to toggle areas.">
         <div class="org-card-top">
           <div class="org-card-head">
-            <span class="org-name">${esc(p.name)}</span>
-            <span class="org-area">${esc(p.area)}</span>
+            <span class="org-area">${esc(topText)}</span>
+            <span class="${bottomClass}">${esc(bottomText)}</span>
           </div>
           <span class="org-count" aria-hidden="true">${p.count}</span>
         </div>
@@ -927,8 +941,8 @@
       grid.push(colH);
     });
     grid.push('<div class="org-section-rule"></div>');
-    /* Share Services — label + 5 slots (only some are filled) */
-    grid.push('<div class="org-row-label">Share<br>Services</div>');
+    /* Shared Services — label + 5 slots (only some are filled) */
+    grid.push('<div class="org-row-label">Shared<br>Services</div>');
     for (let i = 0; i < 5; i++) {
       const p = ORG.share.find(s => s.col === i);
       grid.push(p ? `<div class="org-col">${orgCard(p)}</div>` : '<div class="org-col"></div>');
@@ -947,6 +961,16 @@
     if (g) g.classList.toggle('hide-details', !on);
   }
   function toggleOrgDetails() { setOrgDetails(!state.org.showDetails); }
+  function setOrgView(view) {
+    state.org.view = view === 'level' ? 'level' : 'person';
+    try { localStorage.setItem('cm-org-view', state.org.view); } catch (e) {}
+    $$('.era-btn[data-action="orgView"]').forEach(b => {
+      const active = b.dataset.view === state.org.view;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', String(active));
+    });
+    renderOrg();
+  }
 
   /* -------- Assessment -------- */
   function renderSliders() {
@@ -1179,6 +1203,7 @@
     if (a === 'focus') return toggleFocus(actionEl.dataset.level);
     if (a === 'reset') { state.assess = { values: DEFAULTS.slice(), name:'' }; saveAssess(); buildAssess(); return toast('Assessment reset'); }
     if (a === 'cardToggle') return toggleOrgDetails();
+    if (a === 'orgView') return setOrgView(actionEl.dataset.view);
   });
 
   document.addEventListener('input', e => {
@@ -1253,12 +1278,14 @@
     try { state.era = localStorage.getItem('cm-era') === 'future' ? 'future' : 'today'; } catch (e) {}
     try { state.staffTier = localStorage.getItem('cm-staff') === '2' ? 2 : 1; } catch (e) {}
     try { state.org.showDetails = localStorage.getItem('cm-org-details') === '1'; } catch (e) {}
+    try { state.org.view = localStorage.getItem('cm-org-view') === 'level' ? 'level' : 'person'; } catch (e) {}
     renderMatrix();
     syncEra();
     loadAssess();
     buildAssess();
     renderOrg();
     setOrgDetails(state.org.showDetails);
+    setOrgView(state.org.view);
     let mode = 'org';
     try { mode = localStorage.getItem('cm-mode') || 'org'; } catch (e) {}
     setMode(MODES.includes(mode) ? mode : 'org');
