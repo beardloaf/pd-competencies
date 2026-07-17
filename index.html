@@ -56,12 +56,26 @@
 
   /* ---- Header ---- */
   .app-header { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 16px; height: var(--header-h); padding: 0 26px; background: color-mix(in srgb, var(--surface) 84%, transparent); backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid var(--border); }
-  .brand { display: flex; align-items: center; gap: 11px; min-width: 0; flex: 0 0 auto; margin-right: 20px; }
+  .brand-switcher { position: relative; flex: 0 0 auto; margin-right: 20px; }
+  .brand { display: flex; align-items: center; gap: 11px; min-width: 0; appearance: none; border: none; background: transparent; padding: 4px 6px 4px 0; margin: 0 -6px 0 0; border-radius: 10px; cursor: pointer; font: inherit; color: var(--text); text-align: left; transition: background-color .15s ease; }
+  .brand:hover { background: var(--surface-2); }
+  .brand:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; }
   .brand-glyph { width: 30px; height: 30px; flex: none; border-radius: 8px; display: grid; place-items: center; background: linear-gradient(135deg, var(--senior), var(--staff) 45%, var(--principal) 75%, var(--distinguished)); color: #fff; box-shadow: var(--shadow-sm); }
   .brand-glyph svg { width: 17px; height: 17px; }
   .brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
   .brand-title { font-size: 14.5px; font-weight: 680; letter-spacing: -0.02em; white-space: nowrap; }
   .brand-sub { font-size: 11.5px; color: var(--text-faint); white-space: nowrap; }
+  .brand-caret { color: var(--text-faint); display: inline-flex; align-items: center; margin-left: 4px; opacity: .6; transition: opacity .15s ease, transform .2s ease; }
+  .brand:hover .brand-caret { opacity: 1; }
+  .brand[aria-expanded="true"] .brand-caret { transform: rotate(180deg); opacity: 1; }
+  .brand-menu { position: absolute; top: calc(100% + 8px); left: 0; min-width: 220px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 8px; box-shadow: var(--shadow-soft); z-index: 100; }
+  .brand-menu[hidden] { display: none; }
+  .bm-eyebrow { font-size: 10.5px; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); padding: 6px 10px 8px; }
+  .bm-item { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 9px 12px; border: none; background: transparent; border-radius: 8px; font: inherit; font-size: 13.5px; color: var(--text); text-align: left; cursor: pointer; transition: background-color .12s ease; }
+  .bm-item:hover { background: var(--surface-2); }
+  .bm-item .bm-check { color: var(--accent); font-weight: 700; opacity: 0; }
+  .bm-item.active { color: var(--accent-ink); font-weight: 600; }
+  .bm-item.active .bm-check { opacity: 1; }
   .header-spacer { flex: 1 1 0; }
   .tabs { display: flex; gap: 3px; flex: 0 0 auto; padding: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 11px; }
   .tab { appearance: none; border: none; background: transparent; color: var(--text-muted); font-size: 13.5px; font-weight: 560; padding: 7px 15px; border-radius: 8px; transition: background .16s ease, color .16s ease; white-space: nowrap; }
@@ -275,6 +289,8 @@
 
   /* ---- Org Design ---- */
   .org-layout { display: grid; grid-template-columns: minmax(220px, 260px) 1fr; gap: 36px; align-items: start; }
+  .org-layout.no-principles { grid-template-columns: 1fr; gap: 0; }
+  .org-layout.no-principles .org-principles { display: none; }
   .org-principles { display: flex; flex-direction: column; gap: 20px; position: sticky; top: calc(var(--header-h) + 22px); border-right: 1px solid var(--border); padding-right: 24px; }
   .op-item b { display: block; font-size: 13px; font-weight: 640; color: var(--text); margin-bottom: 5px; letter-spacing: -0.005em; line-height: 1.35; }
   .op-item p { font-size: 12.5px; line-height: 1.5; color: var(--text-muted); }
@@ -284,10 +300,16 @@
 
   .org-intro-band { display: grid; grid-template-columns: minmax(220px, 260px) 1fr; gap: 36px; align-items: end; margin-bottom: 12px; }
   .org-intro-band > h1 { font-size: 27px; letter-spacing: -0.026em; line-height: 1.1; margin: 0; }
-  .oib-titles { display: grid; grid-template-columns: 88px repeat(5, minmax(0, 1fr)); column-gap: 12px; align-items: end; }
+  .oib-titles { display: grid; grid-template-columns: 96px repeat(var(--cols, 5), minmax(0, 1fr)); column-gap: 12px; align-items: end; }
+  #view-org.team-brand .org-intro-band { grid-template-columns: 1fr; gap: 8px; align-items: start; }
+  #view-org.team-brand .org-intro-band > h1 { margin-bottom: 4px; }
+  #view-org.team-brand .org-card.no-toggle { cursor: default; }
+  #view-org.team-brand .org-card.no-toggle:hover { background-color: #111827; }
+  #view-org.team-brand .org-card.no-toggle.tbh:hover { background-color: transparent; }
   .org-page-divider { position: relative; height: 1px; background: var(--border-strong); width: 100vw; left: 50%; transform: translateX(-50%); margin: 6px 0 22px; }
   .org-grid-wrap { min-width: 0; }
-  .org-grid { display: grid; grid-template-columns: 96px repeat(5, minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; align-items: stretch; }
+  #view-org { --cols: 5; }
+  .org-grid { display: grid; grid-template-columns: 96px repeat(var(--cols, 5), minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; align-items: stretch; }
   .org-section-rule { grid-column: 1 / -1; height: 0; border-top: 1px solid var(--border-strong); margin: 6px 0 2px; }
   .org-row-label { font-size: 10.5px; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); padding-top: 14px; align-self: start; line-height: 1.35; }
   .org-col-title { font-size: 22px; font-weight: 640; letter-spacing: -0.02em; color: var(--text); line-height: 1.15; padding: 0 4px; }
@@ -350,6 +372,7 @@
   .mkt-func-desc { font-size: 13px; line-height: 1.55; color: var(--text-muted); overflow: hidden; max-height: 0; opacity: 0; transition: max-height .38s cubic-bezier(.4,0,.2,1), opacity .22s ease; }
   .mkt-pillars-view.expanded .mkt-func-desc { max-height: 320px; opacity: 1; }
   .mkt-tag-new { font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--c); background: color-mix(in srgb, var(--c) 14%, var(--surface)); padding: 2px 8px; border-radius: 999px; }
+  .mkt-tag-count { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; color: var(--text-muted); background: var(--surface-2); padding: 2px 8px; border-radius: 999px; }
 
   .mkt-shared-note { font-size: 13.5px; line-height: 1.55; color: var(--text-muted); text-align: center; padding: 16px 20px; border: 1px dashed var(--border-strong); border-radius: 10px; max-width: 820px; margin: 8px auto 0; }
 
@@ -371,9 +394,36 @@
   .mkt-why-item h3 { font-size: 14.5px; font-weight: 640; margin-bottom: 8px; letter-spacing: -0.005em; line-height: 1.35; }
   .mkt-why-item p { font-size: 13px; line-height: 1.55; color: var(--text-muted); }
 
+  /* Story sub-view */
+  .ms-title { font-size: 34px; font-weight: 700; letter-spacing: -0.024em; line-height: 1.15; margin: 4px 0 6px; }
+  .ms-lede { font-size: 22px; font-weight: 500; letter-spacing: -0.016em; line-height: 1.3; color: var(--text); margin: 0 0 32px; }
+  .ms-accent { color: #ea580c; font-weight: 700; }
+  .ms-hero { display: grid; grid-template-columns: minmax(0, 520px) 1fr; gap: 48px; align-items: center; margin-bottom: 48px; }
+  .ms-diagram { width: 100%; }
+  .ms-diagram svg { width: 100%; height: auto; display: block; max-width: 500px; margin: 0 auto; }
+  .ms-hero-copy p { font-size: 15px; line-height: 1.55; color: var(--text-muted); margin: 0 0 16px; }
+  .ms-hero-copy p:last-child { margin-bottom: 0; }
+  .ms-hero-copy b { color: var(--text); font-weight: 640; }
+  .ms-humans { padding-top: 32px; border-top: 1px solid var(--border); margin-top: 8px; }
+  .ms-section-title { font-size: 13px; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; color: var(--text); margin-bottom: 20px; }
+  .ms-role-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+  .ms-role { display: flex; flex-direction: column; gap: 4px; }
+  .ms-role-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+  .ms-eb-black  { color: var(--text); }
+  .ms-eb-blue   { color: #2563eb; }
+  .ms-eb-green  { color: #16a34a; }
+  .ms-eb-orange { color: #ea580c; }
+  .ms-role h3 { font-size: 17px; font-weight: 640; letter-spacing: -0.014em; line-height: 1.3; margin-bottom: 10px; color: var(--text); }
+  .ms-role p { font-size: 13.5px; line-height: 1.5; color: var(--text-muted); }
+  .ms-tagline { font-family: 'Georgia', 'Times New Roman', serif; font-style: italic; font-size: 20px; color: #ea580c; margin: 40px 0 0; font-weight: 600; letter-spacing: -0.008em; }
+
   @media (max-width: 900px) {
     .mkt-pillars-grid { grid-template-columns: 1fr; }
     .mkt-roles-grid { grid-template-columns: 1fr; }
+    .ms-hero { grid-template-columns: 1fr; gap: 24px; }
+    .ms-role-grid { grid-template-columns: repeat(2, 1fr); row-gap: 32px; }
+    .ms-title { font-size: 26px; }
+    .ms-lede { font-size: 18px; }
   }
 
   /* ---- Profile ---- */
@@ -446,14 +496,30 @@
   </div>
 
   <header class="app-header">
-    <div class="brand">
-      <span class="brand-glyph" aria-hidden="true">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-      </span>
-      <span class="brand-text">
-        <span class="brand-title">Competency Matrix</span>
-        <span class="brand-sub">Product Design · 2026</span>
-      </span>
+    <div class="brand-switcher">
+      <button class="brand" type="button" data-action="orgMenu" aria-haspopup="menu" aria-expanded="false">
+        <span class="brand-glyph" aria-hidden="true">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-title">Competency Matrix</span>
+          <span class="brand-sub" id="brand-sub">Design Team · 2026</span>
+        </span>
+        <span class="brand-caret" aria-hidden="true">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.4 3.8 5 6.4l2.6-2.6"/></svg>
+        </span>
+      </button>
+      <div class="brand-menu" id="brand-menu" hidden role="menu" aria-label="Switch team org">
+        <div class="bm-eyebrow">Team org</div>
+        <button class="bm-item" type="button" data-action="orgSelect" data-team="design" role="menuitem">
+          <span>Design</span>
+          <span class="bm-check" aria-hidden="true">✓</span>
+        </button>
+        <button class="bm-item" type="button" data-action="orgSelect" data-team="brand" role="menuitem">
+          <span>Brand</span>
+          <span class="bm-check" aria-hidden="true">✓</span>
+        </button>
+      </div>
     </div>
     <nav class="tabs" role="tablist" aria-label="Team views">
       <button class="tab" data-action="tab" data-mode="org" role="tab" aria-selected="true">Org Design</button>
@@ -581,18 +647,11 @@
     <!-- Org Design -->
     <section id="view-org" class="view" role="tabpanel" aria-label="Org design" hidden>
       <div class="org-intro-band">
-        <h1>Org Design</h1>
-        <div class="oib-titles">
-          <div class="oib-label-spacer"></div>
-          <div class="org-col-title">Travel</div>
-          <div class="org-col-title">Travel Management</div>
-          <div class="org-col-title">Marketplaces</div>
-          <div class="org-col-title">Fintech</div>
-          <div class="org-col-title">Next Gen</div>
-        </div>
+        <h1 id="org-h1">Design Team</h1>
+        <div class="oib-titles" id="oib-titles"></div>
       </div>
       <div class="org-page-divider" aria-hidden="true"></div>
-      <div class="org-layout">
+      <div class="org-layout" id="org-layout">
         <aside class="org-principles" id="org-principles"></aside>
         <div class="org-grid-wrap"><div id="org-mount"></div></div>
       </div>
@@ -607,6 +666,7 @@
           <div class="era-toggle" role="group" aria-label="Marketing view">
             <button class="era-btn active" data-action="mktView" data-mview="pillars" aria-pressed="true">Pillars</button>
             <button class="era-btn"        data-action="mktView" data-mview="roles"   aria-pressed="false">Roles &amp; why</button>
+            <button class="era-btn"        data-action="mktView" data-mview="story"   aria-pressed="false">Story</button>
           </div>
         </div>
       </div>
@@ -688,8 +748,8 @@
       <!-- Roles &amp; why view -->
       <div id="mkt-roles" class="mkt-roles-view" hidden>
         <div class="mkt-section-head">
-          <h2>Key roles needed</h2>
-          <p>What has to exist for this shape to work. Common industry titles, one per function.</p>
+          <h2>Top roles to hire</h2>
+          <p>The seats needed to make this shape work.</p>
         </div>
         <div class="mkt-roles-grid">
           <div class="mkt-roles-col">
@@ -699,23 +759,27 @@
             </div>
             <div class="mkt-role">
               <h3>Creative Director</h3>
-              <p>Owns identity, taste, and the visual system. The standard everything is judged against, human- or AI-made — the scarcest job in the org once agents can produce infinite variations.</p>
+              <p>Owns taste, sets the bar, drives breakthrough and audacious ideas.</p>
             </div>
             <div class="mkt-role">
               <h3>Editorial Director</h3>
-              <p>Owns the narrative and content engine — the angle and whether it's true, not the drafting. Agents produce; people own judgment.</p>
+              <p>Owns the content engine and what stories to chase.</p>
             </div>
             <div class="mkt-role">
-              <h3>Head of Communications</h3>
-              <p>Press, analyst relations, internal comms. Earned trust — a different job than manufactured reach.</p>
+              <h3>Creative Leads <span class="mkt-tag-count">×2</span></h3>
+              <p>Generate ideas, drive projects forward, hold the bar.</p>
             </div>
             <div class="mkt-role">
-              <h3>Head of Research &amp; Insights <span class="mkt-tag-new">new</span></h3>
-              <p>Turns the company's own data into narrative — proprietary reports, benchmark studies, state-of-the-industry pieces.</p>
+              <h3>Design Lead</h3>
+              <p>Owns the visual system and how the brand shows up in market.</p>
             </div>
             <div class="mkt-role">
-              <h3>Head of Creative Production <span class="mkt-tag-new">new</span></h3>
-              <p>Generative video, imagery, and asset production at volume. One place feeding Create's campaigns and Capture's ad and page templates so quality doesn't fork.</p>
+              <h3>AI Production Lead</h3>
+              <p>Establishes the pipeline, maintains the system for all to use.</p>
+            </div>
+            <div class="mkt-role">
+              <h3>Sr. Data Storyteller</h3>
+              <p>Discovers and delivers insights so we can generate content.</p>
             </div>
           </div>
           <div class="mkt-roles-col">
@@ -724,24 +788,20 @@
               <div class="mkt-roles-col-sub">Growth · captures demand</div>
             </div>
             <div class="mkt-role">
-              <h3>Head of Demand Generation</h3>
-              <p>Paid, SEO, AEO, web, and lead routing. Owns pipeline, CAC, and ROAS.</p>
+              <h3>Head of Analytics &amp; AI</h3>
+              <p>Builds the backbone, ships the agents, makes everything compound.</p>
             </div>
             <div class="mkt-role">
               <h3>Head of Product Marketing</h3>
-              <p>Positioning, messaging, launches, competitive intel, and sales enablement — centralized, serving every audience.</p>
+              <p>Owns positioning, launches, and how sales tells the story.</p>
             </div>
             <div class="mkt-role">
-              <h3>Head of Lifecycle Marketing</h3>
-              <p>Retention, expansion, onboarding comms. Where NRR actually gets managed day to day.</p>
+              <h3>Head of Growth Ops &amp; Performance</h3>
+              <p>Runs paid, SEO, and the pipeline that turns spend into leads.</p>
             </div>
             <div class="mkt-role">
-              <h3>Head of Marketing Analytics</h3>
-              <p>Pipeline attribution and the shared analytics backbone both pillars run on. Roadmap co-owned with Create.</p>
-            </div>
-            <div class="mkt-role">
-              <h3>Head of Events</h3>
-              <p>Which events to attend, booths, logistics, on-site. Flagship brand moments coordinated with Create.</p>
+              <h3>Events Lead</h3>
+              <p>Picks the events, runs the machine, brings the leads home.</p>
             </div>
           </div>
         </div>
@@ -772,6 +832,75 @@
             <p>Conversion, activation, and in-product upsell are a product decision. Investor and corporate narrative pulls tone from Create but sits with CEO/Finance — that audience needs financial fluency, not brand voice.</p>
           </div>
         </div>
+      </div>
+
+      <!-- Story view — the story is the strategy -->
+      <div id="mkt-story" class="mkt-story-view" hidden>
+        <h1 class="ms-title">All brands are media companies now.</h1>
+        <p class="ms-lede">One hero story. <span class="ms-accent">A dozen ways to tell it.</span></p>
+
+        <div class="ms-hero">
+          <div class="ms-diagram" aria-hidden="true">
+            <svg viewBox="0 0 500 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Original story cut into a dozen formats">
+              <g stroke="#c9d0da" stroke-width="1">
+                <line x1="250" y1="250" x2="250" y2="105"/>
+                <line x1="250" y1="250" x2="365" y2="145"/>
+                <line x1="250" y1="250" x2="415" y2="250"/>
+                <line x1="250" y1="250" x2="365" y2="355"/>
+                <line x1="250" y1="250" x2="250" y2="395"/>
+                <line x1="250" y1="250" x2="135" y2="355"/>
+                <line x1="250" y1="250" x2="85"  y2="250"/>
+                <line x1="250" y1="250" x2="135" y2="145"/>
+              </g>
+              <g font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#161a22">
+                <g><rect x="187.5" y="88"  width="125" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="250" y="110" text-anchor="middle">Exec talk track</text></g>
+                <g><rect x="295"   y="128" width="140" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="365" y="150" text-anchor="middle">LinkedIn carousel</text></g>
+                <g><rect x="352.5" y="233" width="125" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="415" y="255" text-anchor="middle">Short-form cuts</text></g>
+                <g><rect x="290"   y="338" width="150" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="365" y="360" text-anchor="middle">Customer case study</text></g>
+                <g><rect x="202.5" y="378" width="95"  height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="250" y="400" text-anchor="middle">Sales deck</text></g>
+                <g><rect x="62.5"  y="338" width="145" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="135" y="360" text-anchor="middle">Newsletter feature</text></g>
+                <g><rect x="20"    y="233" width="130" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="85"  y="255" text-anchor="middle">Podcast episode</text></g>
+                <g><rect x="65"    y="128" width="140" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="135" y="150" text-anchor="middle">Internal all-hands</text></g>
+              </g>
+              <rect x="185" y="212" width="130" height="76" rx="6" fill="#161a22"/>
+              <text x="250" y="246" font-family="Inter, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">ORIGINAL</text>
+              <text x="250" y="269" font-family="Inter, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">STORY</text>
+            </svg>
+          </div>
+          <div class="ms-hero-copy">
+            <p><b>One anchor asset a quarter</b> — a documentary, a founder film, a real customer story — cut a dozen ways. Not a hundred disposable ads that all say the same thing.</p>
+            <p>Executive-led posts already outperform brand-page content <b>5–10x on LinkedIn</b> — the story lands harder coming from a person, not a logo.</p>
+            <p>IBM's short documentary on Watson's Jeopardy! run turned a technical demo into a <b>cultural moment</b> — without a single product pitch.</p>
+          </div>
+        </div>
+
+        <div class="ms-humans">
+          <h2 class="ms-section-title">Where the humans still matter</h2>
+          <div class="ms-role-grid">
+            <div class="ms-role">
+              <div class="ms-role-eyebrow ms-eb-black">Breakthrough Creative</div>
+              <h3>Creative / Art Director</h3>
+              <p>The point of view AI can't replicate.</p>
+            </div>
+            <div class="ms-role">
+              <div class="ms-role-eyebrow ms-eb-blue">Scaling Brand Identity</div>
+              <h3>Design Systems Owner</h3>
+              <p>Keeps every cut looking like one brand.</p>
+            </div>
+            <div class="ms-role">
+              <div class="ms-role-eyebrow ms-eb-green">Real Vendors</div>
+              <h3>Documentary / Production Crews</h3>
+              <p>The hero asset AI still can't fake.</p>
+            </div>
+            <div class="ms-role">
+              <div class="ms-role-eyebrow ms-eb-orange">Managing AI</div>
+              <h3>AI Creative Producer</h3>
+              <p>Runs the derivative-content pipeline.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="ms-tagline">The story is the strategy.</p>
       </div>
     </section>
 
@@ -1021,6 +1150,44 @@
   ];
 
   const ORG_COL_TITLES = ['Travel', 'Travel Management', 'Marketplaces', 'Fintech', 'Next Gen'];
+  const ORG_BRAND_COL_TITLES = ['Brand', 'Ops', 'Creative', 'Editorial'];
+
+  /* Brand team org — no eng-team counts on ICs, no shared services, no principles. */
+  const ORG_BRAND = {
+    leaders: [
+      { name:'Ann',   area:'Sr. Dir. Brand',   count:6 },
+      { name:'Willa', area:'Dir. Ops',         count:2 },
+      { name:'BF',    area:'Dir. Creative',    count:4, tbh:true },
+      { name:'TBH',   area:'Dir. Editorial',   count:4, tbh:true },
+    ],
+    columns: [
+      [ // Brand
+        { name:'TBH',      area:'Brand Strat',      tbh:true },
+        { name:'TBH',      area:'Principal Ident.', tbh:true },
+        { name:'TBH',      area:'Staff Designer',   tbh:true },
+        { name:'Lily',     area:'Sr. Designer' },
+        { name:'Lindsay',  area:'Sr. Designer' },
+        { name:'Chaella',  area:'Prod. Designer' },
+      ],
+      [ // Ops
+        { name:'Jiro', area:'Int. Prod.' },
+        { name:'TBH',  area:'AI Prod.',    tbh:true },
+      ],
+      [ // Creative
+        { name:'BF',   area:'Princ. Creative' },
+        { name:'BF',   area:'Princ. Creative', tbh:true },
+        { name:'TBH',  area:'Staff Designer',  tbh:true },
+        { name:'TBH',  area:'Sr AI Creative',  tbh:true },
+      ],
+      [ // Editorial
+        { name:'Sara',     area:'PR Lead' },
+        { name:'TBH',      area:'Comms Lead',    tbh:true },
+        { name:'Backfill', area:'Social Lead',   tbh:true },
+        { name:'TBH',      area:'Data Insights', tbh:true },
+      ],
+    ],
+    share: null,
+  };
 
   const ORG = {
     leaders: [
@@ -1087,7 +1254,7 @@
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const DEFAULTS = [1, 1, 1, 1, 1];
-  let state = { mode:'org', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:false }, marketing:{ view:'pillars' } };
+  let state = { mode:'org', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:false }, orgTeam:'design', marketing:{ view:'pillars' } };
 
   /* -------- Matrix -------- */
   function cellInner(cell, nextLabel) {
@@ -1154,50 +1321,77 @@
       ? `<div class="org-card-details"><div class="org-areas">${p.areas.map(a => `<div>${esc(a)}</div>`).join('')}</div></div>`
       : '';
     const level = p.level && p.level.code ? esc(p.level.code) : '';
+    const hasCount = typeof p.count === 'number';
+    const clickable = !!(p.areas && p.areas.length);
+    const attrs = clickable
+      ? `data-action="cardToggle" role="button" tabindex="0" aria-label="${esc(p.name)} ${esc(p.area)}. Click to toggle areas."`
+      : `aria-label="${esc(p.name)} ${esc(p.area)}"`;
     return `
-      <div class="org-card${p.tbh ? ' tbh' : ''}" data-action="cardToggle" role="button" tabindex="0" aria-label="${esc(p.name)} ${esc(p.area)}, ${p.count}. Click to toggle areas.">
+      <div class="org-card${p.tbh ? ' tbh' : ''}${clickable ? '' : ' no-toggle'}" ${attrs}>
         <div class="org-card-top">
           <div class="org-card-corners">
             <span class="org-area">${esc(p.area)}</span>
             <span class="org-level">${level}</span>
           </div>
           <span class="org-name">${esc(p.name)}</span>
-          <span class="org-count" aria-hidden="true">${p.count}</span>
+          ${hasCount ? `<span class="org-count" aria-hidden="true">${p.count}</span>` : ''}
         </div>
         ${details}
       </div>`;
   }
   function renderOrg() {
+    const isBrand   = state.orgTeam === 'brand';
+    const data      = isBrand ? ORG_BRAND : ORG;
+    const titles    = isBrand ? ORG_BRAND_COL_TITLES : ORG_COL_TITLES;
+    const numCols   = titles.length;
+
+    /* Update section-level state: h1, layout modifiers, CSS cols */
+    $('#org-h1').textContent = isBrand ? 'Brand Team' : 'Design Team';
+    const section = $('#view-org');
+    section.classList.toggle('team-brand', isBrand);
+    section.style.setProperty('--cols', String(numCols));
+    $('#org-layout').classList.toggle('no-principles', isBrand);
+
+    /* Column titles row */
+    const titlesHtml = ['<div class="oib-label-spacer"></div>'];
+    titles.forEach(t => titlesHtml.push(`<div class="org-col-title">${esc(t)}</div>`));
+    $('#oib-titles').innerHTML = titlesHtml.join('');
+
+    /* Grid */
     const grid = ['<div class="org-grid' + (state.org.showDetails ? '' : ' hide-details') + '" id="org-grid">'];
-    /* Leaders row — label + 5 leader cards (no areas) */
     grid.push('<div class="org-row-label">Leaders</div>');
-    ORG.leaders.forEach(l => grid.push(`<div class="org-col">${orgCard(l)}</div>`));
+    data.leaders.forEach(l => grid.push(`<div class="org-col">${orgCard(l)}</div>`));
     grid.push('<div class="org-section-rule"></div>');
-    /* IC section — label + 5 stacked columns */
     grid.push('<div class="org-row-label">Individual<br>Contributors</div>');
-    ORG.columns.forEach(col => {
+    data.columns.forEach(col => {
       let colH = '<div class="org-col">';
       col.forEach(p => { colH += orgCard(p); });
       colH += '</div>';
       grid.push(colH);
     });
-    grid.push('<div class="org-section-rule"></div>');
-    /* Shared Services — label + 5 slots (only some are filled) */
-    grid.push('<div class="org-row-label">Shared<br>Services</div>');
-    for (let i = 0; i < 5; i++) {
-      const p = ORG.share.find(s => s.col === i);
-      grid.push(p ? `<div class="org-col">${orgCard(p)}</div>` : '<div class="org-col"></div>');
+    if (data.share && data.share.length) {
+      grid.push('<div class="org-section-rule"></div>');
+      grid.push('<div class="org-row-label">Shared<br>Services</div>');
+      for (let i = 0; i < numCols; i++) {
+        const p = data.share.find(s => s.col === i);
+        grid.push(p ? `<div class="org-col">${orgCard(p)}</div>` : '<div class="org-col"></div>');
+      }
     }
     grid.push('</div>');
     $('#org-mount').innerHTML = grid.join('');
 
-    $('#org-principles').innerHTML = ORG_PRINCIPLES.map(p =>
-      `<div class="op-item"><b>${esc(p.title)}</b><p>${esc(p.body)}</p></div>`
-    ).join('') + `
-      <div class="op-key">
-        <span class="op-key-badge" aria-hidden="true">3</span>
-        <span><b>Number in the circle</b> = engineering teams a designer supports (or designers a leader manages).</span>
-      </div>`;
+    /* Principles column — Design only */
+    if (isBrand) {
+      $('#org-principles').innerHTML = '';
+    } else {
+      $('#org-principles').innerHTML = ORG_PRINCIPLES.map(p =>
+        `<div class="op-item"><b>${esc(p.title)}</b><p>${esc(p.body)}</p></div>`
+      ).join('') + `
+        <div class="op-key">
+          <span class="op-key-badge" aria-hidden="true">3</span>
+          <span><b>Number in the circle</b> = engineering teams a designer supports (or designers a leader manages).</span>
+        </div>`;
+    }
   }
   function setOrgDetails(on) {
     state.org.showDetails = !!on;
@@ -1206,6 +1400,27 @@
     if (g) g.classList.toggle('hide-details', !on);
   }
   function toggleOrgDetails() { setOrgDetails(!state.org.showDetails); }
+
+  /* Team switcher — dropdown on the brand icon */
+  function setOrgMenuOpen(open) {
+    const btn = $('.brand[data-action="orgMenu"]');
+    const menu = $('#brand-menu');
+    if (!btn || !menu) return;
+    menu.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+  }
+  function toggleOrgMenu() { setOrgMenuOpen($('#brand-menu').hidden); }
+  function selectOrgTeam(team) {
+    state.orgTeam = team === 'brand' ? 'brand' : 'design';
+    try { localStorage.setItem('cm-org-team', state.orgTeam); } catch (e) {}
+    $$('.bm-item[data-action="orgSelect"]').forEach(b => {
+      b.classList.toggle('active', b.dataset.team === state.orgTeam);
+    });
+    $('#brand-sub').textContent = state.orgTeam === 'brand' ? 'Brand Team · 2026' : 'Design Team · 2026';
+    renderOrg();
+    setOrgMenuOpen(false);
+    if (state.mode !== 'org') setMode('org');
+  }
 
   /* -------- Assessment -------- */
   function renderSliders() {
@@ -1414,11 +1629,12 @@
   /* -------- Marketing -------- */
   function toggleMktExpanded() { $('#mkt-pillars').classList.toggle('expanded'); }
   function setMarketingView(view) {
-    state.marketing.view = view === 'roles' ? 'roles' : 'pillars';
+    const valid = ['pillars', 'roles', 'story'];
+    state.marketing.view = valid.includes(view) ? view : 'pillars';
     try { localStorage.setItem('cm-mkt-view', state.marketing.view); } catch (e) {}
-    const isRoles = state.marketing.view === 'roles';
-    $('#mkt-pillars').hidden = isRoles;
-    $('#mkt-roles').hidden = !isRoles;
+    $('#mkt-pillars').hidden = state.marketing.view !== 'pillars';
+    $('#mkt-roles').hidden   = state.marketing.view !== 'roles';
+    $('#mkt-story').hidden   = state.marketing.view !== 'story';
     $$('.era-btn[data-action="mktView"]').forEach(b => {
       const active = b.dataset.mview === state.marketing.view;
       b.classList.toggle('active', active);
@@ -1448,6 +1664,9 @@
 
   /* -------- Events -------- */
   document.addEventListener('click', e => {
+    /* Close the team switcher when clicking outside it */
+    const menu = $('#brand-menu');
+    if (menu && !menu.hidden && !e.target.closest('.brand-switcher')) setOrgMenuOpen(false);
     const actionEl = e.target.closest('[data-action]');
     if (!actionEl) return;
     const a = actionEl.dataset.action;
@@ -1459,6 +1678,8 @@
     if (a === 'cardToggle') return toggleOrgDetails();
     if (a === 'mktView') return setMarketingView(actionEl.dataset.mview);
     if (a === 'mktToggle') return toggleMktExpanded();
+    if (a === 'orgMenu') return toggleOrgMenu();
+    if (a === 'orgSelect') return selectOrgTeam(actionEl.dataset.team);
   });
 
   document.addEventListener('input', e => {
@@ -1493,6 +1714,10 @@
       else if (e.key === 'End') nv = 3;
       if (nv !== v) { e.preventDefault(); csSet(i, nv); }
       return;
+    }
+    if (e.key === 'Escape') {
+      const menu = $('#brand-menu');
+      if (menu && !menu.hidden) { e.preventDefault(); setOrgMenuOpen(false); return; }
     }
     if (e.key === 'Escape' && state.focus) { e.preventDefault(); state.focus = null; applyFocus(); return; }
     const card = e.target.closest && e.target.closest('.org-card');
@@ -1533,13 +1758,15 @@
     try { state.era = localStorage.getItem('cm-era') === 'future' ? 'future' : 'today'; } catch (e) {}
     try { state.staffTier = localStorage.getItem('cm-staff') === '2' ? 2 : 1; } catch (e) {}
     try { state.org.showDetails = localStorage.getItem('cm-org-details') === '1'; } catch (e) {}
-    try { state.marketing.view = localStorage.getItem('cm-mkt-view') === 'roles' ? 'roles' : 'pillars'; } catch (e) {}
+    try { state.orgTeam = localStorage.getItem('cm-org-team') === 'brand' ? 'brand' : 'design'; } catch (e) {}
+    try { const v = localStorage.getItem('cm-mkt-view'); state.marketing.view = ['roles','story'].includes(v) ? v : 'pillars'; } catch (e) {}
     renderMatrix();
     syncEra();
     loadAssess();
     buildAssess();
     renderOrg();
     setOrgDetails(state.org.showDetails);
+    selectOrgTeam(state.orgTeam);
     setMarketingView(state.marketing.view);
     let mode = 'org';
     const hash = (location.hash || '').replace('#', '');
