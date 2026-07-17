@@ -395,35 +395,37 @@
   .mkt-why-item p { font-size: 13px; line-height: 1.55; color: var(--text-muted); }
 
   /* Story sub-view */
-  .ms-title { font-size: 34px; font-weight: 700; letter-spacing: -0.024em; line-height: 1.15; margin: 4px 0 6px; }
-  .ms-lede { font-size: 22px; font-weight: 500; letter-spacing: -0.016em; line-height: 1.3; color: var(--text); margin: 0 0 32px; }
-  .ms-accent { color: #ea580c; font-weight: 700; }
-  .ms-hero { display: grid; grid-template-columns: minmax(0, 520px) 1fr; gap: 48px; align-items: center; margin-bottom: 48px; }
-  .ms-diagram { width: 100%; }
-  .ms-diagram svg { width: 100%; height: auto; display: block; max-width: 500px; margin: 0 auto; }
-  .ms-hero-copy p { font-size: 15px; line-height: 1.55; color: var(--text-muted); margin: 0 0 16px; }
+  .ms-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 500px); gap: 56px; align-items: start; margin-bottom: 48px; }
+  .ms-title-block { min-width: 0; display: flex; flex-direction: column; }
+  .ms-title { font-size: 48px; font-weight: 500; letter-spacing: -0.026em; line-height: 1.08; color: var(--text); margin: 0 0 18px; max-width: 640px; }
+  .ms-lede { font-size: 22px; font-weight: 500; letter-spacing: -0.014em; line-height: 1.3; color: var(--text); margin: 0 0 24px; max-width: 640px; }
+  .ms-hero-copy p { font-size: 14.5px; line-height: 1.6; color: var(--text-muted); margin: 0 0 14px; max-width: 620px; }
   .ms-hero-copy p:last-child { margin-bottom: 0; }
   .ms-hero-copy b { color: var(--text); font-weight: 640; }
-  .ms-humans { padding-top: 32px; border-top: 1px solid var(--border); margin-top: 8px; }
-  .ms-section-title { font-size: 13px; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; color: var(--text); margin-bottom: 20px; }
-  .ms-role-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
-  .ms-role { display: flex; flex-direction: column; gap: 4px; }
-  .ms-role-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
-  .ms-eb-black  { color: var(--text); }
-  .ms-eb-blue   { color: #2563eb; }
-  .ms-eb-green  { color: #16a34a; }
-  .ms-eb-orange { color: #ea580c; }
-  .ms-role h3 { font-size: 17px; font-weight: 640; letter-spacing: -0.014em; line-height: 1.3; margin-bottom: 10px; color: var(--text); }
-  .ms-role p { font-size: 13.5px; line-height: 1.5; color: var(--text-muted); }
-  .ms-tagline { font-family: 'Georgia', 'Times New Roman', serif; font-style: italic; font-size: 20px; color: #ea580c; margin: 40px 0 0; font-weight: 600; letter-spacing: -0.008em; }
+  .ms-diagram { width: 100%; justify-self: end; }
+  .ms-diagram svg { width: 100%; height: auto; display: block; max-width: 500px; margin-left: auto; }
 
+  .ms-humans { padding-top: 36px; border-top: 1px solid var(--border); margin-top: 8px; }
+  .ms-section-title { font-size: 13.5px; font-weight: 720; letter-spacing: .1em; text-transform: uppercase; color: var(--text); margin: 0 0 24px; }
+  .ms-role-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+  .ms-role { display: flex; flex-direction: column; min-width: 0; }
+  .ms-role-eyebrow { font-size: 12px; font-weight: 720; letter-spacing: .08em; text-transform: uppercase; color: var(--text); margin-bottom: 12px; }
+  .ms-role p { font-size: 13.5px; line-height: 1.6; color: var(--text-muted); margin: 0; }
+
+  @media (max-width: 1100px) {
+    .ms-hero { grid-template-columns: 1fr; gap: 32px; }
+    .ms-diagram { justify-self: center; }
+    .ms-diagram svg { margin: 0 auto; }
+  }
   @media (max-width: 900px) {
     .mkt-pillars-grid { grid-template-columns: 1fr; }
     .mkt-roles-grid { grid-template-columns: 1fr; }
-    .ms-hero { grid-template-columns: 1fr; gap: 24px; }
-    .ms-role-grid { grid-template-columns: repeat(2, 1fr); row-gap: 32px; }
-    .ms-title { font-size: 26px; }
+    .ms-role-grid { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
+    .ms-title { font-size: 32px; }
     .ms-lede { font-size: 18px; }
+  }
+  @media (max-width: 560px) {
+    .ms-role-grid { grid-template-columns: 1fr; }
   }
 
   /* ---- Profile ---- */
@@ -836,10 +838,16 @@
 
       <!-- Story view — the story is the strategy -->
       <div id="mkt-story" class="mkt-story-view" hidden>
-        <h1 class="ms-title">All brands are media companies now.</h1>
-        <p class="ms-lede">One hero story. <span class="ms-accent">A dozen ways to tell it.</span></p>
-
         <div class="ms-hero">
+          <div class="ms-title-block">
+            <h1 class="ms-title">All brands are media companies now.</h1>
+            <p class="ms-lede">One hero story. A dozen ways to tell it.</p>
+            <div class="ms-hero-copy">
+              <p><b>One anchor asset a quarter</b> — a documentary, a founder film, a real customer story — cut a dozen ways. Not a hundred disposable ads that all say the same thing.</p>
+              <p>Executive-led posts already outperform brand-page content <b>5–10x on LinkedIn</b> — the story lands harder coming from a person, not a logo.</p>
+              <p>IBM's short documentary on Watson's Jeopardy! run turned a technical demo into a <b>cultural moment</b> — without a single product pitch.</p>
+            </div>
+          </div>
           <div class="ms-diagram" aria-hidden="true">
             <svg viewBox="0 0 500 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Original story cut into a dozen formats">
               <g stroke="#c9d0da" stroke-width="1">
@@ -867,40 +875,29 @@
               <text x="250" y="269" font-family="Inter, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">STORY</text>
             </svg>
           </div>
-          <div class="ms-hero-copy">
-            <p><b>One anchor asset a quarter</b> — a documentary, a founder film, a real customer story — cut a dozen ways. Not a hundred disposable ads that all say the same thing.</p>
-            <p>Executive-led posts already outperform brand-page content <b>5–10x on LinkedIn</b> — the story lands harder coming from a person, not a logo.</p>
-            <p>IBM's short documentary on Watson's Jeopardy! run turned a technical demo into a <b>cultural moment</b> — without a single product pitch.</p>
-          </div>
         </div>
 
         <div class="ms-humans">
-          <h2 class="ms-section-title">Where the humans still matter</h2>
+          <h2 class="ms-section-title">The story is the strategy</h2>
           <div class="ms-role-grid">
             <div class="ms-role">
-              <div class="ms-role-eyebrow ms-eb-black">Breakthrough Creative</div>
-              <h3>Creative / Art Director</h3>
-              <p>The point of view AI can't replicate.</p>
+              <div class="ms-role-eyebrow">Breakthrough Creative</div>
+              <p>The point of view AI can't replicate. Human directors set the angle, the taste, and the choices no model can make on its own — the anchor asset every downstream cut inherits from.</p>
             </div>
             <div class="ms-role">
-              <div class="ms-role-eyebrow ms-eb-blue">Scaling Brand Identity</div>
-              <h3>Design Systems Owner</h3>
-              <p>Keeps every cut looking like one brand.</p>
+              <div class="ms-role-eyebrow">Scaling Brand Identity</div>
+              <p>Keeps every cut looking like one brand. A design system owner holds the visual language across formats — documentary to carousel to sales deck — so the story stays recognizably yours.</p>
             </div>
             <div class="ms-role">
-              <div class="ms-role-eyebrow ms-eb-green">Real Vendors</div>
-              <h3>Documentary / Production Crews</h3>
-              <p>The hero asset AI still can't fake.</p>
+              <div class="ms-role-eyebrow">Real Vendors</div>
+              <p>The hero asset AI still can't fake. Documentary crews, cinematographers, and post houses make the founder film or customer story that becomes the anchor for the quarter.</p>
             </div>
             <div class="ms-role">
-              <div class="ms-role-eyebrow ms-eb-orange">Managing AI</div>
-              <h3>AI Creative Producer</h3>
-              <p>Runs the derivative-content pipeline.</p>
+              <div class="ms-role-eyebrow">Managing AI</div>
+              <p>Runs the derivative-content pipeline. An AI creative producer sets the prompts, formats, and quality bar for every cut — turning one anchor into a dozen tellings without watering it down.</p>
             </div>
           </div>
         </div>
-
-        <p class="ms-tagline">The story is the strategy.</p>
       </div>
     </section>
 
