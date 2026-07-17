@@ -78,6 +78,8 @@
   .bm-item.active .bm-check { opacity: 1; }
   .header-spacer { flex: 1 1 0; }
   .tabs { display: flex; gap: 3px; flex: 0 0 auto; padding: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 11px; }
+  .tabs[hidden] { display: none; }
+  .tab[hidden] { display: none; }
   .tab { appearance: none; border: none; background: transparent; color: var(--text-muted); font-size: 13.5px; font-weight: 560; padding: 7px 15px; border-radius: 8px; transition: background .16s ease, color .16s ease; white-space: nowrap; }
   .tab:hover { color: var(--text); }
   .tab.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
@@ -308,13 +310,24 @@
   #view-org.team-brand .org-card.no-toggle.tbh:hover { background-color: transparent; }
   .org-page-divider { position: relative; height: 1px; background: var(--border-strong); width: 100vw; left: 50%; transform: translateX(-50%); margin: 6px 0 22px; }
   .org-grid-wrap { min-width: 0; }
+  /* ---- Rollup chart (Brand only) ---- */
+  .org-rollup { margin-bottom: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  .org-rollup[hidden] { display: none; }
+  .org-rollup-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .org-rollup-col { display: flex; flex-direction: column; align-items: center; }
+  .org-rollup-vp { background: #111827; color: #fff; padding: 12px 22px; border-radius: 8px; font-size: 15px; font-weight: 700; letter-spacing: -0.005em; }
+  .org-rollup-stem { width: 1px; height: 20px; background: var(--border-strong); }
+  .org-rollup-areas { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding-top: 14px; border-top: 1px solid var(--border-strong); position: relative; }
+  .org-rollup-areas::before { content: ""; position: absolute; left: 12%; right: 12%; top: 0; height: 1px; background: var(--border-strong); }
+  .org-rollup-areas > span { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 12.5px; font-weight: 600; color: var(--text); background: var(--surface); white-space: nowrap; }
+
   #view-org { --cols: 5; }
   .org-grid { display: grid; grid-template-columns: 96px repeat(var(--cols, 5), minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; align-items: stretch; }
   .org-section-rule { grid-column: 1 / -1; height: 0; border-top: 1px solid var(--border-strong); margin: 6px 0 2px; }
   .org-row-label { font-size: 10.5px; font-weight: 680; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); padding-top: 14px; align-self: start; line-height: 1.35; }
   .org-col-title { font-size: 22px; font-weight: 640; letter-spacing: -0.02em; color: var(--text); line-height: 1.15; padding: 0 4px; }
   .org-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-  .org-card { width: 100%; background: #111827; color: #fff; border-radius: 8px; padding: 12px 12px 14px; display: flex; flex-direction: column; align-items: stretch; text-align: center; overflow: hidden; cursor: pointer; transition: background-color .2s ease, transform .2s ease; }
+  .org-card { width: 100%; min-height: 106px; background: #111827; color: #fff; border-radius: 8px; padding: 12px 12px 14px; display: flex; flex-direction: column; align-items: stretch; text-align: center; overflow: hidden; cursor: pointer; transition: background-color .2s ease, transform .2s ease; }
   .org-card:hover { background-color: #1f2937; }
   .org-card.tbh { background: transparent; color: var(--text); border: 1.5px dashed var(--text); padding: 10.5px 10.5px 12.5px; }
   .org-card.tbh:hover { background-color: color-mix(in srgb, var(--text) 4%, transparent); }
@@ -505,8 +518,7 @@
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
         </span>
         <span class="brand-text">
-          <span class="brand-title">Competency Matrix</span>
-          <span class="brand-sub" id="brand-sub">Design Team · 2026</span>
+          <span class="brand-title" id="brand-sub">Design Team · 2026</span>
         </span>
         <span class="brand-caret" aria-hidden="true">
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.4 3.8 5 6.4l2.6-2.6"/></svg>
@@ -525,11 +537,13 @@
       </div>
     </div>
     <nav class="tabs" role="tablist" aria-label="Team views">
-      <button class="tab" data-action="tab" data-mode="org" role="tab" aria-selected="true">Org Design</button>
+      <button class="tab" data-action="tab" data-mode="org"     role="tab" aria-selected="true">Org Design</button>
       <button class="tab" data-action="tab" data-mode="profile" role="tab" aria-selected="false">Profile</button>
+      <button class="tab" data-action="tab" data-mode="roles"   role="tab" aria-selected="false" hidden>Top hires</button>
+      <button class="tab" data-action="tab" data-mode="story"   role="tab" aria-selected="false" hidden>Story</button>
     </nav>
     <div class="header-spacer"></div>
-    <nav class="tabs" role="tablist" aria-label="Content views">
+    <nav class="tabs" id="content-tabs" role="tablist" aria-label="Content views">
       <button class="tab" data-action="tab" data-mode="matrix" role="tab" aria-selected="false">Matrix</button>
       <button class="tab" data-action="tab" data-mode="assess" role="tab" aria-selected="false">Self-Assessment</button>
       <button class="tab" data-action="tab" data-mode="guide" role="tab" aria-selected="false">Guide</button>
@@ -656,22 +670,42 @@
       <div class="org-page-divider" aria-hidden="true"></div>
       <div class="org-layout" id="org-layout">
         <aside class="org-principles" id="org-principles"></aside>
-        <div class="org-grid-wrap"><div id="org-mount"></div></div>
+        <div class="org-grid-wrap">
+          <div id="org-rollup" class="org-rollup" hidden>
+            <div class="org-rollup-pair">
+              <div class="org-rollup-col">
+                <div class="org-rollup-vp">VP, Brand</div>
+                <div class="org-rollup-stem" aria-hidden="true"></div>
+                <div class="org-rollup-areas">
+                  <span>Narrative &amp; content</span>
+                  <span>Identity &amp; taste</span>
+                  <span>AI production</span>
+                  <span>Data storytelling</span>
+                  <span>Comms &amp; reputation</span>
+                </div>
+              </div>
+              <div class="org-rollup-col">
+                <div class="org-rollup-vp">VP, Growth</div>
+                <div class="org-rollup-stem" aria-hidden="true"></div>
+                <div class="org-rollup-areas">
+                  <span>Demand generation</span>
+                  <span>Product marketing</span>
+                  <span>Lifecycle marketing</span>
+                  <span>Analytics &amp; attribution</span>
+                  <span>Events</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="org-mount"></div>
+        </div>
       </div>
     </section>
 
-    <!-- Marketing -->
+    <!-- Marketing (legacy wrapper — Story and Roles are now top-level views for Brand) -->
     <section id="view-marketing" class="view" role="tabpanel" aria-label="Marketing" hidden>
       <div class="mkt-intro-band">
         <h1>Create &amp; Capture Demand</h1>
-        <div class="mkt-toolbar">
-          <span class="toolbar-label">View</span>
-          <div class="era-toggle" role="group" aria-label="Marketing view">
-            <button class="era-btn active" data-action="mktView" data-mview="pillars" aria-pressed="true">Pillars</button>
-            <button class="era-btn"        data-action="mktView" data-mview="roles"   aria-pressed="false">Roles &amp; why</button>
-            <button class="era-btn"        data-action="mktView" data-mview="story"   aria-pressed="false">Story</button>
-          </div>
-        </div>
       </div>
       <div class="mkt-page-divider" aria-hidden="true"></div>
 
@@ -744,157 +778,160 @@
         <p class="mkt-shared-note">The AI &amp; analytics backbone sits inside Capture for management, but its roadmap is co-owned with Create — neither pillar can quietly redirect it.</p>
       </div>
 
-      <!-- Roles &amp; why view -->
-      <div id="mkt-roles" class="mkt-roles-view" hidden>
-        <div class="mkt-section-head">
-          <h2>Top roles to hire</h2>
-          <p>The seats needed to make this shape work.</p>
-        </div>
-        <div class="mkt-roles-grid">
-          <div class="mkt-roles-col">
-            <div class="mkt-roles-col-head">
-              <div class="mkt-roles-col-code">Create</div>
-              <div class="mkt-roles-col-sub">Brand · creates demand</div>
-            </div>
-            <div class="mkt-role">
-              <h3>Creative Director</h3>
-              <p>Owns taste, sets the bar, drives breakthrough and audacious ideas.</p>
-            </div>
-            <div class="mkt-role">
-              <h3>Editorial Director</h3>
-              <p>Owns the content engine and what stories to chase.</p>
-            </div>
-            <div class="mkt-role">
-              <h3>Creative Leads <span class="mkt-tag-count">×2</span></h3>
-              <p>Generate ideas, drive projects forward, hold the bar.</p>
-            </div>
-            <div class="mkt-role">
-              <h3>Design Lead</h3>
-              <p>Owns the visual system and how the brand shows up in market.</p>
-            </div>
-            <div class="mkt-role">
-              <h3>AI Production Lead</h3>
-              <p>Establishes the pipeline, maintains the system for all to use.</p>
-            </div>
-            <div class="mkt-role">
-              <h3>Sr. Data Storyteller</h3>
-              <p>Discovers and delivers insights so we can generate content.</p>
-            </div>
-          </div>
-          <div class="mkt-roles-col">
-            <div class="mkt-roles-col-head">
-              <div class="mkt-roles-col-code">Capture</div>
-              <div class="mkt-roles-col-sub">Growth · captures demand</div>
-            </div>
-            <div class="mkt-role">
-              <h3>Head of Analytics &amp; AI</h3>
-              <p>Builds the backbone, ships the agents, makes everything compound.</p>
-            </div>
-            <div class="mkt-role">
-              <h3>Head of Product Marketing</h3>
-              <p>Owns positioning, launches, and how sales tells the story.</p>
-            </div>
-            <div class="mkt-role">
-              <h3>Head of Growth Ops &amp; Performance</h3>
-              <p>Runs paid, SEO, and the pipeline that turns spend into leads.</p>
-            </div>
-            <div class="mkt-role">
-              <h3>Events Lead</h3>
-              <p>Picks the events, runs the machine, brings the leads home.</p>
-            </div>
-          </div>
-        </div>
+    </section>
 
-        <div class="mkt-section-head">
-          <h2>Why this change matters</h2>
-          <p>What the shape enforces.</p>
+    <!-- Story (Brand-team tab) -->
+    <section id="view-story" class="view" role="tabpanel" aria-label="Story" hidden>
+      <div class="ms-hero">
+        <div class="ms-title-block">
+          <p class="ms-story-strat">The story is the strategy.</p>
+          <h1 class="ms-title">All brands are media companies now.</h1>
+          <p class="ms-lede">One hero story. A dozen ways to tell it.</p>
+          <div class="ms-hero-copy">
+            <p><b>One anchor asset a quarter</b> — a documentary, a founder film, a real customer story — cut a dozen ways. Not a hundred disposable ads that all say the same thing.</p>
+            <p>Executive-led posts already outperform brand-page content <b>5–10x on LinkedIn</b> — the story lands harder coming from a person, not a logo.</p>
+            <p>IBM's short documentary on Watson's Jeopardy! run turned a technical demo into a <b>cultural moment</b> — without a single product pitch.</p>
+          </div>
         </div>
-        <div class="mkt-why-grid">
-          <div class="mkt-why-item">
-            <h3>Create is the umbrella; content is a discipline inside it.</h3>
-            <p>Content is what gets made. Create is what it's made in service of — positioning, reputation, identity. Naming the pillar for the output puts production above the thing it's supposed to serve.</p>
+        <div class="ms-diagram" aria-hidden="true">
+          <svg viewBox="0 0 500 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Original story cut into a dozen formats">
+            <g stroke="#c9d0da" stroke-width="1">
+              <line x1="250" y1="250" x2="250" y2="105"/>
+              <line x1="250" y1="250" x2="365" y2="145"/>
+              <line x1="250" y1="250" x2="415" y2="250"/>
+              <line x1="250" y1="250" x2="365" y2="355"/>
+              <line x1="250" y1="250" x2="250" y2="395"/>
+              <line x1="250" y1="250" x2="135" y2="355"/>
+              <line x1="250" y1="250" x2="85"  y2="250"/>
+              <line x1="250" y1="250" x2="135" y2="145"/>
+            </g>
+            <g font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#161a22">
+              <g><rect x="187.5" y="88"  width="125" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="250" y="110" text-anchor="middle">Exec talk track</text></g>
+              <g><rect x="295"   y="128" width="140" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="365" y="150" text-anchor="middle">LinkedIn carousel</text></g>
+              <g><rect x="352.5" y="233" width="125" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="415" y="255" text-anchor="middle">Short-form cuts</text></g>
+              <g><rect x="290"   y="338" width="150" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="365" y="360" text-anchor="middle">Customer case study</text></g>
+              <g><rect x="202.5" y="378" width="95"  height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="250" y="400" text-anchor="middle">Sales deck</text></g>
+              <g><rect x="62.5"  y="338" width="145" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="135" y="360" text-anchor="middle">Newsletter feature</text></g>
+              <g><rect x="20"    y="233" width="130" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="85"  y="255" text-anchor="middle">Podcast episode</text></g>
+              <g><rect x="65"    y="128" width="140" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="135" y="150" text-anchor="middle">Internal all-hands</text></g>
+            </g>
+            <rect x="185" y="212" width="130" height="76" rx="6" fill="#161a22"/>
+            <text x="250" y="246" font-family="Inter, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">ORIGINAL</text>
+            <text x="250" y="269" font-family="Inter, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">STORY</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="ms-humans">
+        <h2 class="ms-section-title">Team make up</h2>
+        <div class="ms-role-grid">
+          <div class="ms-role">
+            <div class="ms-role-eyebrow">Breakthrough creative</div>
+            <p>The point of view AI can't replicate. Human directors set the angle, the taste, and the choices no model can make on its own — the anchor asset every downstream cut inherits from.</p>
           </div>
-          <div class="mkt-why-item">
-            <h3>Agents produce. People own judgment.</h3>
-            <p>Data storytelling and AI production sit here explicitly because they're where this shows up hardest — huge volume of video, imagery, and data-driven content still needs one person deciding what's true and what's good.</p>
+          <div class="ms-role">
+            <div class="ms-role-eyebrow">Scaling brand identity</div>
+            <p>Keeps every cut looking like one brand. A design system owner holds the visual language across formats — documentary to carousel to sales deck — so the story stays recognizably yours.</p>
           </div>
-          <div class="mkt-why-item">
-            <h3>The shared backbone gets a governance rule, not a new box.</h3>
-            <p>The AI &amp; analytics backbone sits inside Capture day to day — no new seat, no new reporting line. But its roadmap is co-owned with Create in writing, so it can't quietly become a Capture-only tool.</p>
+          <div class="ms-role">
+            <div class="ms-role-eyebrow">Real vendors</div>
+            <p>The hero asset AI still can't fake. Documentary crews, cinematographers, and post houses make the founder film or customer story that becomes the anchor for the quarter.</p>
           </div>
-          <div class="mkt-why-item">
-            <h3>Create sets the standard once; Capture executes inside it at speed.</h3>
-            <p>Most work ships with no gate — only new-reach, new-audience, or story-changing work gets reviewed. Rules of engagement are the road-tested part; keep them.</p>
+          <div class="ms-role">
+            <div class="ms-role-eyebrow">Managing AI</div>
+            <p>Runs the derivative-content pipeline. An AI creative producer sets the prompts, formats, and quality bar for every cut — turning one anchor into a dozen tellings without watering it down.</p>
           </div>
-          <div class="mkt-why-item">
-            <h3>PLG belongs to Product; investor narrative to Finance.</h3>
-            <p>Conversion, activation, and in-product upsell are a product decision. Investor and corporate narrative pulls tone from Create but sits with CEO/Finance — that audience needs financial fluency, not brand voice.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top hires (Brand-team tab) -->
+    <section id="view-roles" class="view" role="tabpanel" aria-label="Top hires" hidden>
+      <div class="mkt-roles-grid">
+        <div class="mkt-roles-col">
+          <div class="mkt-roles-col-head">
+            <div class="mkt-roles-col-code">Brand Hiring Priorities</div>
+          </div>
+          <div class="mkt-role">
+            <h3>Creative Director</h3>
+            <p>Owns taste, sets the bar, drives breakthrough and audacious ideas.</p>
+          </div>
+          <div class="mkt-role">
+            <h3>Editorial Director</h3>
+            <p>Owns the content engine and what stories to chase.</p>
+          </div>
+          <div class="mkt-role">
+            <h3>Creative Leads <span class="mkt-tag-count">×2</span></h3>
+            <p>Generate ideas, drive projects forward, hold the bar.</p>
+          </div>
+          <div class="mkt-role">
+            <h3>AI Production Lead</h3>
+            <p>Establishes the pipeline, maintains the system for all to use.</p>
+          </div>
+          <div class="mkt-role">
+            <h3>Sr. Data Storyteller</h3>
+            <p>Discovers and delivers insights so we can generate content.</p>
+          </div>
+          <div class="mkt-role">
+            <h3>Design Lead</h3>
+            <p>Owns the visual system and how the brand shows up in market.</p>
+          </div>
+        </div>
+        <div class="mkt-roles-col">
+          <div class="mkt-roles-col-head">
+            <div class="mkt-roles-col-code">Growth Hiring Priorities</div>
+          </div>
+          <div class="mkt-role">
+            <h3>Head of Analytics &amp; AI</h3>
+            <p>Builds the backbone, ships the agents, makes everything compound.</p>
+          </div>
+          <div class="mkt-role">
+            <h3>Head of Product Marketing</h3>
+            <p>Owns positioning, launches, and how sales tells the story.</p>
+          </div>
+          <div class="mkt-role">
+            <h3>Head of Growth Ops &amp; Performance</h3>
+            <p>Runs paid, SEO, and the pipeline that turns spend into leads.</p>
+          </div>
+          <div class="mkt-role">
+            <h3>Head of Lifecycle Marketing</h3>
+            <p>Runs retention, expansion, and onboarding — where NRR gets managed day to day.</p>
+          </div>
+          <div class="mkt-role">
+            <h3>Head of Content Marketing</h3>
+            <p>Owns SEO, editorial, and the organic content that feeds the funnel.</p>
+          </div>
+          <div class="mkt-role">
+            <h3>Events Lead</h3>
+            <p>Picks the events, runs the machine, brings the leads home.</p>
           </div>
         </div>
       </div>
 
-      <!-- Story view — the story is the strategy -->
-      <div id="mkt-story" class="mkt-story-view" hidden>
-        <div class="ms-hero">
-          <div class="ms-title-block">
-            <p class="ms-story-strat">The story is the strategy.</p>
-            <h1 class="ms-title">All brands are media companies now.</h1>
-            <p class="ms-lede">One hero story. A dozen ways to tell it.</p>
-            <div class="ms-hero-copy">
-              <p><b>One anchor asset a quarter</b> — a documentary, a founder film, a real customer story — cut a dozen ways. Not a hundred disposable ads that all say the same thing.</p>
-              <p>Executive-led posts already outperform brand-page content <b>5–10x on LinkedIn</b> — the story lands harder coming from a person, not a logo.</p>
-              <p>IBM's short documentary on Watson's Jeopardy! run turned a technical demo into a <b>cultural moment</b> — without a single product pitch.</p>
-            </div>
-          </div>
-          <div class="ms-diagram" aria-hidden="true">
-            <svg viewBox="0 0 500 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Original story cut into a dozen formats">
-              <g stroke="#c9d0da" stroke-width="1">
-                <line x1="250" y1="250" x2="250" y2="105"/>
-                <line x1="250" y1="250" x2="365" y2="145"/>
-                <line x1="250" y1="250" x2="415" y2="250"/>
-                <line x1="250" y1="250" x2="365" y2="355"/>
-                <line x1="250" y1="250" x2="250" y2="395"/>
-                <line x1="250" y1="250" x2="135" y2="355"/>
-                <line x1="250" y1="250" x2="85"  y2="250"/>
-                <line x1="250" y1="250" x2="135" y2="145"/>
-              </g>
-              <g font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#161a22">
-                <g><rect x="187.5" y="88"  width="125" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="250" y="110" text-anchor="middle">Exec talk track</text></g>
-                <g><rect x="295"   y="128" width="140" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="365" y="150" text-anchor="middle">LinkedIn carousel</text></g>
-                <g><rect x="352.5" y="233" width="125" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="415" y="255" text-anchor="middle">Short-form cuts</text></g>
-                <g><rect x="290"   y="338" width="150" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="365" y="360" text-anchor="middle">Customer case study</text></g>
-                <g><rect x="202.5" y="378" width="95"  height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="250" y="400" text-anchor="middle">Sales deck</text></g>
-                <g><rect x="62.5"  y="338" width="145" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="135" y="360" text-anchor="middle">Newsletter feature</text></g>
-                <g><rect x="20"    y="233" width="130" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="85"  y="255" text-anchor="middle">Podcast episode</text></g>
-                <g><rect x="65"    y="128" width="140" height="34" rx="6" fill="#f4f6fa" stroke="#e4e8ef"/><text x="135" y="150" text-anchor="middle">Internal all-hands</text></g>
-              </g>
-              <rect x="185" y="212" width="130" height="76" rx="6" fill="#161a22"/>
-              <text x="250" y="246" font-family="Inter, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">ORIGINAL</text>
-              <text x="250" y="269" font-family="Inter, system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">STORY</text>
-            </svg>
-          </div>
+      <div class="mkt-section-head">
+        <h2>Why this change matters</h2>
+        <p>What the shape enforces.</p>
+      </div>
+      <div class="mkt-why-grid">
+        <div class="mkt-why-item">
+          <h3>Create is the umbrella; content is a discipline inside it.</h3>
+          <p>Content is what gets made. Create is what it's made in service of — positioning, reputation, identity. Naming the pillar for the output puts production above the thing it's supposed to serve.</p>
         </div>
-
-        <div class="ms-humans">
-          <h2 class="ms-section-title">Team make up</h2>
-          <div class="ms-role-grid">
-            <div class="ms-role">
-              <div class="ms-role-eyebrow">Breakthrough creative</div>
-              <p>The point of view AI can't replicate. Human directors set the angle, the taste, and the choices no model can make on its own — the anchor asset every downstream cut inherits from.</p>
-            </div>
-            <div class="ms-role">
-              <div class="ms-role-eyebrow">Scaling brand identity</div>
-              <p>Keeps every cut looking like one brand. A design system owner holds the visual language across formats — documentary to carousel to sales deck — so the story stays recognizably yours.</p>
-            </div>
-            <div class="ms-role">
-              <div class="ms-role-eyebrow">Real vendors</div>
-              <p>The hero asset AI still can't fake. Documentary crews, cinematographers, and post houses make the founder film or customer story that becomes the anchor for the quarter.</p>
-            </div>
-            <div class="ms-role">
-              <div class="ms-role-eyebrow">Managing AI</div>
-              <p>Runs the derivative-content pipeline. An AI creative producer sets the prompts, formats, and quality bar for every cut — turning one anchor into a dozen tellings without watering it down.</p>
-            </div>
-          </div>
+        <div class="mkt-why-item">
+          <h3>Agents produce. People own judgment.</h3>
+          <p>Data storytelling and AI production sit here explicitly because they're where this shows up hardest — huge volume of video, imagery, and data-driven content still needs one person deciding what's true and what's good.</p>
+        </div>
+        <div class="mkt-why-item">
+          <h3>The shared backbone gets a governance rule, not a new box.</h3>
+          <p>The AI &amp; analytics backbone sits inside Capture day to day — no new seat, no new reporting line. But its roadmap is co-owned with Create in writing, so it can't quietly become a Capture-only tool.</p>
+        </div>
+        <div class="mkt-why-item">
+          <h3>Create sets the standard once; Capture executes inside it at speed.</h3>
+          <p>Most work ships with no gate — only new-reach, new-audience, or story-changing work gets reviewed. Rules of engagement are the road-tested part; keep them.</p>
+        </div>
+        <div class="mkt-why-item">
+          <h3>PLG belongs to Product; investor narrative to Finance.</h3>
+          <p>Conversion, activation, and in-product upsell are a product decision. Investor and corporate narrative pulls tone from Create but sits with CEO/Finance — that audience needs financial fluency, not brand voice.</p>
         </div>
       </div>
     </section>
@@ -1144,41 +1181,42 @@
     { title: 'Design collision points on purpose.',                 body: "Collaboration won't happen organically anymore—build it in." },
   ];
 
-  const ORG_COL_TITLES = ['Travel', 'Travel Management', 'Marketplaces', 'Fintech', 'Next Gen'];
-  const ORG_BRAND_COL_TITLES = ['Brand', 'Ops', 'Creative', 'Editorial'];
 
-  /* Brand team org — no eng-team counts on ICs, no shared services, no principles. */
+  const ORG_COL_TITLES = ['Travel', 'Travel Management', 'Marketplaces', 'Fintech', 'Next Gen'];
+  const ORG_BRAND_COL_TITLES = ['', 'Ops', 'Creative', 'Editorial'];
+
+  /* Brand team org — full role titles spelled out. No eng-team counts on ICs, no shared services. */
   const ORG_BRAND = {
     leaders: [
-      { name:'Ann',   area:'Sr. Dir. Brand',   count:6 },
-      { name:'Willa', area:'Dir. Ops',         count:2 },
-      { name:'BF',    area:'Dir. Creative',    count:4, tbh:true },
-      { name:'TBH',   area:'Dir. Editorial',   count:4, tbh:true },
+      { name:'Ann',   area:'Senior Director, Brand',    count:6 },
+      { name:'Willa', area:'Director, Operations',      count:2 },
+      { name:'BF',    area:'Director, Creative',        count:4, tbh:true },
+      { name:'TBH',   area:'Director, Editorial',       count:4, tbh:true },
     ],
     columns: [
       [ // Brand
-        { name:'TBH',      area:'Brand Strat',      tbh:true },
-        { name:'TBH',      area:'Principal Ident.', tbh:true },
-        { name:'TBH',      area:'Staff Designer',   tbh:true },
-        { name:'Lily',     area:'Sr. Designer' },
-        { name:'Lindsay',  area:'Sr. Designer' },
-        { name:'Chaella',  area:'Prod. Designer' },
+        { name:'TBH',      area:'Brand Strategist',              tbh:true },
+        { name:'TBH',      area:'Principal Designer, Identity',  tbh:true },
+        { name:'TBH',      area:'Staff Designer',                tbh:true },
+        { name:'Lily',     area:'Senior Designer' },
+        { name:'Lindsay',  area:'Senior Designer' },
+        { name:'Chaella',  area:'Production Designer' },
       ],
       [ // Ops
-        { name:'Jiro', area:'Int. Prod.' },
-        { name:'TBH',  area:'AI Prod.',    tbh:true },
+        { name:'Jiro', area:'Senior, Integrated Producer' },
+        { name:'TBH',  area:'Senior, AI Producer',           tbh:true },
       ],
       [ // Creative
-        { name:'BF',   area:'Princ. Creative' },
-        { name:'BF',   area:'Princ. Creative', tbh:true },
-        { name:'TBH',  area:'Staff Designer',  tbh:true },
-        { name:'TBH',  area:'Sr AI Creative',  tbh:true },
+        { name:'BF',   area:'Principal, Creative' },
+        { name:'BF',   area:'Principal, Creative',    tbh:true },
+        { name:'TBH',  area:'Staff Designer',         tbh:true },
+        { name:'TBH',  area:'Senior, AI Creative',    tbh:true },
       ],
       [ // Editorial
         { name:'Sara',     area:'PR Lead' },
-        { name:'TBH',      area:'Comms Lead',    tbh:true },
-        { name:'Backfill', area:'Social Lead',   tbh:true },
-        { name:'TBH',      area:'Data Insights', tbh:true },
+        { name:'TBH',      area:'Communications Lead',    tbh:true },
+        { name:'Backfill', area:'Social Lead',            tbh:true },
+        { name:'TBH',      area:'Data Insights Lead',     tbh:true },
       ],
     ],
     share: null,
@@ -1249,7 +1287,7 @@
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const DEFAULTS = [1, 1, 1, 1, 1];
-  let state = { mode:'org', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:false }, orgTeam:'design', marketing:{ view:'pillars' } };
+  let state = { mode:'org', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:false }, orgTeam:'design' };
 
   /* -------- Matrix -------- */
   function cellInner(cell, nextLabel) {
@@ -1345,7 +1383,11 @@
     const section = $('#view-org');
     section.classList.toggle('team-brand', isBrand);
     section.style.setProperty('--cols', String(numCols));
-    $('#org-layout').classList.toggle('no-principles', isBrand);
+    /* Brand now also gets a principles column, matching Design. */
+    $('#org-layout').classList.remove('no-principles');
+    /* Rollup chart is Brand-only */
+    const rollup = $('#org-rollup');
+    if (rollup) rollup.hidden = !isBrand;
 
     /* Column titles row */
     const titlesHtml = ['<div class="oib-label-spacer"></div>'];
@@ -1375,18 +1417,17 @@
     grid.push('</div>');
     $('#org-mount').innerHTML = grid.join('');
 
-    /* Principles column — Design only */
-    if (isBrand) {
-      $('#org-principles').innerHTML = '';
-    } else {
-      $('#org-principles').innerHTML = ORG_PRINCIPLES.map(p =>
-        `<div class="op-item"><b>${esc(p.title)}</b><p>${esc(p.body)}</p></div>`
-      ).join('') + `
-        <div class="op-key">
-          <span class="op-key-badge" aria-hidden="true">3</span>
-          <span><b>Number in the circle</b> = engineering teams a designer supports (or designers a leader manages).</span>
-        </div>`;
-    }
+    /* Principles column — same set for both teams; only the "number in the circle" key differs. */
+    const keyText = isBrand
+      ? '<b>Number in the circle</b> = ICs a leader manages.'
+      : '<b>Number in the circle</b> = engineering teams a designer supports (or designers a leader manages).';
+    $('#org-principles').innerHTML = ORG_PRINCIPLES.map(p =>
+      `<div class="op-item"><b>${esc(p.title)}</b><p>${esc(p.body)}</p></div>`
+    ).join('') + `
+      <div class="op-key">
+        <span class="op-key-badge" aria-hidden="true">${isBrand ? '6' : '3'}</span>
+        <span>${keyText}</span>
+      </div>`;
   }
   function setOrgDetails(on) {
     state.org.showDetails = !!on;
@@ -1406,15 +1447,28 @@
   }
   function toggleOrgMenu() { setOrgMenuOpen($('#brand-menu').hidden); }
   function selectOrgTeam(team) {
-    state.orgTeam = team === 'brand' ? 'brand' : 'design';
+    const isBrand = team === 'brand';
+    state.orgTeam = isBrand ? 'brand' : 'design';
     try { localStorage.setItem('cm-org-team', state.orgTeam); } catch (e) {}
     $$('.bm-item[data-action="orgSelect"]').forEach(b => {
       b.classList.toggle('active', b.dataset.team === state.orgTeam);
     });
-    $('#brand-sub').textContent = state.orgTeam === 'brand' ? 'Brand Team · 2026' : 'Design Team · 2026';
+    $('#brand-sub').textContent = isBrand ? 'Brand Team · 2026' : 'Design Team · 2026';
+    /* Tab visibility: Design shows Profile, Brand shows Story + Roles.
+       The content-nav (Matrix/Self-Assess/Guide) is hidden entirely on Brand. */
+    const teamModes = TEAM_TABS[state.orgTeam];
+    ['profile','story','roles'].forEach(m => {
+      const tab = $(`.tab[data-mode="${m}"]`);
+      if (tab) tab.hidden = !teamModes.includes(m);
+    });
+    const contentTabs = $('#content-tabs');
+    if (contentTabs) contentTabs.hidden = isBrand;
     renderOrg();
     setOrgMenuOpen(false);
-    if (state.mode !== 'org') setMode('org');
+    /* If current mode isn't valid for the newly-selected team, snap back to Org Design. */
+    const validForTeam = isBrand ? MODES_BRAND : MODES_DESIGN;
+    if (!validForTeam.has(state.mode) && state.mode !== 'marketing') setMode('org');
+    else if (state.mode === 'org' || teamModes.includes(state.mode)) { /* stay put */ }
   }
 
   /* -------- Assessment -------- */
@@ -1619,23 +1673,13 @@
   }
 
   /* -------- Modes -------- */
-  const MODES = ['org','profile','marketing','matrix','assess','guide'];
+  const MODES = ['org','profile','story','roles','marketing','matrix','assess','guide'];
+  const MODES_DESIGN = new Set(['org','profile','matrix','assess','guide']);
+  const MODES_BRAND  = new Set(['org','story','roles','matrix','assess','guide']);
+  const TEAM_TABS = { design: ['org','profile'], brand: ['org','roles','story'] };
 
-  /* -------- Marketing -------- */
-  function toggleMktExpanded() { $('#mkt-pillars').classList.toggle('expanded'); }
-  function setMarketingView(view) {
-    const valid = ['pillars', 'roles', 'story'];
-    state.marketing.view = valid.includes(view) ? view : 'pillars';
-    try { localStorage.setItem('cm-mkt-view', state.marketing.view); } catch (e) {}
-    $('#mkt-pillars').hidden = state.marketing.view !== 'pillars';
-    $('#mkt-roles').hidden   = state.marketing.view !== 'roles';
-    $('#mkt-story').hidden   = state.marketing.view !== 'story';
-    $$('.era-btn[data-action="mktView"]').forEach(b => {
-      const active = b.dataset.mview === state.marketing.view;
-      b.classList.toggle('active', active);
-      b.setAttribute('aria-pressed', String(active));
-    });
-  }
+  /* -------- Marketing (legacy /#marketing route — Pillars only) -------- */
+  function toggleMktExpanded() { const el = $('#mkt-pillars'); if (el) el.classList.toggle('expanded'); }
   function setMode(mode) {
     if (state.focus) { state.focus = null; applyFocus(); }
     state.mode = mode;
@@ -1671,7 +1715,6 @@
     if (a === 'focus') return toggleFocus(actionEl.dataset.level);
     if (a === 'reset') { state.assess = { values: DEFAULTS.slice(), name:'' }; saveAssess(); buildAssess(); return toast('Assessment reset'); }
     if (a === 'cardToggle') return toggleOrgDetails();
-    if (a === 'mktView') return setMarketingView(actionEl.dataset.mview);
     if (a === 'mktToggle') return toggleMktExpanded();
     if (a === 'orgMenu') return toggleOrgMenu();
     if (a === 'orgSelect') return selectOrgTeam(actionEl.dataset.team);
@@ -1754,7 +1797,6 @@
     try { state.staffTier = localStorage.getItem('cm-staff') === '2' ? 2 : 1; } catch (e) {}
     try { state.org.showDetails = localStorage.getItem('cm-org-details') === '1'; } catch (e) {}
     try { state.orgTeam = localStorage.getItem('cm-org-team') === 'brand' ? 'brand' : 'design'; } catch (e) {}
-    try { const v = localStorage.getItem('cm-mkt-view'); state.marketing.view = ['roles','story'].includes(v) ? v : 'pillars'; } catch (e) {}
     renderMatrix();
     syncEra();
     loadAssess();
@@ -1762,7 +1804,6 @@
     renderOrg();
     setOrgDetails(state.org.showDetails);
     selectOrgTeam(state.orgTeam);
-    setMarketingView(state.marketing.view);
     let mode = 'org';
     const hash = (location.hash || '').replace('#', '');
     if (hash === 'marketing') mode = 'marketing';
