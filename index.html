@@ -303,8 +303,6 @@
   .org-intro-band { display: grid; grid-template-columns: minmax(220px, 260px) 1fr; gap: 36px; align-items: end; margin-bottom: 12px; }
   .org-intro-band > h1 { font-size: 27px; letter-spacing: -0.026em; line-height: 1.1; margin: 0; }
   .oib-titles { display: grid; grid-template-columns: 96px repeat(var(--cols, 5), minmax(0, 1fr)); column-gap: 12px; align-items: end; }
-  #view-org.team-brand .org-intro-band { grid-template-columns: 1fr; gap: 8px; align-items: start; }
-  #view-org.team-brand .org-intro-band > h1 { margin-bottom: 4px; }
   #view-org.team-brand .org-card.no-toggle { cursor: default; }
   #view-org.team-brand .org-card.no-toggle:hover { background-color: #111827; }
   #view-org.team-brand .org-card.no-toggle.tbh:hover { background-color: transparent; }
@@ -670,35 +668,7 @@
       <div class="org-page-divider" aria-hidden="true"></div>
       <div class="org-layout" id="org-layout">
         <aside class="org-principles" id="org-principles"></aside>
-        <div class="org-grid-wrap">
-          <div id="org-rollup" class="org-rollup" hidden>
-            <div class="org-rollup-pair">
-              <div class="org-rollup-col">
-                <div class="org-rollup-vp">VP, Brand</div>
-                <div class="org-rollup-stem" aria-hidden="true"></div>
-                <div class="org-rollup-areas">
-                  <span>Narrative &amp; content</span>
-                  <span>Identity &amp; taste</span>
-                  <span>AI production</span>
-                  <span>Data storytelling</span>
-                  <span>Comms &amp; reputation</span>
-                </div>
-              </div>
-              <div class="org-rollup-col">
-                <div class="org-rollup-vp">VP, Growth</div>
-                <div class="org-rollup-stem" aria-hidden="true"></div>
-                <div class="org-rollup-areas">
-                  <span>Demand generation</span>
-                  <span>Product marketing</span>
-                  <span>Lifecycle marketing</span>
-                  <span>Analytics &amp; attribution</span>
-                  <span>Events</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="org-mount"></div>
-        </div>
+        <div class="org-grid-wrap"><div id="org-mount"></div></div>
       </div>
     </section>
 
@@ -846,6 +816,32 @@
 
     <!-- Top hires (Brand-team tab) -->
     <section id="view-roles" class="view" role="tabpanel" aria-label="Top hires" hidden>
+      <div class="org-rollup">
+        <div class="org-rollup-pair">
+          <div class="org-rollup-col">
+            <div class="org-rollup-vp">VP, Brand</div>
+            <div class="org-rollup-stem" aria-hidden="true"></div>
+            <div class="org-rollup-areas">
+              <span>Narrative &amp; content</span>
+              <span>Identity &amp; taste</span>
+              <span>AI production</span>
+              <span>Data storytelling</span>
+              <span>Comms &amp; reputation</span>
+            </div>
+          </div>
+          <div class="org-rollup-col">
+            <div class="org-rollup-vp">VP, Growth</div>
+            <div class="org-rollup-stem" aria-hidden="true"></div>
+            <div class="org-rollup-areas">
+              <span>Demand generation</span>
+              <span>Product marketing</span>
+              <span>Lifecycle marketing</span>
+              <span>Analytics &amp; attribution</span>
+              <span>Events</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="mkt-roles-grid">
         <div class="mkt-roles-col">
           <div class="mkt-roles-col-head">
@@ -1182,7 +1178,7 @@
 
 
   const ORG_COL_TITLES = ['Travel', 'Travel Management', 'Marketplaces', 'Fintech', 'Next Gen'];
-  const ORG_BRAND_COL_TITLES = ['', 'Ops', 'Creative', 'Editorial'];
+  const ORG_BRAND_COL_TITLES = ['Brand', 'Operations', 'Creative', 'Editorial'];
 
   /* Brand team org — full role titles spelled out. No eng-team counts on ICs, no shared services. */
   const ORG_BRAND = {
@@ -1384,9 +1380,6 @@
     section.style.setProperty('--cols', String(numCols));
     /* Brand now also gets a principles column, matching Design. */
     $('#org-layout').classList.remove('no-principles');
-    /* Rollup chart is Brand-only */
-    const rollup = $('#org-rollup');
-    if (rollup) rollup.hidden = !isBrand;
 
     /* Column titles row */
     const titlesHtml = ['<div class="oib-label-spacer"></div>'];
