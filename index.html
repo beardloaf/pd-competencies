@@ -325,6 +325,24 @@
   .org-rollup-col--single { max-width: 900px; margin: 0 auto; }
   .db-toggle { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding-bottom: 4px; }
 
+  /* Design & Brand chart — matches Design/Brand org visual language */
+  .db-chart { display: flex; flex-direction: column; align-items: stretch; }
+  .db-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+  .db-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .db-col--single { max-width: 1080px; margin: 0 auto; width: 100%; }
+  .db-row-label { padding-top: 4px; padding-bottom: 2px; }
+  .db-vp { max-width: 320px; width: 100%; margin: 0 auto; }
+  .db-stem { align-self: center; width: 1px; height: 22px; background: var(--border-strong); margin: 4px 0; }
+  .db-areas { display: grid; grid-template-columns: repeat(var(--areas, 5), minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; }
+  .db-area { min-height: 92px; }
+  #view-org.team-db .db-vp .org-name { font-size: 20px; letter-spacing: -0.008em; }
+  #view-org.team-db .db-area .org-name { font-size: 14px; }
+  #view-org.team-db .db-area .org-area { opacity: .55; }
+
+  @media (max-width: 1100px) {
+    .db-pair { grid-template-columns: 1fr; gap: 32px; }
+  }
+
   #view-org { --cols: 5; }
   .org-grid { display: grid; grid-template-columns: 96px repeat(var(--cols, 5), minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; align-items: stretch; }
   .org-section-rule { grid-column: 1 / -1; height: 0; border-top: 1px solid var(--border-strong); margin: 6px 0 2px; }
@@ -1469,8 +1487,8 @@
     section.style.setProperty('--cols', '4');
     $('#org-layout').classList.add('no-principles');
     $('#org-principles').innerHTML = '';
-    /* Toggle sits where column titles usually do */
     const isTom = state.dbView === 'tomorrow';
+    /* Toggle sits where column titles usually do */
     $('#oib-titles').innerHTML = `
       <div class="db-toggle">
         <span class="toolbar-label">View</span>
@@ -1479,31 +1497,52 @@
           <button class="era-btn${isTom ? ' active' : ''}" data-action="dbView" data-dbview="tomorrow" aria-pressed="${isTom}">Tomorrow</button>
         </div>
       </div>`;
-    /* Rollup chart */
-    const spans = arr => arr.map(a => `<span>${esc(a)}</span>`).join('');
+    /* Match the visual language of the Design / Brand org charts:
+       dark leader-style card for the VP, dashed IC-style cards for the areas. */
+    const vpCard = (label) => `
+      <div class="org-card db-vp">
+        <div class="org-card-top">
+          <div class="org-card-corners"><span class="org-area">Leader</span></div>
+          <span class="org-name">${esc(label)}</span>
+        </div>
+      </div>`;
+    const areaCard = (area) => `
+      <div class="org-card tbh db-area">
+        <div class="org-card-top">
+          <div class="org-card-corners"><span class="org-area">Area</span></div>
+          <span class="org-name">${esc(area)}</span>
+        </div>
+      </div>`;
     if (isTom) {
       $('#org-mount').innerHTML = `
-        <div class="org-rollup">
-          <div class="org-rollup-pair">
-            <div class="org-rollup-col">
-              <div class="org-rollup-vp">VP, Design</div>
-              <div class="org-rollup-stem" aria-hidden="true"></div>
-              <div class="org-rollup-areas">${spans(DESIGN_AREAS)}</div>
+        <div class="db-chart">
+          <div class="db-pair">
+            <div class="db-col">
+              <div class="org-row-label db-row-label">Leader</div>
+              ${vpCard('VP, Design')}
+              <div class="db-stem" aria-hidden="true"></div>
+              <div class="org-row-label db-row-label">Areas</div>
+              <div class="db-areas" style="--areas:${DESIGN_AREAS.length}">${DESIGN_AREAS.map(areaCard).join('')}</div>
             </div>
-            <div class="org-rollup-col">
-              <div class="org-rollup-vp">VP, Brand</div>
-              <div class="org-rollup-stem" aria-hidden="true"></div>
-              <div class="org-rollup-areas">${spans(BRAND_AREAS)}</div>
+            <div class="db-col">
+              <div class="org-row-label db-row-label">Leader</div>
+              ${vpCard('VP, Brand')}
+              <div class="db-stem" aria-hidden="true"></div>
+              <div class="org-row-label db-row-label">Areas</div>
+              <div class="db-areas" style="--areas:${BRAND_AREAS.length}">${BRAND_AREAS.map(areaCard).join('')}</div>
             </div>
           </div>
         </div>`;
     } else {
+      const all = DESIGN_AREAS.concat(BRAND_AREAS);
       $('#org-mount').innerHTML = `
-        <div class="org-rollup">
-          <div class="org-rollup-col org-rollup-col--single">
-            <div class="org-rollup-vp">VP, Design &amp; Brand</div>
-            <div class="org-rollup-stem" aria-hidden="true"></div>
-            <div class="org-rollup-areas">${spans(DESIGN_AREAS.concat(BRAND_AREAS))}</div>
+        <div class="db-chart">
+          <div class="db-col db-col--single">
+            <div class="org-row-label db-row-label">Leader</div>
+            ${vpCard('VP, Design & Brand')}
+            <div class="db-stem" aria-hidden="true"></div>
+            <div class="org-row-label db-row-label">Areas</div>
+            <div class="db-areas" style="--areas:${Math.min(all.length, 5)}">${all.map(areaCard).join('')}</div>
           </div>
         </div>`;
     }
