@@ -303,6 +303,8 @@
   .org-intro-band { display: grid; grid-template-columns: minmax(220px, 260px) 1fr; gap: 36px; align-items: end; margin-bottom: 12px; }
   .org-intro-band > h1 { font-size: 27px; letter-spacing: -0.026em; line-height: 1.1; margin: 0; }
   .oib-titles { display: grid; grid-template-columns: 96px repeat(var(--cols, 5), minmax(0, 1fr)); column-gap: 12px; align-items: end; }
+  #view-org.team-brand .org-card { justify-content: center; }
+  #view-org.team-db .oib-titles { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
   #view-org.team-brand .org-card.no-toggle { cursor: default; }
   #view-org.team-brand .org-card.no-toggle:hover { background-color: #111827; }
   #view-org.team-brand .org-card.no-toggle.tbh:hover { background-color: transparent; }
@@ -318,6 +320,8 @@
   .org-rollup-areas { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding-top: 14px; border-top: 1px solid var(--border-strong); position: relative; }
   .org-rollup-areas::before { content: ""; position: absolute; left: 12%; right: 12%; top: 0; height: 1px; background: var(--border-strong); }
   .org-rollup-areas > span { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 12.5px; font-weight: 600; color: var(--text); background: var(--surface); white-space: nowrap; }
+  .org-rollup-col--single { max-width: 900px; margin: 0 auto; }
+  .db-toggle { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding-bottom: 4px; }
 
   #view-org { --cols: 5; }
   .org-grid { display: grid; grid-template-columns: 96px repeat(var(--cols, 5), minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; align-items: stretch; }
@@ -409,9 +413,9 @@
   .ms-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 500px); gap: 56px; align-items: center; margin-bottom: 48px; }
   .ms-title-block { min-width: 0; display: flex; flex-direction: column; }
   .ms-story-strat { font-size: 12.5px; font-weight: 720; letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint); margin: 0 0 18px; }
-  .ms-title { font-size: 48px; font-weight: 500; letter-spacing: -0.026em; line-height: 1.08; color: var(--text); margin: 0 0 18px; max-width: 640px; }
-  .ms-lede { font-size: 22px; font-weight: 500; letter-spacing: -0.014em; line-height: 1.3; color: var(--text); margin: 0 0 24px; max-width: 640px; }
-  .ms-hero-copy p { font-size: 14.5px; line-height: 1.6; color: var(--text-muted); margin: 0 0 14px; max-width: 620px; }
+  .ms-title { font-size: 48px; font-weight: 500; letter-spacing: -0.026em; line-height: 1.08; color: var(--text); margin: 0 0 18px; max-width: 590px; }
+  .ms-lede { font-size: 22px; font-weight: 500; letter-spacing: -0.014em; line-height: 1.3; color: var(--text); margin: 0 0 24px; max-width: 590px; }
+  .ms-hero-copy p { font-size: 14.5px; line-height: 1.6; color: var(--text-muted); margin: 0 0 14px; max-width: 570px; }
   .ms-hero-copy p:last-child { margin-bottom: 0; }
   .ms-hero-copy b { color: var(--text); font-weight: 640; }
   .ms-diagram { width: 100%; justify-self: end; }
@@ -442,7 +446,10 @@
 
   /* ---- Profile ---- */
   .pf-hero { display: grid; grid-template-columns: 1fr 620px; gap: 60px; align-items: center; margin: 12px 0 64px; }
-  .pf-title { font-size: 56px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.05; color: var(--text); max-width: 640px; }
+  .pf-title-block { min-width: 0; }
+  .pf-title { font-size: 56px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.05; color: var(--text); max-width: 640px; margin: 0; }
+  .pf-subhead { font-size: 18px; line-height: 1.4; color: var(--text-muted); margin: 22px 0 0; max-width: 560px; }
+  .pf-subhead b { color: var(--text); font-weight: 700; }
   .pf-diagram { width: 100%; }
   .pf-diagram svg { width: 100%; height: auto; display: block; }
   .pf-reverb { transform-box: fill-box; transform-origin: center; animation: pf-reverb 3.2s cubic-bezier(.2,.5,.3,1) infinite; }
@@ -516,7 +523,7 @@
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
         </span>
         <span class="brand-text">
-          <span class="brand-title" id="brand-sub">Design Team · 2026</span>
+          <span class="brand-title" id="brand-sub">Org Design - Design</span>
         </span>
         <span class="brand-caret" aria-hidden="true">
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.4 3.8 5 6.4l2.6-2.6"/></svg>
@@ -532,13 +539,17 @@
           <span>Brand</span>
           <span class="bm-check" aria-hidden="true">✓</span>
         </button>
+        <button class="bm-item" type="button" data-action="orgSelect" data-team="db" role="menuitem">
+          <span>Design &amp; Brand</span>
+          <span class="bm-check" aria-hidden="true">✓</span>
+        </button>
       </div>
     </div>
     <nav class="tabs" role="tablist" aria-label="Team views">
-      <button class="tab" data-action="tab" data-mode="org"     role="tab" aria-selected="true">Org Design</button>
-      <button class="tab" data-action="tab" data-mode="profile" role="tab" aria-selected="false">Profile</button>
-      <button class="tab" data-action="tab" data-mode="roles"   role="tab" aria-selected="false" hidden>Top hires</button>
+      <button class="tab" data-action="tab" data-mode="profile" role="tab" aria-selected="false">Story</button>
       <button class="tab" data-action="tab" data-mode="story"   role="tab" aria-selected="false" hidden>Story</button>
+      <button class="tab" data-action="tab" data-mode="roles"   role="tab" aria-selected="false" hidden>Top hires</button>
+      <button class="tab" data-action="tab" data-mode="org"     role="tab" aria-selected="true">Org Design</button>
     </nav>
     <div class="header-spacer"></div>
     <nav class="tabs" id="content-tabs" role="tablist" aria-label="Content views">
@@ -830,7 +841,7 @@
             <div class="org-rollup-areas">
               <span>Narrative &amp; content</span>
               <span>Identity &amp; taste</span>
-              <span>AI production</span>
+              <span>AI &amp; Production</span>
               <span>Data storytelling</span>
               <span>Comms &amp; reputation</span>
             </div>
@@ -842,7 +853,7 @@
               <span>Demand generation</span>
               <span>Product marketing</span>
               <span>Lifecycle marketing</span>
-              <span>Analytics &amp; attribution</span>
+              <span>Automation &amp; Analytics</span>
               <span>Events</span>
             </div>
           </div>
@@ -938,9 +949,12 @@
     </section>
 
     <!-- Profile -->
-    <section id="view-profile" class="view" role="tabpanel" aria-label="Profile" hidden>
+    <section id="view-profile" class="view" role="tabpanel" aria-label="Story" hidden>
       <div class="pf-hero">
-        <h1 class="pf-title">AI-native designers go deeper, not wider.</h1>
+        <div class="pf-title-block">
+          <h1 class="pf-title">AI-native designers go deeper, not wider.</h1>
+          <p class="pf-subhead">Tools absorb skills, not judgement. We <b>optimize for judgement</b> because that's what sets designers apart.</p>
+        </div>
         <div class="pf-diagram" aria-hidden="true">
           <svg viewBox="0 0 700 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Designers now hold deeper ground rather than wider surface area">
             <!-- Left: horizontal spread — one PD across every area -->
@@ -1189,35 +1203,35 @@
   /* Brand team org — full role titles spelled out. No eng-team counts on ICs, no shared services. */
   const ORG_BRAND = {
     leaders: [
-      { name:'Ann',   area:'Senior Director, Brand',    count:6 },
-      { name:'Willa', area:'Director, Operations',      count:2 },
-      { name:'BF',    area:'Director, Creative',        count:4, tbh:true },
-      { name:'TBH',   area:'Director, Editorial',       count:4, tbh:true },
+      { name:'Ann',      area:'Senior Director, Brand',    count:6 },
+      { name:'Willa',    area:'Director, Operations',      count:2 },
+      { name:'Backfill', area:'Director, Creative',        count:4, tbh:true },
+      { name:'New Hire', area:'Director, Editorial',       count:4, tbh:true },
     ],
     columns: [
       [ // Brand
-        { name:'TBH',      area:'Brand Strategist',              tbh:true },
-        { name:'TBH',      area:'Principal Designer, Identity',  tbh:true },
-        { name:'TBH',      area:'Staff Designer',                tbh:true },
+        { name:'New Hire', area:'Content Strategist',            tbh:true },
+        { name:'Backfill', area:'Principal Designer, Identity',  tbh:true },
+        { name:'New Hire', area:'Staff Designer',                tbh:true },
         { name:'Lily',     area:'Senior Designer' },
         { name:'Lindsay',  area:'Senior Designer' },
         { name:'Chaella',  area:'Production Designer' },
       ],
       [ // Ops
-        { name:'Jiro', area:'Senior, Integrated Producer' },
-        { name:'TBH',  area:'Senior, AI Producer',           tbh:true },
+        { name:'Jiro',     area:'Senior, Integrated Producer' },
+        { name:'New Hire', area:'Senior, AI Producer',           tbh:true },
       ],
       [ // Creative
-        { name:'BF',   area:'Principal, Creative' },
-        { name:'BF',   area:'Principal, Creative',    tbh:true },
-        { name:'TBH',  area:'Staff Designer',         tbh:true },
-        { name:'TBH',  area:'Senior, AI Creative',    tbh:true },
+        { name:'Backfill', area:'Principal, Creative', tbh:true },
+        { name:'Backfill', area:'Principal, Creative', tbh:true },
+        { name:'New Hire', area:'Staff Designer',      tbh:true },
+        { name:'New Hire', area:'Senior, AI Creative', tbh:true },
       ],
       [ // Editorial
         { name:'Sara',     area:'PR Lead' },
-        { name:'TBH',      area:'Communications Lead',    tbh:true },
+        { name:'New Hire', area:'Communications Lead',    tbh:true },
         { name:'Backfill', area:'Social Lead',            tbh:true },
-        { name:'TBH',      area:'Data Insights Lead',     tbh:true },
+        { name:'New Hire', area:'Data Insights Lead',     tbh:true },
       ],
     ],
     share: null,
@@ -1288,7 +1302,7 @@
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const DEFAULTS = [1, 1, 1, 1, 1];
-  let state = { mode:'org', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:false }, orgTeam:'design' };
+  let state = { mode:'org', era:'today', staffTier:1, focus:null, assess:{ values: DEFAULTS.slice(), name:'' }, org:{ showDetails:false }, orgTeam:'design', dbView:'today' };
 
   /* -------- Matrix -------- */
   function cellInner(cell, nextLabel) {
@@ -1374,6 +1388,7 @@
       </div>`;
   }
   function renderOrg() {
+    if (state.orgTeam === 'db') return renderDbOrg();
     const isBrand   = state.orgTeam === 'brand';
     const data      = isBrand ? ORG_BRAND : ORG;
     const titles    = isBrand ? ORG_BRAND_COL_TITLES : ORG_COL_TITLES;
@@ -1383,6 +1398,7 @@
     $('#org-h1').textContent = isBrand ? 'Brand Team' : 'Design Team';
     const section = $('#view-org');
     section.classList.toggle('team-brand', isBrand);
+    section.classList.remove('team-db');
     section.style.setProperty('--cols', String(numCols));
     /* Brand now also gets a principles column, matching Design. */
     $('#org-layout').classList.remove('no-principles');
@@ -1435,6 +1451,62 @@
   }
   function toggleOrgDetails() { setOrgDetails(!state.org.showDetails); }
 
+  /* Design & Brand rollup — Today / Tomorrow views */
+  const DESIGN_AREAS = ['Travel','Travel Management','Marketplaces','Fintech','Next Gen'];
+  const BRAND_AREAS  = ['Brand','Operations','Creative','Editorial'];
+  function setDbView(view) {
+    state.dbView = view === 'tomorrow' ? 'tomorrow' : 'today';
+    try { localStorage.setItem('cm-db-view', state.dbView); } catch (e) {}
+    if (state.orgTeam === 'db') renderOrg();
+  }
+  function renderDbOrg() {
+    $('#org-h1').textContent = 'Design & Brand';
+    const section = $('#view-org');
+    section.classList.remove('team-brand');
+    section.classList.add('team-db');
+    section.style.setProperty('--cols', '4');
+    $('#org-layout').classList.add('no-principles');
+    $('#org-principles').innerHTML = '';
+    /* Toggle sits where column titles usually do */
+    const isTom = state.dbView === 'tomorrow';
+    $('#oib-titles').innerHTML = `
+      <div class="db-toggle">
+        <span class="toolbar-label">View</span>
+        <div class="era-toggle" role="group" aria-label="Time horizon">
+          <button class="era-btn${isTom ? '' : ' active'}" data-action="dbView" data-dbview="today"    aria-pressed="${!isTom}">Today</button>
+          <button class="era-btn${isTom ? ' active' : ''}" data-action="dbView" data-dbview="tomorrow" aria-pressed="${isTom}">Tomorrow</button>
+        </div>
+      </div>`;
+    /* Rollup chart */
+    const spans = arr => arr.map(a => `<span>${esc(a)}</span>`).join('');
+    if (isTom) {
+      $('#org-mount').innerHTML = `
+        <div class="org-rollup">
+          <div class="org-rollup-pair">
+            <div class="org-rollup-col">
+              <div class="org-rollup-vp">VP, Design</div>
+              <div class="org-rollup-stem" aria-hidden="true"></div>
+              <div class="org-rollup-areas">${spans(DESIGN_AREAS)}</div>
+            </div>
+            <div class="org-rollup-col">
+              <div class="org-rollup-vp">VP, Brand</div>
+              <div class="org-rollup-stem" aria-hidden="true"></div>
+              <div class="org-rollup-areas">${spans(BRAND_AREAS)}</div>
+            </div>
+          </div>
+        </div>`;
+    } else {
+      $('#org-mount').innerHTML = `
+        <div class="org-rollup">
+          <div class="org-rollup-col org-rollup-col--single">
+            <div class="org-rollup-vp">VP, Design &amp; Brand</div>
+            <div class="org-rollup-stem" aria-hidden="true"></div>
+            <div class="org-rollup-areas">${spans(DESIGN_AREAS.concat(BRAND_AREAS))}</div>
+          </div>
+        </div>`;
+    }
+  }
+
   /* Team switcher — dropdown on the brand icon */
   function setOrgMenuOpen(open) {
     const btn = $('.brand[data-action="orgMenu"]');
@@ -1445,28 +1517,28 @@
   }
   function toggleOrgMenu() { setOrgMenuOpen($('#brand-menu').hidden); }
   function selectOrgTeam(team) {
-    const isBrand = team === 'brand';
-    state.orgTeam = isBrand ? 'brand' : 'design';
+    const valid = ['design','brand','db'];
+    state.orgTeam = valid.includes(team) ? team : 'design';
     try { localStorage.setItem('cm-org-team', state.orgTeam); } catch (e) {}
     $$('.bm-item[data-action="orgSelect"]').forEach(b => {
       b.classList.toggle('active', b.dataset.team === state.orgTeam);
     });
-    $('#brand-sub').textContent = isBrand ? 'Brand Team · 2026' : 'Design Team · 2026';
-    /* Tab visibility: Design shows Profile, Brand shows Story + Roles.
-       The content-nav (Matrix/Self-Assess/Guide) is hidden entirely on Brand. */
+    $('#brand-sub').textContent = TEAM_LABELS[state.orgTeam];
+    /* Tab visibility varies per team; the content-nav (Matrix/Self-Assess/Guide) shows only on Design. */
     const teamModes = TEAM_TABS[state.orgTeam];
     ['profile','story','roles'].forEach(m => {
       const tab = $(`.tab[data-mode="${m}"]`);
       if (tab) tab.hidden = !teamModes.includes(m);
     });
     const contentTabs = $('#content-tabs');
-    if (contentTabs) contentTabs.hidden = isBrand;
+    if (contentTabs) contentTabs.hidden = state.orgTeam !== 'design';
     renderOrg();
     setOrgMenuOpen(false);
     /* If current mode isn't valid for the newly-selected team, snap back to Org Design. */
-    const validForTeam = isBrand ? MODES_BRAND : MODES_DESIGN;
+    const validForTeam = state.orgTeam === 'brand' ? MODES_BRAND
+                       : state.orgTeam === 'db'    ? MODES_DB
+                       : MODES_DESIGN;
     if (!validForTeam.has(state.mode) && state.mode !== 'marketing') setMode('org');
-    else if (state.mode === 'org' || teamModes.includes(state.mode)) { /* stay put */ }
   }
 
   /* -------- Assessment -------- */
@@ -1674,7 +1746,9 @@
   const MODES = ['org','profile','story','roles','marketing','matrix','assess','guide'];
   const MODES_DESIGN = new Set(['org','profile','matrix','assess','guide']);
   const MODES_BRAND  = new Set(['org','story','roles','matrix','assess','guide']);
-  const TEAM_TABS = { design: ['org','profile'], brand: ['org','roles','story'] };
+  const MODES_DB     = new Set(['org']);
+  const TEAM_TABS = { design: ['profile','org'], brand: ['story','roles','org'], db: ['org'] };
+  const TEAM_LABELS = { design: 'Org Design - Design', brand: 'Org Design - Brand', db: 'Org Design - Design & Brand' };
 
   /* -------- Marketing (legacy /#marketing route — Pillars only) -------- */
   function toggleMktExpanded() { const el = $('#mkt-pillars'); if (el) el.classList.toggle('expanded'); }
@@ -1716,6 +1790,7 @@
     if (a === 'mktToggle') return toggleMktExpanded();
     if (a === 'orgMenu') return toggleOrgMenu();
     if (a === 'orgSelect') return selectOrgTeam(actionEl.dataset.team);
+    if (a === 'dbView') return setDbView(actionEl.dataset.dbview);
   });
 
   document.addEventListener('input', e => {
@@ -1794,7 +1869,8 @@
     try { state.era = localStorage.getItem('cm-era') === 'future' ? 'future' : 'today'; } catch (e) {}
     try { state.staffTier = localStorage.getItem('cm-staff') === '2' ? 2 : 1; } catch (e) {}
     try { state.org.showDetails = localStorage.getItem('cm-org-details') === '1'; } catch (e) {}
-    try { state.orgTeam = localStorage.getItem('cm-org-team') === 'brand' ? 'brand' : 'design'; } catch (e) {}
+    try { const t = localStorage.getItem('cm-org-team'); state.orgTeam = ['brand','db'].includes(t) ? t : 'design'; } catch (e) {}
+    try { state.dbView = localStorage.getItem('cm-db-view') === 'tomorrow' ? 'tomorrow' : 'today'; } catch (e) {}
     renderMatrix();
     syncEra();
     loadAssess();
