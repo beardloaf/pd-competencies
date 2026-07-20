@@ -325,22 +325,38 @@
   .org-rollup-col--single { max-width: 900px; margin: 0 auto; }
   .db-toggle { display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding-bottom: 4px; }
 
-  /* Design & Brand chart — matches Design/Brand org visual language */
-  .db-chart { display: flex; flex-direction: column; align-items: stretch; }
-  .db-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
-  .db-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-  .db-col--single { max-width: 1080px; margin: 0 auto; width: 100%; }
-  .db-row-label { padding-top: 4px; padding-bottom: 2px; }
-  .db-vp { max-width: 320px; width: 100%; margin: 0 auto; }
-  .db-stem { align-self: center; width: 1px; height: 22px; background: var(--border-strong); margin: 4px 0; }
-  .db-areas { display: grid; grid-template-columns: repeat(var(--areas, 5), minmax(0, 1fr)); column-gap: 12px; row-gap: 12px; }
-  .db-area { min-height: 92px; }
+  /* Design & Brand tree — same card language as Design/Brand, plus connectors */
+  .db-tree { display: flex; flex-direction: column; align-items: stretch; }
+  .db-tree-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+  .db-vp-wrap { display: flex; justify-content: center; }
+  .db-tree .db-vp { width: 300px; max-width: 100%; }
+  .db-stem-down { align-self: center; width: 1px; height: 22px; background: var(--border-strong); }
+  .db-areas-row { position: relative; display: grid; grid-template-columns: repeat(var(--n, 5), minmax(0, 1fr)); column-gap: 10px; padding-top: 22px; }
+  .db-areas-row::before {
+    content: ''; position: absolute; top: 0;
+    left: calc(50% / var(--n)); right: calc(50% / var(--n));
+    height: 1px; background: var(--border-strong);
+  }
+  .db-area-wrap { position: relative; min-width: 0; display: flex; }
+  .db-area-wrap::before {
+    content: ''; position: absolute; top: -22px; left: 50%;
+    width: 1px; height: 22px; background: var(--border-strong);
+  }
+  .db-tree .db-area {
+    width: 100%;
+    background: var(--surface);
+    color: var(--text);
+    border: 1.5px solid var(--border-strong);
+    min-height: auto;
+    padding: 16px 10px;
+    cursor: default;
+  }
+  .db-tree .db-area:hover { background: var(--surface); }
   #view-org.team-db .db-vp .org-name { font-size: 20px; letter-spacing: -0.008em; }
-  #view-org.team-db .db-area .org-name { font-size: 14px; }
-  #view-org.team-db .db-area .org-area { opacity: .55; }
+  #view-org.team-db .db-area .org-name { font-size: 13px; letter-spacing: .04em; }
 
   @media (max-width: 1100px) {
-    .db-pair { grid-template-columns: 1fr; gap: 32px; }
+    .db-tree-pair { grid-template-columns: 1fr; gap: 32px; }
   }
 
   #view-org { --cols: 5; }
@@ -1217,7 +1233,7 @@
   ];
 
 
-  const ORG_COL_TITLES = ['Travel', 'Admin Tools', 'Marketplaces', 'Fintech', 'Next Gen'];
+  const ORG_COL_TITLES = ['Travel', 'Admin', 'Marketplaces', 'Fintech', 'Next Gen'];
   const ORG_BRAND_COL_TITLES = ['Brand', 'Operations', 'Creative', 'Editorial'];
 
   /* Brand team org — full role titles spelled out. No eng-team counts on ICs, no shared services. */
@@ -1472,7 +1488,7 @@
   function toggleOrgDetails() { setOrgDetails(!state.org.showDetails); }
 
   /* Design & Brand rollup — Today / Tomorrow views */
-  const DESIGN_AREAS = ['Travel','Admin Tools','Marketplaces','Fintech','Next Gen'];
+  const DESIGN_AREAS = ['Travel','Admin','Marketplaces','Fintech','Next Gen'];
   const BRAND_AREAS  = ['Brand','Operations','Creative','Editorial'];
   function setDbView(view) {
     state.dbView = view === 'tomorrow' ? 'tomorrow' : 'today';
@@ -1497,8 +1513,9 @@
           <button class="era-btn${isTom ? ' active' : ''}" data-action="dbView" data-dbview="tomorrow" aria-pressed="${isTom}">Tomorrow</button>
         </div>
       </div>`;
-    /* Match the visual language of the Design / Brand org charts:
-       dark leader-style card for the VP, dashed IC-style cards for the areas. */
+    /* Match the visual language of Design / Brand org charts:
+       dark leader-style card for the VP, solid-stroke card for the areas,
+       with connecting tree-lines from the VP down to every area. */
     const vpCard = (label) => `
       <div class="org-card db-vp">
         <div class="org-card-top">
@@ -1507,44 +1524,29 @@
         </div>
       </div>`;
     const areaCard = (area) => `
-      <div class="org-card tbh db-area">
-        <div class="org-card-top">
-          <div class="org-card-corners"><span class="org-area">Area</span></div>
-          <span class="org-name">${esc(area)}</span>
+      <div class="db-area-wrap">
+        <div class="org-card db-area">
+          <div class="org-card-top">
+            <span class="org-name">${esc(area)}</span>
+          </div>
+        </div>
+      </div>`;
+    const tree = (label, areas) => `
+      <div class="db-tree">
+        <div class="db-vp-wrap">${vpCard(label)}</div>
+        <div class="db-stem-down" aria-hidden="true"></div>
+        <div class="db-areas-row" style="--n:${areas.length}">
+          ${areas.map(areaCard).join('')}
         </div>
       </div>`;
     if (isTom) {
       $('#org-mount').innerHTML = `
-        <div class="db-chart">
-          <div class="db-pair">
-            <div class="db-col">
-              <div class="org-row-label db-row-label">Leader</div>
-              ${vpCard('VP, Design')}
-              <div class="db-stem" aria-hidden="true"></div>
-              <div class="org-row-label db-row-label">Areas</div>
-              <div class="db-areas" style="--areas:${DESIGN_AREAS.length}">${DESIGN_AREAS.map(areaCard).join('')}</div>
-            </div>
-            <div class="db-col">
-              <div class="org-row-label db-row-label">Leader</div>
-              ${vpCard('VP, Brand')}
-              <div class="db-stem" aria-hidden="true"></div>
-              <div class="org-row-label db-row-label">Areas</div>
-              <div class="db-areas" style="--areas:${BRAND_AREAS.length}">${BRAND_AREAS.map(areaCard).join('')}</div>
-            </div>
-          </div>
+        <div class="db-tree-pair">
+          ${tree('VP, Design', DESIGN_AREAS)}
+          ${tree('VP, Brand',  BRAND_AREAS)}
         </div>`;
     } else {
-      const all = DESIGN_AREAS.concat(BRAND_AREAS);
-      $('#org-mount').innerHTML = `
-        <div class="db-chart">
-          <div class="db-col db-col--single">
-            <div class="org-row-label db-row-label">Leader</div>
-            ${vpCard('VP, Design & Brand')}
-            <div class="db-stem" aria-hidden="true"></div>
-            <div class="org-row-label db-row-label">Areas</div>
-            <div class="db-areas" style="--areas:${Math.min(all.length, 5)}">${all.map(areaCard).join('')}</div>
-          </div>
-        </div>`;
+      $('#org-mount').innerHTML = tree('VP, Design & Brand', DESIGN_AREAS.concat(BRAND_AREAS));
     }
   }
 
